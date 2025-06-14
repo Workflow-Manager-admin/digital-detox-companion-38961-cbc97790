@@ -59,7 +59,7 @@ const minimalTheme = {
   "--secondary": COLORS.secondary,
   "--accent": COLORS.accent,
   "--bg": COLORS.bg,
-  "--text": COLORS.text
+  "--text": COLORS.text,
 };
 
 /**
@@ -97,31 +97,17 @@ function App() {
   // Toast helper
   const showToast = (msg, type = "info") => {
     setToast({ open: true, message: msg, type });
-    setTimeout(() => setToast((prev) =>
-      ({ ...prev, open: false })), 3300);
+    setTimeout(
+      () =>
+        setToast((prev) => ({
+          ...prev,
+          open: false,
+        })),
+      3300
+    );
   };
 
   // === Digital Detox Companion feature navigation: all 12 features represented ===
-  // Existing + new features as stubs/placeholders:
-  // 1. Personalized Digital Detox Plans      → Detox Plan
-  // 2. Accountability Buddy System           → Buddy System
-  // 3. Real-World Milestone Rewards          → Rewards
-  // 4. Off-Grid Check-In System              → Check-In
-  // 5. AI-Powered Reflection & Habit Journal → Journal
-  // 6. Time Reallocation Tracker             → Time Reallocation
-  // 7. Flexible Detox Modes                  → Detox Modes
-  // 8. Offline Event Generator               → Offline Events
-  // 9. Mini Detox Games / Tasks              → Detox Games
-  // 10. Parent-Teen Mode                     → Parent-Teen Mode
-  // 11. Digital Budget Mode                  → Budget Mode
-  // 12. Community Circles                    → Circles
-  // 13. Journey Map                          → Journey
-
-  // NAVIGATION STRUCTURE REFACTOR
-  // Top-level: Only most-used/primary features (for clarity, scalability).
-  // Secondary/less-frequent features moved into "More" (dropdown/overflow).
-  // Responsive design: dropdown is tap/click, and collapses on mobile.
-  // 
   // Primary nav tabs:
   const navPrimaryTabs = [
     { id: "home", label: "Home", icon: "🏠" },
@@ -250,8 +236,6 @@ function App() {
       />
 
       {/* NAV BAR: Primary tabs + "More" dropdown for secondary features */}
-      {/* NOTE: No reference to PUBLIC_URL anywhere here or in logo image path;
-          if adding static images, use import or process.env.PUBLIC_URL appropriately */}
       <nav
         className="navbar"
         style={{
@@ -317,26 +301,22 @@ function App() {
             style={{
               display: "flex",
               flex: 1,
-              overflowX: "auto",
               marginLeft: "auto",
               gap: 4,
               justifyContent: "flex-end",
               alignItems: "center",
               padding: "0 0 0 4px",
-              scrollbarWidth: "thin",
-              WebkitOverflowScrolling: "touch",
-              msOverflowStyle: "none"
             }}
           >
             <div
-              className="navtab-scroll"
+              className="navtab-bar"
               style={{
                 display: "flex",
                 gap: 2,
                 flexWrap: "nowrap",
                 minWidth: 0,
                 width: "100%",
-                overflowX: "auto",
+                alignItems: "center",
               }}
             >
               {/* Primary features as top-level tabs */}
@@ -351,7 +331,7 @@ function App() {
                   primaryColor={COLORS.primary}
                 />
               ))}
-              {/* Overflow menu (dropdown/hamburger) for secondary features */}
+              {/* Overflow menu ("More" dropdown) for secondary features */}
               <NavOverflowMenu
                 groups={navSecondaryGroups}
                 onSelectTab={setTab}
@@ -437,32 +417,38 @@ function NavTab({ label, icon, active, onClick, accentColor, primaryColor }) {
 
 /**
  * OVERFLOW MENU/DROPDOWN FOR SECONDARY FEATURES
- * This provides "More" button (dropdown on desktop, collapsible on mobile)
- * Each group is expandable for subfeatures.
- * - future: can be enhanced for popper/portal/modal accessibility
+ * Always uses a dropdown overlay, no scroll bar in nav, accessible, can show on click or hover, and fully overlays any content below.
  */
 // PUBLIC_INTERFACE
 function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryColor }) {
   const [open, setOpen] = React.useState(false);
-  const [expanded, setExpanded] = React.useState(""); // toggles for group expansion in mobile
+  const [expanded, setExpanded] = React.useState(""); // for group expansion mobile only
+  const [isHovering, setIsHovering] = React.useState(false);
 
-  // Close menu if clicking outside (basic implementation)
+  // Always close dropdown if clicking outside
   React.useEffect(() => {
     if (!open) return;
     const handler = (e) => {
-      if (!e.target.closest(".nav-overflow-menu")) {
+      if (!e.target.closest(".nav-overflow-menu, .nav-overflow-dropdown")) {
         setOpen(false);
-        setExpanded(""); // close all
+        setExpanded("");
       }
     };
     window.addEventListener("mousedown", handler);
     return () => window.removeEventListener("mousedown", handler);
   }, [open]);
 
-  // Responsive detection (very basic)
+  // Responsive check (mobile: width < 680px)
   const isMobile = window.innerWidth < 680;
 
-  // Render
+  // Menu open/close behavior – open on click (mobile/desktop), also on hover (non-touch screens)
+  const openDropdown = () => setOpen(true);
+  const closeDropdown = () => {
+    setOpen(false);
+    setExpanded("");
+    setIsHovering(false);
+  };
+
   return (
     <div
       className="nav-overflow-menu"
@@ -473,6 +459,9 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
         zIndex: 100,
       }}
       tabIndex={0}
+      onMouseEnter={() => { if (!isMobile) { setIsHovering(true); setOpen(true); } }}
+      onMouseLeave={() => { if (!isMobile) { setIsHovering(false); setOpen(false); setExpanded(""); } }}
+      aria-haspopup="true"
     >
       <button
         className="tab-btn"
@@ -502,6 +491,14 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
         aria-expanded={open}
         aria-label="More features"
         onClick={() => setOpen((v) => !v)}
+        onBlur={(e) => {
+          // Only close if the newly focused element is outside menu dropdown.
+          if (!e.relatedTarget?.closest(".nav-overflow-dropdown")) closeDropdown();
+        }}
+        tabIndex={0}
+        onKeyDown={e => {
+          if (e.key === "Escape") closeDropdown();
+        }}
       >
         <span style={{ fontSize: 19, marginRight: isMobile ? 2 : 6 }}>☰</span>
         <span style={{
@@ -516,11 +513,12 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
       {/* Dropdown content */}
       {open && (
         <div
+          className="nav-overflow-dropdown"
           style={{
             position: "absolute",
             top: "100%",
             right: 0,
-            minWidth: isMobile ? 168 : 234,
+            minWidth: isMobile ? 171 : 240,
             background: "#fff",
             border: "1px solid #dedede",
             borderRadius: 10,
@@ -530,11 +528,14 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
             zIndex: 9999,
             fontSize: 15,
             minHeight: 44,
+            pointerEvents: "auto"
           }}
+          tabIndex={0}
         >
           {groups.map((group) => (
-            <div key={group.label} style={{ marginBottom: 2 }}>
+            <div key={group.label} style={{ marginBottom: 2, width: "100%" }}>
               <button
+                type="button"
                 onClick={() =>
                   isMobile
                     ? setExpanded(expanded === group.label ? "" : group.label)
@@ -555,10 +556,13 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
                   borderRadius: 6,
                   outline: "none",
                   marginBottom: 1,
+                  transition: "background 0.15s"
                 }}
                 tabIndex={0}
-                aria-expanded={isMobile ? expanded === group.label : undefined}
+                aria-expanded={isMobile ? expanded === group.label : true}
                 aria-controls={group.label + "-submenu"}
+                onFocus={() => { if (!isMobile) setExpanded(group.label); }}
+                onMouseEnter={() => { if (!isMobile) setExpanded(group.label); }}
               >
                 <span style={{ fontSize: 17, marginRight: 7 }}>{group.icon}</span>
                 {group.label}
@@ -568,15 +572,17 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
                   </span>
                 )}
               </button>
-              {/* Submenu: show on desktop always, on mobile only if expanded */}
+              {/* Grouped links: show as vertical list. On desktop always visible, on mobile only if expanded */}
               <div
                 id={group.label + "-submenu"}
+                className="overflow-submenu"
                 style={{
                   display:
                     !isMobile || expanded === group.label ? "block" : "none",
                   marginLeft: isMobile ? 5 : 13,
                   marginTop: 2,
                   marginBottom: 2,
+                  width: "100%"
                 }}
               >
                 {group.items.map((item) => (
@@ -584,8 +590,7 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
                     key={item.id}
                     onClick={() => {
                       onSelectTab(item.id);
-                      setOpen(false);
-                      setExpanded("");
+                      closeDropdown();
                     }}
                     className="tab-btn"
                     style={{
@@ -605,7 +610,7 @@ function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryC
                       display: "flex",
                       alignItems: "center",
                       borderRadius: 5,
-                      transition: "border-bottom 0.18s"
+                      transition: "border-bottom 0.18s, background 0.18s"
                     }}
                     aria-current={activeTab === item.id ? "page" : undefined}
                     tabIndex={0}
