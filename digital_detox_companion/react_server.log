@@ -20,34 +20,4 @@ cacheable modules 1.48 MiB
       ./node_modules/css-loader/dist/cjs.js!./src/index.css 875 bytes [built] [code generated]
       ./src/App.css 2.22 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./src/App.css 10.8 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 2156 ms
-assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.7 MiB
-  asset bundle.js 1.67 MiB [emitted] (name: main)
-  asset main.de68d15c937ff2676655.hot-update.js 32.5 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.de68d15c937ff2676655.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.7 MiB = bundle.js 1.67 MiB main.de68d15c937ff2676655.hot-update.js 32.5 KiB
-cached modules 1.46 MiB [cached] 56 modules
-runtime modules 27.5 KiB 14 modules
-./src/App.js 23.7 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 275 ms
-assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.7 MiB
-  asset bundle.js 1.67 MiB [emitted] (name: main)
-  asset main.db4b2152987bc18a7735.hot-update.js 34.1 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.db4b2152987bc18a7735.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.7 MiB = bundle.js 1.67 MiB main.db4b2152987bc18a7735.hot-update.js 34.1 KiB
-cached modules 1.46 MiB [cached] 56 modules
-runtime modules 27.5 KiB 14 modules
-./src/App.js 25.2 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 196 ms
-assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.7 MiB
-  asset bundle.js 1.67 MiB [emitted] (name: main)
-  asset main.bf825b558f2652901acf.hot-update.js 32.7 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.bf825b558f2652901acf.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.7 MiB = bundle.js 1.67 MiB main.bf825b558f2652901acf.hot-update.js 32.7 KiB
-cached modules 1.46 MiB [cached] 56 modules
-runtime modules 27.5 KiB 14 modules
-./src/App.js 23.8 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 137 ms
+webpack 5.99.9 compiled successfully in 2400 ms
