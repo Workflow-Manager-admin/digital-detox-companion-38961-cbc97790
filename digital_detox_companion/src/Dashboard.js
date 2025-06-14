@@ -1,30 +1,41 @@
 import React from "react";
 
-const dashboardStyle = {
-  padding: "36px 0 18px",
-  textAlign: "center",
-  width: "100%",
-  minHeight: "410px",
-  background: "#fafcfb",
-  borderRadius: 14,
-  boxShadow: "0 8px 40px rgba(44,127,67,0.07)"
-};
-
+/**
+ * Dashboard - Home page for Digital Detox Companion
+ */
 // PUBLIC_INTERFACE
 function Dashboard() {
   return (
-    <div style={dashboardStyle}>
-      <h1 style={{ fontWeight: 700, fontSize: 32, color: "#2E7D32" }}>Welcome to Digital Detox Companion</h1>
-      <p style={{ fontSize: "1.16rem", color: "#41582D", marginTop: 14, marginBottom: 35, maxWidth: 540, marginLeft: "auto", marginRight: "auto" }}>
-        Digital Detox Companion empowers you to break free from unhealthy digital habits and reconnect with what matters most. Our mission is to help you reduce screen time through customized detox plans, real-world rewards, and meaningful support. Unlock your best self by celebrating offline achievements, building lasting habits, and joining a positive community that values life beyond the screen. Take the first step to balance—let’s thrive together, one real connection at a time.
-      </p>
-
-      <div style={{ marginTop: 30 }}>
-        <img
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
-          alt="Nature retreat"
-          style={{ width: 190, borderRadius: 18, boxShadow: "0 3px 18px #b2dfdb55" }}
-        />
+    <div style={{ padding: "44px 0 0", minHeight: 430, textAlign: "center" }}>
+      <h1 className="title" style={{ fontWeight: 700, fontSize: 31, letterSpacing: 0.01, marginBottom: 7 }}>
+        Welcome to Digital Detox Companion
+      </h1>
+      <div className="description" style={{ fontSize: 18, lineHeight: "1.48", color: "#3f6048", maxWidth: 640, margin: "0 auto 16px" }}>
+        Ready to reclaim your time, happiness, and real-world experiences? <b>Digital Detox Companion</b> is your guide to overcoming digital distractions and rediscovering the true joys of life.
+        <br /><br />
+        Our mission is to help you break free from excessive screen time with personalized detox plans, supportive accountability partners, and community inspiration—so you can spend less time scrolling and more time living.
+        <br /><br />
+        Unlock real-world rewards for your achievements: whether it’s a coffee with friends, a yoga class, supporting local bookstores, or giving back to causes you care about, every progress milestone brings meaningful incentives. Join a movement that values your well-being, celebrates your offline victories, and helps you transform digital habits for good!
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 32, marginTop: 32, flexWrap: 'wrap' }}>
+        <div style={{ minWidth: 210, maxWidth: 250, background: "#fafcfb", borderRadius: 16, padding: 18, boxShadow: "0 2px 12px rgba(68,105,70,0.08)" }}>
+          <div style={{ fontSize: 32, marginBottom: 10 }}>🗺️</div>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>Personalized Detox Plans</div>
+          <div style={{ fontSize: 15, color: "#4a7052" }}>Reduce screen time with smart, adaptive plans tailored to your life.</div>
+        </div>
+        <div style={{ minWidth: 210, maxWidth: 250, background: "#fafcfb", borderRadius: 16, padding: 18, boxShadow: "0 2px 12px rgba(68,105,70,0.08)" }}>
+          <div style={{ fontSize: 32, marginBottom: 10 }}>🤝</div>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>Buddy & Community Support</div>
+          <div style={{ fontSize: 15, color: "#4a7052" }}>Stay motivated with anonymous buddy pairings and encouraging circles.</div>
+        </div>
+        <div style={{ minWidth: 210, maxWidth: 250, background: "#fafcfb", borderRadius: 16, padding: 18, boxShadow: "0 2px 12px rgba(68,105,70,0.08)" }}>
+          <div style={{ fontSize: 32, marginBottom: 10 }}>🎁</div>
+          <div style={{ fontWeight: 600, marginBottom: 4 }}>Real-World Rewards</div>
+          <div style={{ fontSize: 15, color: "#4a7052" }}>Earn coffee vouchers, yoga passes, bookstore discounts, and more as you progress.</div>
+        </div>
+      </div>
+      <div style={{ color: "#9db899", fontSize: 14, marginTop: 38 }}>
+        Begin your journey to mindful digital habits—because life is brighter beyond the screen.
       </div>
     </div>
   );
