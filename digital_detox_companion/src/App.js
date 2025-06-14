@@ -117,23 +117,47 @@ function App() {
   // 12. Community Circles                    → Circles
   // 13. Journey Map                          → Journey
 
-  // To maximize clarity and modularity, all features are given a nav entry.
-  // Place "Home" tab as first and visible for initial/landing page.
-  const navTabs = [
+  // NAVIGATION STRUCTURE REFACTOR
+  // Top-level: Only most-used/primary features (for clarity, scalability).
+  // Secondary/less-frequent features moved into "More" (dropdown/overflow).
+  // Responsive design: dropdown is tap/click, and collapses on mobile.
+  // 
+  // Primary nav tabs:
+  const navPrimaryTabs = [
     { id: "home", label: "Home", icon: "🏠" },
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },
-    { id: "buddy", label: "Buddy", icon: "🤝" },
+    { id: "plan", label: "Current Plan", icon: "🗺️" },
+    { id: "buddy", label: "Buddy System", icon: "🤝" },
     { id: "rewards", label: "Rewards", icon: "🎁" },
-    { id: "checkin", label: "Check-In", icon: "✅" },
     { id: "journal", label: "Journal", icon: "📖" },
-    { id: "reallocation", label: "Time Reallocation", icon: "⏳" },
-    { id: "modes", label: "Detox Modes", icon: "🛡️" },
-    { id: "events", label: "Offline Events", icon: "🌲" },
-    { id: "games", label: "Detox Games", icon: "🎮" },
-    { id: "family", label: "Parent-Teen", icon: "👨‍👩‍👧" },
-    { id: "budget", label: "Budget Mode", icon: "💰" },
-    { id: "circles", label: "Circles", icon: "🫂" },
-    { id: "journey", label: "Journey", icon: "🛤️" }
+  ];
+  // Secondary tabs (move to 'More' dropdown/collapsible menu):
+  const navSecondaryGroups = [
+    {
+      label: "Modes",
+      icon: "🛡️",
+      items: [
+        { id: "modes", label: "Detox Modes", icon: "🛡️" },
+        { id: "budget", label: "Budget Mode", icon: "💰" },
+        { id: "family", label: "Family/Teen", icon: "👨‍👩‍👧" },
+      ],
+    },
+    {
+      label: "Activities",
+      icon: "🎮",
+      items: [
+        { id: "games", label: "Mini Games", icon: "🎮" },
+        { id: "events", label: "Offline Events", icon: "🌲" },
+      ],
+    },
+    {
+      label: "Community",
+      icon: "🫂",
+      items: [
+        { id: "circles", label: "Community", icon: "🫂" },
+        { id: "reallocation", label: "Time Reallocation", icon: "⏳" },
+        { id: "journey", label: "Journey", icon: "🛤️" },
+      ],
+    },
   ];
 
   // Renders the currently active page/component
@@ -225,7 +249,9 @@ function App() {
         primaryColor={COLORS.primary}
       />
 
-      {/* Navbar (now without Detox Plan, Parent Teen, Events, Rewards, Check-In) */}
+      {/* NAV BAR: Primary tabs + "More" dropdown for secondary features */}
+      {/* NOTE: No reference to PUBLIC_URL anywhere here or in logo image path;
+          if adding static images, use import or process.env.PUBLIC_URL appropriately */}
       <nav
         className="navbar"
         style={{
@@ -253,9 +279,10 @@ function App() {
             alignItems: "center",
             padding: "0 10px",
             minHeight: 60,
-            position: "relative"
+            position: "relative",
           }}
         >
+          {/* Logo */}
           <div
             className="logo"
             style={{
@@ -285,13 +312,14 @@ function App() {
             </span>
             Digital Detox Companion
           </div>
+          {/* Main navigation bar: Primary tabs + overflow dropdown */}
           <div
             style={{
               display: "flex",
               flex: 1,
               overflowX: "auto",
               marginLeft: "auto",
-              gap: 2,
+              gap: 4,
               justifyContent: "flex-end",
               alignItems: "center",
               padding: "0 0 0 4px",
@@ -308,10 +336,11 @@ function App() {
                 flexWrap: "nowrap",
                 minWidth: 0,
                 width: "100%",
-                overflowX: "auto"
+                overflowX: "auto",
               }}
             >
-              {navTabs.map((t) => (
+              {/* Primary features as top-level tabs */}
+              {navPrimaryTabs.map((t) => (
                 <NavTab
                   key={t.id}
                   label={t.label}
@@ -322,6 +351,14 @@ function App() {
                   primaryColor={COLORS.primary}
                 />
               ))}
+              {/* Overflow menu (dropdown/hamburger) for secondary features */}
+              <NavOverflowMenu
+                groups={navSecondaryGroups}
+                onSelectTab={setTab}
+                activeTab={tab}
+                accentColor={COLORS.accent}
+                primaryColor={COLORS.primary}
+              />
             </div>
           </div>
         </div>
@@ -395,6 +432,196 @@ function NavTab({ label, icon, active, onClick, accentColor, primaryColor }) {
       <span style={{ fontSize: 17, marginRight: 6, minWidth: 15 }}>{icon}</span>
       <span style={{ fontSize: 14, overflow: "hidden", textOverflow: "ellipsis" }}>{label}</span>
     </button>
+  );
+}
+
+/**
+ * OVERFLOW MENU/DROPDOWN FOR SECONDARY FEATURES
+ * This provides "More" button (dropdown on desktop, collapsible on mobile)
+ * Each group is expandable for subfeatures.
+ * - future: can be enhanced for popper/portal/modal accessibility
+ */
+// PUBLIC_INTERFACE
+function NavOverflowMenu({ groups, onSelectTab, activeTab, accentColor, primaryColor }) {
+  const [open, setOpen] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(""); // toggles for group expansion in mobile
+
+  // Close menu if clicking outside (basic implementation)
+  React.useEffect(() => {
+    if (!open) return;
+    const handler = (e) => {
+      if (!e.target.closest(".nav-overflow-menu")) {
+        setOpen(false);
+        setExpanded(""); // close all
+      }
+    };
+    window.addEventListener("mousedown", handler);
+    return () => window.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  // Responsive detection (very basic)
+  const isMobile = window.innerWidth < 680;
+
+  // Render
+  return (
+    <div
+      className="nav-overflow-menu"
+      style={{
+        position: "relative",
+        minWidth: isMobile ? 54 : 110,
+        marginLeft: 3,
+        zIndex: 100,
+      }}
+      tabIndex={0}
+    >
+      <button
+        className="tab-btn"
+        style={{
+          background: "none",
+          border: "none",
+          color: "#789262",
+          borderBottom: open ? `3px solid ${accentColor}` : "3px solid transparent",
+          fontSize: 15,
+          fontWeight: open ? 600 : 400,
+          padding: "10px 10px 6px 9px",
+          margin: "0 2px",
+          minWidth: isMobile ? 44 : 90,
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          outline: "none",
+          position: "relative",
+          transition: "border-bottom 0.22s",
+          borderRadius: 7,
+        }}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="More features"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span style={{ fontSize: 19, marginRight: isMobile ? 2 : 6 }}>☰</span>
+        <span style={{
+          fontSize: 13,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          display: isMobile ? "none" : "inline"
+        }}>
+          More
+        </span>
+      </button>
+      {/* Dropdown content */}
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            minWidth: isMobile ? 168 : 234,
+            background: "#fff",
+            border: "1px solid #dedede",
+            borderRadius: 10,
+            boxShadow: "0 6px 24px rgba(40,70,40,0.13)",
+            padding: isMobile ? 5 : 9,
+            marginTop: 2,
+            zIndex: 9999,
+            fontSize: 15,
+            minHeight: 44,
+          }}
+        >
+          {groups.map((group) => (
+            <div key={group.label} style={{ marginBottom: 2 }}>
+              <button
+                onClick={() =>
+                  isMobile
+                    ? setExpanded(expanded === group.label ? "" : group.label)
+                    : undefined
+                }
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 600,
+                  color: "#20542d",
+                  width: "100%",
+                  background: "none",
+                  border: "none",
+                  textAlign: "left",
+                  fontSize: 15.5,
+                  padding: "6px 4px 3px 0",
+                  cursor: "pointer",
+                  borderRadius: 6,
+                  outline: "none",
+                  marginBottom: 1,
+                }}
+                tabIndex={0}
+                aria-expanded={isMobile ? expanded === group.label : undefined}
+                aria-controls={group.label + "-submenu"}
+              >
+                <span style={{ fontSize: 17, marginRight: 7 }}>{group.icon}</span>
+                {group.label}
+                {isMobile && (
+                  <span style={{ marginLeft: 5, fontSize: 16 }}>
+                    {expanded === group.label ? "▲" : "▼"}
+                  </span>
+                )}
+              </button>
+              {/* Submenu: show on desktop always, on mobile only if expanded */}
+              <div
+                id={group.label + "-submenu"}
+                style={{
+                  display:
+                    !isMobile || expanded === group.label ? "block" : "none",
+                  marginLeft: isMobile ? 5 : 13,
+                  marginTop: 2,
+                  marginBottom: 2,
+                }}
+              >
+                {group.items.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      onSelectTab(item.id);
+                      setOpen(false);
+                      setExpanded("");
+                    }}
+                    className="tab-btn"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: activeTab === item.id ? primaryColor : "#647950",
+                      borderBottom: activeTab === item.id ? `2.5px solid ${accentColor}` : "2.5px solid transparent",
+                      fontWeight: activeTab === item.id ? 600 : 400,
+                      fontSize: 14.3,
+                      padding: "7px 5px 4px 2px",
+                      margin: 0,
+                      minWidth: 70,
+                      maxWidth: 162,
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      display: "flex",
+                      alignItems: "center",
+                      borderRadius: 5,
+                      transition: "border-bottom 0.18s"
+                    }}
+                    aria-current={activeTab === item.id ? "page" : undefined}
+                    tabIndex={0}
+                  >
+                    <span style={{ fontSize: 16, marginRight: 8 }}>
+                      {item.icon}
+                    </span>
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
