@@ -1,121 +1,122 @@
 import React, { useState } from "react";
 
-// PUBLIC_INTERFACE
 /**
- * BuddySystemPage - Anonymous accountability buddy system
- * Light, minimal interaction. Playful feedback.
- * @param {function} showToast - optional toast feedback
+ * BuddySystemPage - Accountability Buddy System
+ * Minimal and playful UI for buddy pairing and encouragement.
+ * @param {function} showToast - Function to display toast messages.
  */
+// PUBLIC_INTERFACE
 function BuddySystemPage({ showToast }) {
-  const [paired, setPaired] = useState(false);
-  const [buddy, setBuddy] = useState(null);
-  const [message, setMessage] = useState("");
-  const [history, setHistory] = useState([
-    {
-      from: "Buddy", time: "Today", text: "Let’s see if we can both avoid TikTok until dinner! 💪"
-    }
-  ]);
-  const buddyNames = ["EcoFox83", "SunLion", "PixelOtter", "WanderSnail", "CraftyPuffin"];
-  
-  // Fake pairing
-  const handlePair = () => {
-    const b = buddyNames[Math.floor(Math.random() * buddyNames.length)];
-    setBuddy(b);
-    setPaired(true);
-    showToast && showToast(`🙌 You have been paired with "${b}"!`, "info");
+  // For simplicity, use mock buddy names and check-in states
+  const [buddy, setBuddy] = useState({
+    name: "AnonymousBear",
+    checkedIn: false,
+    streak: 5,
+    encouragement: [
+      "You got this! 🐻",
+      "Keep each other accountable! 🤩",
+      "Stay strong together! 💪",
+      "Screen free = team win! 🌟"
+    ]
+  });
+  const [youCheckedIn, setYouCheckedIn] = useState(false);
+
+  // Simulate a playful check-in
+  const handleCheckIn = () => {
+    setYouCheckedIn(true);
+    showToast &&
+      showToast(
+        "You checked in! Your buddy will be notified 🎈",
+        "success"
+      );
   };
-  const handleSend = (e) => {
-    e.preventDefault();
-    if (!message.trim()) return;
-    setHistory([
-      ...history,
-      { from: "Me", time: "Now", text: message }
-    ]);
-    showToast && showToast("😀 Message sent to your buddy!", "success");
-    setMessage("");
+
+  // Simulate pairing with a new buddy
+  const handleSwitchBuddy = () => {
+    setBuddy({
+      name: "KindRedPanda",
+      checkedIn: false,
+      streak: Math.floor(Math.random() * 10 + 1),
+      encouragement: [
+        "Going strong, Panda buddy! 🐼",
+        "New streak, new beginnings! 🚀",
+        "Stay detoxed, stay wild! 🌱",
+        "One day at a time! 🍃"
+      ]
+    });
+    setYouCheckedIn(false);
+    showToast &&
+      showToast("You switched to a new buddy for a fresh start!", "info");
   };
 
   return (
-    <div style={{
-      background: "#fafcfb",
-      borderRadius: 13,
-      boxShadow: "0 2px 14px #e7f6ec60,0 1px 0 #fff2",
-      padding: 24, maxWidth: 520, margin: "18px auto"
-    }}>
-      <h2 style={{ color: "#2E7D32", marginBottom: 10, fontWeight: 700 }}>Accountability Buddy 🤝</h2>
-      {!paired ? (
-        <div style={{ marginBottom: 18 }}>
-          <div style={{ color: "#789262", fontSize: 16, marginBottom: 16 }}>
-            Pair with an anonymous buddy for extra motivation.<br/>
-            <span style={{ color: "#FFD600" }}>No names, just encouragement!</span>
-          </div>
-          <button
-            onClick={handlePair}
-            className="btn"
-            style={{
-              background: "#2E7D32", color: "white",
-              border: "none", borderRadius: 6, padding: "12px 22px",
-              fontWeight: 600, fontSize: 16, cursor: "pointer"
-            }}
-          >
-            Find me a Buddy!
-          </button>
+    <div style={{ marginTop: 18 }}>
+      <h2 style={{ color: "#2E7D32", fontWeight: 600 }}>Accountability Buddy</h2>
+      <div
+        style={{
+          background: "#B2DFDB",
+          borderRadius: 16,
+          padding: 18,
+          margin: "18px 0",
+          boxShadow: "0 1px 4px rgba(30,77,63,0.09)",
+          border: "1px solid #B2DFDB",
+        }}
+      >
+        <div style={{ fontWeight: 600, fontSize: 16, marginBottom: 4 }}>
+          Your buddy is: <span style={{ color: "#FFD600" }}>{buddy.name}</span>
         </div>
-      ) : (
-        <>
-          <div style={{ color: "#3F6140", marginBottom: 12 }}>
-            Your buddy: <b>{buddy} 🧡</b>
-          </div>
-          <div style={{
-            background: "#f5ffe7",
-            border: "1px solid #e7f6ec", borderRadius: 8,
-            padding: 14, marginBottom: 10,
-            minHeight: 52, fontSize: 15
-          }}>
-            <div style={{ fontSize: 13, color: "#8da98a", marginBottom: 6 }}>
-              Recent check-ins:
-            </div>
-            <ul style={{ margin: 0, paddingLeft: 18 }}>
-              {history.slice(-3).map((h, i) => (
-                <li key={i} style={{marginBottom:2, color: h.from==="Me"? "#2e8d38": "#789262"}}>
-                  <span style={{ fontWeight: h.from === "Me" ? 600 : 400 }}>
-                    {h.from === "Me" ? "You" : buddy}
-                  </span>: {h.text}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <form style={{ display: "flex", gap: 5 }} onSubmit={handleSend}>
-            <input
-              type="text"
-              value={message}
-              onChange={e=>setMessage(e.target.value)}
-              maxLength={80}
-              placeholder="Send your buddy a cheer..."
-              style={{
-                flex: 1,
-                border: "1px solid #b2dfdb",
-                borderRadius: 6,
-                padding: "8px 11px", fontSize: 15
-              }}
-            />
-            <button
-              type="submit"
-              className="btn"
-              style={{
-                background: "#FFD600", color: "#222",
-                border: "none", fontWeight: 600, borderRadius: 6,
-                padding: "8px 16px", fontSize: 15, cursor: "pointer"
-              }}
-            >
-              Send
-            </button>
-          </form>
-          <div style={{marginTop:8, color: "#FFD600", fontWeight: 500,fontSize:15}}>
-            Boost your buddy, boost yourself! 🚀
-          </div>
-        </>
-      )}
+        <div style={{ color: "#1A1A1A", marginBottom: 6 }}>
+          <span role="img" aria-label="fire">🔥</span> Current streak:{" "}
+          <span style={{ fontWeight: "bold" }}>{buddy.streak} days</span>
+        </div>
+        <div style={{ color: "#356c3d", fontSize: 15, marginBottom: 0 }}>
+          {
+            buddy.encouragement[
+              Math.floor(Math.random() * buddy.encouragement.length)
+            ]
+          }
+        </div>
+      </div>
+      <button
+        className="btn"
+        style={{
+          background: youCheckedIn ? "#DADADA" : "#FFD600",
+          color: "#2E7D32",
+          padding: "11px 25px",
+          fontWeight: 600,
+          border: "none",
+          borderRadius: 8,
+          fontSize: "1rem",
+          cursor: youCheckedIn ? "default" : "pointer",
+          marginBottom: 9,
+          width: "auto",
+          boxShadow: "0 1px 10px rgba(240,186,71,0.07)"
+        }}
+        disabled={youCheckedIn}
+        onClick={handleCheckIn}
+      >
+        {youCheckedIn ? "Checked In Today!" : "Check In With Buddy"}
+      </button>
+      <br />
+      <button
+        className="btn"
+        style={{
+          background: "#F2F6F5",
+          color: "#2E7D32",
+          border: "1.5px solid #FFD600",
+          borderRadius: 8,
+          fontWeight: 500,
+          fontSize: 15,
+          padding: "7px 18px",
+          cursor: "pointer",
+        }}
+        onClick={handleSwitchBuddy}
+      >
+        Switch Buddy
+      </button>
+      <div style={{ marginTop: 19, color: "#789262", fontSize: 14 }}>
+        Pairing is anonymous. Be kind and stay positive! ✨
+      </div>
     </div>
   );
 }

@@ -1,86 +1,123 @@
 import React, { useState } from "react";
 
-// Real life activity samples
-const ACTIVITIES = [
-  { name: "Walked outside", icon: "🚶" },
-  { name: "Read a book", icon: "📖" },
-  { name: "Met a friend IRL", icon: "🤗" },
-  { name: "Played a board game", icon: "🎲" },
-  { name: "Did something creative", icon: "🎨" },
-  { name: "Chilled with no phone", icon: "🌳" }
-];
-
-// PUBLIC_INTERFACE
 /**
- * CheckInPage - Off-grid check-ins for real-world progress
- * Playful, light feedback for small wins. Minimal UI.
- * @param {function} showToast - for visible encouragement
+ * CheckInPage - Off-Grid Check-In
+ * Minimal playful UI to log screen-free activities for check-in and streaks.
+ * @param {function} showToast - Function to display toast notifications.
  */
+// PUBLIC_INTERFACE
 function CheckInPage({ showToast }) {
-  const [checkedIn, setCheckedIn] = useState(false);
-  const [activity, setActivity] = useState("");
-  const [log, setLog] = useState([]);
+  // Track check-in state (basic simulation)
+  const [checkedInToday, setCheckedInToday] = useState(false);
+  const [streak, setStreak] = useState(4); // Example streak
 
-  const handleCheckIn = (act) => {
-    setActivity(act.name);
-    setLog([...log, { ...act, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-    setCheckedIn(true);
-    showToast && showToast(`🌞 Checked in: ${act.name}! Mindful time FTW.`, "success");
-    setTimeout(() => setCheckedIn(false), 2500);
+  const checkInFeedback = [
+    "Nice! Enjoy real life a bit more. ✨",
+    "Another off-grid moment: unlocked! 🌲",
+    "You're building a healthy habit. 💚",
+    "More nature, less notifications. 🦋",
+    "Screen time down, joy up! 📉➡️😁",
+  ];
+
+  // Fake "grid locations/activities" for playful check-in options
+  const activities = [
+    "Go for a walk",
+    "Read a book",
+    "Cook/try a new recipe",
+    "Hang out with a friend",
+    "Try a new hobby",
+  ];
+  const [selected, setSelected] = useState(null);
+
+  // Playful check-in logic
+  const handleCheckIn = () => {
+    setCheckedInToday(true);
+    setStreak((prev) => prev + 1);
+    showToast &&
+      showToast(
+        checkInFeedback[Math.floor(Math.random() * checkInFeedback.length)],
+        "success"
+      );
   };
 
   return (
-    <div style={{
-      background: "#fafcfb",
-      borderRadius: 13,
-      boxShadow: "0 2px 14px #e7f6ec60,0 1px 0 #fff2",
-      padding: 24, maxWidth: 520, margin: "18px auto"
-    }}>
-      <h2 style={{ color: "#2E7D32", marginBottom: 10, fontWeight: 700 }}>Check-In ✅</h2>
-      <div style={{ color: "#3F6140", marginBottom: 16 }}>
-        Where did you spend time <b>away from your screen</b> today?<br />
-        Pick one:
+    <div style={{ marginTop: 18 }}>
+      <h2 style={{ color: "#2E7D32", fontWeight: 600 }}>Off-Grid Check-In</h2>
+      <div
+        style={{
+          background: "#E7F6EC",
+          borderRadius: 14,
+          border: "1.5px solid #B2DFDB",
+          padding: 20,
+          marginBottom: 15,
+        }}
+      >
+        <div style={{ fontWeight: 600, marginBottom: 4 }}>
+          Consecutive Screen-Free Days:{" "}
+          <span style={{ color: "#FFD600" }}>{streak}</span>
+        </div>
+        <div style={{ color: "#789262", fontSize: 15 }}>
+          Log your favorite offline activity below to add to your streak!
+        </div>
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 8 }}>
-        {ACTIVITIES.map((act, i) => (
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 10,
+          marginBottom: 10,
+          justifyContent: "center",
+        }}
+      >
+        {activities.map((act, idx) => (
           <button
-            key={i}
+            key={act}
+            onClick={() => setSelected(idx)}
             className="btn"
             style={{
-              background: "#b2dfdb",
-              color: "#1A1A1A",
-              border: "none",
+              background: selected === idx ? "#FFD600" : "#F2F6F5",
+              color: "#2E7D32",
+              border:
+                selected === idx
+                  ? "2px solid #FFD600"
+                  : "1.5px solid #B2DFDB",
+              fontWeight: 500,
+              fontSize: 14,
+              padding: "8px 16px",
               borderRadius: 7,
-              padding: "13px 15px",
-              fontWeight: 600,
-              fontSize: 17,
               cursor: "pointer",
-              flex: "1 1 44%",
-              minWidth: 140,
-              boxShadow: "0 2px 8px #b2dfdb22"
+              opacity: checkedInToday ? 0.7 : 1,
             }}
-            onClick={() => handleCheckIn(act)}
-            disabled={checkedIn}
+            disabled={checkedInToday}
           >
-            <span style={{ fontSize: 21, marginRight: 8 }}>{act.icon}</span> {act.name}
+            {act}
           </button>
         ))}
       </div>
-      <div style={{ marginTop: 16, color: "#FFD600", fontWeight: 500, fontSize: 15, minHeight: 22 }}>
-        {checkedIn
-          ? `🎉 Awesome! You made time for "${activity}".`
-          : "Check in once a day for best results!"}
+      <button
+        className="btn"
+        style={{
+          background: checkedInToday ? "#B2DFDB" : "#2E7D32",
+          color: checkedInToday ? "#2E7D32" : "#FFD600",
+          border: checkedInToday
+            ? "1.5px solid #B2DFDB"
+            : "2px solid #FFD600",
+          fontWeight: 700,
+          fontSize: "1.04rem",
+          padding: "12px 30px",
+          borderRadius: 10,
+          marginTop: 12,
+          cursor: checkedInToday ? "not-allowed" : "pointer",
+          boxShadow: "0 2px 10px rgba(45,127,49,0.07)",
+        }}
+        onClick={handleCheckIn}
+        disabled={checkedInToday || selected == null}
+      >
+        {checkedInToday ? "Checked in for today!" : "Confirm Check-In"}
+      </button>
+      <div style={{ marginTop: 22, color: "#789262", fontSize: 15 }}>
+        "Off-grid" means away from screens—enjoy your time! 🌳
       </div>
-      {log.length > 0 && (
-        <div style={{ marginTop: 18, color: "#4F6140" }}>
-          <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 5 }}>Previous Check-Ins:</div>
-          <ul style={{listStyle:'none',margin:0,padding:0 }}>
-            {log.slice(-3).reverse().map((e, idx) => (
-              <li key={idx} style={{marginBottom:2}}><span style={{fontSize:18}}>{e.icon}</span> {e.name} <span style={{fontSize:12,color:"#b2dfdb"}}>at {e.time}</span></li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

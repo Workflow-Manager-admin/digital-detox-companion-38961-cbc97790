@@ -1,102 +1,175 @@
 import React, { useState } from "react";
 
-// PUBLIC_INTERFACE
 /**
- * DetoxPlanPage - Personalized Digital Detox Plan page
- * Minimal/light theme and playful encouragement.
- * @param {function} showToast - optional toast function for feedback
+ * DetoxPlanPage - Personalized Detox Plan
+ * Minimal, playful UI showing user's digital detox plan and progress.
+ * @param {function} showToast - Function to display toast messages (feedback).
  */
+// PUBLIC_INTERFACE
 function DetoxPlanPage({ showToast }) {
+  // Example plan and progress (could be enhanced with real data)
   const [plan, setPlan] = useState({
-    title: "Your Social Detox Plan",
-    days: 7,
-    reductionGoal: 35, // % less screen
-    challenge: "No social media after 8pm",
-    progress: 0.2,
-    tips: [
-      "Leave devices outside your room at night.",
-      "Plan a daily outdoor walk.",
-      "Replace scrolling time with a favorite book.",
-    ],
+    startDate: "Today",
+    endDate: "21 Days Later",
+    dailyGoal: "Max 1 hour social media",
+    extra: "Try one off-screen activity daily!",
   });
-  const [completed, setCompleted] = useState(false);
+  const [progress, setProgress] = useState(0.33); // e.g., 33% through a 21-day plan
 
-  const handleCheckin = () => {
-    setCompleted(true);
-    showToast && showToast("🎉 Nice check-in! Stay strong for your detox goals!", "success");
+  // Playful step tracker logic
+  const steps = [
+    "Begin Detox",
+    "3-Day Streak",
+    "1 Week Milestone",
+    "Halfway There!",
+    "Completed!",
+  ];
+  const currentStep =
+    progress < 0.15
+      ? 0
+      : progress < 0.4
+      ? 1
+      : progress < 0.7
+      ? 2
+      : progress < 1
+      ? 3
+      : 4;
+
+  // Playful nudge on clicking "Mark Today's Progress"
+  const handleButtonClick = () => {
+    if (progress < 1) {
+      const newProgress = Math.min(1, progress + 0.07 + Math.random() * 0.1);
+      setProgress(newProgress);
+      showToast &&
+        showToast(
+          newProgress >= 1
+            ? "🎉 Detox Complete! Celebrate screen-free wins!"
+            : "Great check-in! Stay strong; every day counts! 🌱",
+          "success"
+        );
+    }
   };
 
   return (
-    <div style={{
-      background: "#fafcfb",
-      borderRadius: 13,
-      boxShadow: "0 2px 14px #e7f6ec60,0 1px 0 #fff2",
-      padding: 24, maxWidth: 520, margin: "18px auto"
-    }}>
-      <h2 style={{ color: "#2E7D32", marginBottom: 5, fontWeight: 700 }}>{plan.title} 🗺️</h2>
-      <div style={{ color: "#789262", fontSize: 17, marginBottom: 16 }}>
-        {plan.days}-day Challenge: <b style={{ color: "#2E7D32" }}>{plan.reductionGoal}% less screen time</b>
+    <div className="detox-plan-page" style={{ marginTop: 18 }}>
+      <h2 style={{ color: "#2E7D32", marginBottom: 6, fontWeight: 600 }}>
+        Your Detox Plan
+      </h2>
+      <div
+        style={{
+          background: "#F2F6F5",
+          padding: 22,
+          borderRadius: 16,
+          border: "1px solid #E7F6EC",
+          margin: "12px 0 16px",
+          boxShadow: "0 1px 5px rgba(44,127,67,0.04)",
+        }}
+      >
+        <div>
+          <strong>Start:</strong> {plan.startDate}
+        </div>
+        <div>
+          <strong>End:</strong> {plan.endDate}
+        </div>
+        <div>
+          <strong>Daily Goal:</strong> {plan.dailyGoal}
+        </div>
+        <div style={{ color: "#789262", marginTop: 6, fontStyle: "italic" }}>
+          {plan.extra}
+        </div>
       </div>
-      <div style={{ marginBottom: 16, fontSize: 16, color: "#444" }}>
-        <b style={{ color: "#FFD600" }}>🌟 Challenge:</b> <span>{plan.challenge}</span>
-      </div>
-      <ProgressBar progress={plan.progress + (completed ? 0.11 : 0)} />
-
-      <div style={{ margin: "24px 0 8px", fontWeight: 600, color: "#2E7D32", fontSize: 15 }}>
-        Pro-tips:
-      </div>
-      <ul style={{ marginBottom: 12, paddingLeft: 18, color: "#53663A" }}>
-        {plan.tips.map((tip, i) => (
-          <li style={{ marginBottom: 6 }} key={i}>{tip}</li>
+      {/* Playful Progress Steps */}
+      <ol
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 12,
+          justifyContent: "center",
+          listStyle: "none",
+          padding: 0,
+          marginLeft: 0,
+          marginBottom: 16,
+        }}
+      >
+        {steps.map((label, idx) => (
+          <li
+            key={label}
+            className={idx === currentStep ? "active-step" : ""}
+            style={{
+              background:
+                idx === currentStep ? "#FFD600" : "#B2DFDB",
+              color: idx === currentStep ? "#2E7D32" : "#356c3d",
+              borderRadius: 10,
+              padding: "7px 13px",
+              fontWeight: idx === currentStep ? 600 : 400,
+              fontSize: 14,
+              boxShadow:
+                idx === currentStep
+                  ? "0 2px 5px rgba(44,127,67,0.12)"
+                  : "none",
+              border:
+                idx === currentStep
+                  ? "2px solid #2E7D32"
+                  : "1px solid #B2DFDB",
+              transition: "all 0.15s",
+              opacity: idx > currentStep ? 0.55 : 1,
+              minWidth: 70
+            }}
+          >
+            {label}
+          </li>
         ))}
-      </ul>
-
+      </ol>
+      {/* Visual Progress Bar */}
+      <div style={{ margin: "16px 0 6px" }}>
+        <div
+          style={{
+            background: "#ededed",
+            borderRadius: 6,
+            height: 14,
+            position: "relative",
+            overflow: "hidden",
+            width: "100%",
+            marginBottom: 2,
+          }}
+        >
+          <div
+            style={{
+              width: `${Math.round(progress * 100)}%`,
+              background:
+                "linear-gradient(90deg,#2E7D32,#B2DFDB)",
+              height: "100%",
+              transition: "width 0.7s cubic-bezier(.4,0,.2,1)",
+              borderRadius: 6,
+            }}
+          ></div>
+        </div>
+        <span style={{ fontSize: 13, color: "#789262" }}>
+          {Math.round(progress * 100)}% complete
+        </span>
+      </div>
       <button
         className="btn"
         style={{
-          background: completed ? "#b2dfdb" : "#2E7D32",
-          color: completed ? "#456141" : "white",
-          border: "none", borderRadius: 6, padding: "12px 22px",
-          fontWeight: 600, fontSize: 16, cursor: completed ? "not-allowed" : "pointer",
-          opacity: completed ? 0.85 : 1,
-          marginTop: 12,
+          background: "#FFD600",
+          color: "#2E7D32",
+          margin: "22px 0 0",
+          fontWeight: 600,
+          fontSize: "1rem",
+          border: "none",
+          borderRadius: 8,
+          padding: "13px 25px",
+          cursor: "pointer",
+          boxShadow: "0 1px 8px rgba(89,186,106,0.08)",
+          transition: "background 0.15s",
         }}
-        onClick={handleCheckin}
-        disabled={completed}
+        onClick={handleButtonClick}
+        disabled={progress >= 1}
       >
-        {completed ? "Checked In ✔️" : "Check In for Today"}
+        {progress < 1 ? "Mark Today's Progress" : "Detox Complete! 🎉"}
       </button>
-      <div style={{ marginTop: 18, color: "#FFD600", fontWeight: 500, fontSize: 15 }}>
-        {completed ? "You’re on a roll! 🎉" : "Small wins, big change. Keep going! 🚀"}
-      </div>
-    </div>
-  );
-}
-
-// Minimal ProgressBar (matches App.js style)
-function ProgressBar({ progress }) {
-  return (
-    <div style={{ marginBottom: 0, width: "100%" }}>
-      <div style={{
-        background: "#E7F6EC",
-        borderRadius: 8,
-        overflow: "hidden",
-        height: 13,
-        position: "relative"
-      }}>
-        <div style={{
-          width: `${Math.round(progress * 100)}%`,
-          background: `linear-gradient(90deg,#2E7D32,#B2DFDB)`,
-          height: "100%",
-          transition: "width 0.7s cubic-bezier(.4,0,.2,1)"
-        }} />
-      </div>
-      <div style={{
-        marginTop: 2,
-        fontSize: 13,
-        color: "#789262"
-      }}>
-        {Math.round(progress * 100)}% to goal
+      <div style={{ marginTop: 18, color: "#B79A5A", fontSize: 15 }}>
+        Tip: The less you check this app, the better you’re doing! 🌳
       </div>
     </div>
   );
