@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import DetoxJourneyMap from "./DetoxJourneyMap";
 import TimeReallocationTracker from "./TimeReallocationTracker";
 import BuddyStreakSystem from "./BuddyStreakSystem";
@@ -12,7 +13,6 @@ import CommunityCircles from "./CommunityCircles";
 import IntegrationsHub from "./IntegrationsHub";
 import HomePage from "./HomePage";
 
-// Added modular imports for home sections:
 import BuddySystemPage from "./BuddySystemPage";
 import RewardsPage from "./RewardsPage";
 import CheckInPage from "./CheckInPage";
@@ -35,165 +35,177 @@ const minimalTheme = {
   "--text": COLORS.text,
 };
 
+import { useNavigate, useLocation } from "react-router-dom";
+
 // PUBLIC_INTERFACE
 function App() {
-  const [tab, setTab] = useState("home");
-
-  // Navigation tabs: removed features now present on Home page
+  // For "tab" active state, use URL path to determine the tab.
   const navTabs = [
     {
       id: "home",
       label: "Home",
-      icon: "🏡"
+      icon: "🏡",
+      path: "/"
     },
     {
       id: "journey",
       label: "Journey Map",
-      icon: "🛤️"
+      icon: "🛤️",
+      path: "/journey"
     },
     {
       id: "plan",
       label: "Detox Plan",
-      icon: "🗓️"
+      icon: "🗓️",
+      path: "/plan"
     },
     {
       id: "budget",
       label: "Budget Mode",
-      icon: "🎛️"
+      icon: "🎛️",
+      path: "/budget"
     },
     {
       id: "games",
       label: "Mini Games",
-      icon: "🕹️"
+      icon: "🕹️",
+      path: "/games"
     },
     {
       id: "modes",
       label: "Detox Modes",
-      icon: "🎯"
+      icon: "🎯",
+      path: "/modes"
     },
     {
       id: "events",
       label: "Events",
-      icon: "🗺️"
+      icon: "🗺️",
+      path: "/events"
     },
     {
       id: "reallocation",
       label: "Reallocation",
-      icon: "⏳"
+      icon: "⏳",
+      path: "/reallocation"
     },
     {
       id: "journal",
       label: "Journal",
-      icon: "📖"
+      icon: "📖",
+      path: "/journal"
     }
   ];
 
-  // Renders the currently active page/component
-  function renderPage() {
-    switch (tab) {
-      case "home":
-        return <HomePage />;
-      case "journey":
-        return <DetoxJourneyMap />;
-      case "plan":
-        return <DetoxPlanPage />;
-      case "budget":
-        return <DigitalBudgetMode />;
-      case "games":
-        return <MiniDetoxGames />;
-      case "modes":
-        return <DetoxModes />;
-      case "events":
-        return <OfflineEventGenerator />;
-      case "reallocation":
-        return <TimeReallocationTracker />;
-      case "journal":
-        return <JournalPage />;
-      default:
-        return <HomePage />;
-    }
-  }
+  // Use hooks inside the Router tree, so inner abstraction:
+  const AppInner = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  return (
-    <div
-      className="app"
-      style={{
-        background: minimalTheme["--bg"],
-        color: minimalTheme["--text"],
-        minHeight: "100vh",
-        fontFamily: "Inter, Roboto, Arial, sans-serif"
-      }}
-    >
-      <nav
-        className="navbar"
+    return (
+      <div
+        className="app"
         style={{
-          background: "#fff",
-          borderBottom: "1px solid #eee",
-          color: COLORS.primary,
-          padding: "0",
-          boxShadow: "0 2px 6px rgba(44,127,67,0.03)",
-          zIndex: 20
+          background: minimalTheme["--bg"],
+          color: minimalTheme["--text"],
+          minHeight: "100vh",
+          fontFamily: "Inter, Roboto, Arial, sans-serif"
         }}
       >
-        <div className="container" style={{ maxWidth: 900, margin: "0 auto" }}>
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            height: 56,
-            justifyContent: "space-between"
-          }}>
-            <div className="logo" style={{ fontWeight: 600, color: COLORS.primary, fontSize: 20 }}>
-              <span
-                className="logo-symbol"
-                style={{
-                  color: COLORS.accent,
-                  fontWeight: 700,
-                  fontSize: 24,
-                  verticalAlign: "middle"
-                }}
-              >
-                💡
-              </span>
-              Digital Detox Companion
-            </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              {navTabs.map((t) => (
-                <NavTab
-                  key={t.id}
-                  label={t.label}
-                  icon={t.icon}
-                  active={tab === t.id}
-                  onClick={() => setTab(t.id)}
-                  accentColor={COLORS.accent}
-                  primaryColor={COLORS.primary}
-                />
-              ))}
+        <nav
+          className="navbar"
+          style={{
+            background: "#fff",
+            borderBottom: "1px solid #eee",
+            color: COLORS.primary,
+            padding: "0",
+            boxShadow: "0 2px 6px rgba(44,127,67,0.03)",
+            zIndex: 20
+          }}
+        >
+          <div className="container" style={{ maxWidth: 900, margin: "0 auto" }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              height: 56,
+              justifyContent: "space-between"
+            }}>
+              <div className="logo" style={{ fontWeight: 600, color: COLORS.primary, fontSize: 20 }}>
+                <span
+                  className="logo-symbol"
+                  style={{
+                    color: COLORS.accent,
+                    fontWeight: 700,
+                    fontSize: 24,
+                    verticalAlign: "middle"
+                  }}
+                >
+                  💡
+                </span>
+                Digital Detox Companion
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                {navTabs.map((t) => (
+                  <NavTab
+                    key={t.id}
+                    label={t.label}
+                    icon={t.icon}
+                    active={
+                      t.path === "/"
+                        ? location.pathname === "/"
+                        : location.pathname.startsWith(t.path)
+                    }
+                    onClick={() => navigate(t.path)}
+                    accentColor={COLORS.accent}
+                    primaryColor={COLORS.primary}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+        <main style={{ marginTop: 76 }}>
+          <div className="container" style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px" }}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/buddy-system" element={<BuddySystemPage />} />
+              <Route path="/rewards" element={<RewardsPage />} />
+              <Route path="/checkin" element={<CheckInPage />} />
+              <Route path="/journey" element={<DetoxJourneyMap />} />
+              <Route path="/plan" element={<DetoxPlanPage />} />
+              <Route path="/budget" element={<DigitalBudgetMode />} />
+              <Route path="/games" element={<MiniDetoxGames />} />
+              <Route path="/modes" element={<DetoxModes />} />
+              <Route path="/events" element={<OfflineEventGenerator />} />
+              <Route path="/reallocation" element={<TimeReallocationTracker />} />
+              <Route path="/journal" element={<JournalPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
+        </main>
+        <footer
+          style={{
+            padding: "24px 0 8px",
+            color: COLORS.primary,
+            background: "#fafcfb",
+            borderTop: "1px solid #E7F6EC",
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: "1.05rem",
+            marginTop: 32,
+            letterSpacing: 0.1
+          }}
+        >
+          Enjoy the world beyond the screen. 🌳 
+        </footer>
+      </div>
+    );
+  };
 
-      <main style={{ marginTop: 76 }}>
-        <div className="container" style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px" }}>
-          {renderPage()}
-        </div>
-      </main>
-      <footer
-        style={{
-          padding: "24px 0 8px",
-          color: COLORS.primary,
-          background: "#fafcfb",
-          borderTop: "1px solid #E7F6EC",
-          textAlign: "center",
-          fontWeight: 500,
-          fontSize: "1.05rem",
-          marginTop: 32,
-          letterSpacing: 0.1
-        }}
-      >
-        Enjoy the world beyond the screen. 🌳 
-      </footer>
-    </div>
+  return (
+    <Router>
+      <AppInner />
+    </Router>
   );
 }
 

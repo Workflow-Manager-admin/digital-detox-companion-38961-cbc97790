@@ -12,8 +12,8 @@ asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
 cacheable modules 1.45 MiB
   modules by path ./node_modules/ 1.24 MiB 31 modules
-  modules by path ./src/ 196 KiB
-    modules by path ./src/*.js 188 KiB 17 modules
+  modules by path ./src/ 201 KiB
+    modules by path ./src/*.js 193 KiB 17 modules
     modules by path ./src/*.css 8.07 KiB
       ./src/index.css 2.23 KiB [built] [code generated]
       + 3 modules
@@ -23,14 +23,630 @@ cacheable modules 1.45 MiB
       ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 2031 ms
+webpack 5.99.9 compiled successfully in 2016 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.65 MiB
+  asset bundle.js 1.63 MiB [emitted] (name: main)
+  asset main.5bede5b4889dcf8851d9.hot-update.js 22.8 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.5bede5b4889dcf8851d9.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.65 MiB = bundle.js 1.63 MiB main.5bede5b4889dcf8851d9.hot-update.js 22.8 KiB
+cached modules 1.44 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 15.5 KiB [built] [code generated]
+
+ERROR in ./src/App.js 3:0-84
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 1 error in 188 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.67 MiB
+  asset bundle.js 1.64 MiB [emitted] (name: main)
+  asset main.373b4d3b87a43e386276.hot-update.js 29.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.373b4d3b87a43e386276.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.67 MiB = bundle.js 1.64 MiB main.373b4d3b87a43e386276.hot-update.js 29.2 KiB
+cached modules 1.44 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 18.3 KiB [built] [code generated]
+
+ERROR in ./src/App.js 3:0-84
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 1 error in 109 ms
 assets by status 1.92 KiB [cached] 1 asset
 assets by path *.js 1.64 MiB
   asset bundle.js 1.63 MiB [emitted] (name: main)
-  asset main.f40f6380a8f8a093a976.hot-update.js 11.6 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.f40f6380a8f8a093a976.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.64 MiB = bundle.js 1.63 MiB main.f40f6380a8f8a093a976.hot-update.js 11.6 KiB
-cached modules 1.44 MiB [cached] 56 modules
+  asset main.2fcdbe12ec75d336d9e9.hot-update.js 7.15 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.2fcdbe12ec75d336d9e9.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.64 MiB = bundle.js 1.63 MiB main.2fcdbe12ec75d336d9e9.hot-update.js 7.15 KiB
+cached modules 1.45 MiB [cached] 56 modules
 runtime modules 27.5 KiB 14 modules
-./src/HomePage.js 8.18 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 146 ms
+./src/HomePage.js 4.42 KiB [built] [code generated]
+
+ERROR in ./src/App.js 3:0-84
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/index.js 5:0-24 14:32-35
+
+ERROR in ./src/HomePage.js 2:0-40
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/App.js 14:0-34 182:41-49
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 2 errors in 65 ms
+assets by status 1.64 MiB [cached] 2 assets
+cached modules 1.45 MiB (javascript) 27.5 KiB (runtime) [cached] 71 modules
+
+LOG from webpack.FileSystemInfo
+<w> Managed item /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom isn't a directory or doesn't contain a package.json (see snapshot.managedPaths option)
++ 13 hidden lines
+
+ERROR in ./src/App.js 3:0-84
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom is not a file
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+              no extension
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom is not a file
+              .js
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+              .jsx
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+              as directory
+                existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom
+                  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+                    using path: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index
+                      using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom/index)
+                        no extension
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index doesn't exist
+                        .js
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index.js doesn't exist
+                        .jsx
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index.jsx doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/index.js 5:0-24 14:32-35
+
+ERROR in ./src/HomePage.js 2:0-40
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve 'react-router-dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom is not a file
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+        existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+            using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+              no extension
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom is not a file
+              .js
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.js doesn't exist
+              .jsx
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom.jsx doesn't exist
+              as directory
+                existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom
+                  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom)
+                    using path: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index
+                      using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router-dom/index)
+                        no extension
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index doesn't exist
+                        .js
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index.js doesn't exist
+                        .jsx
+                          Field 'browser' doesn't contain a valid alias configuration
+                          /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/index.jsx doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/App.js 14:0-34 182:41-49
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 2 errors in 41 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.67 MiB
+  asset bundle.js 1.63 MiB [emitted] (name: main)
+  asset main.38372530d6c32b7e19e1.hot-update.js 34.9 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.38372530d6c32b7e19e1.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.67 MiB = bundle.js 1.63 MiB main.38372530d6c32b7e19e1.hot-update.js 34.9 KiB
+cached modules 1.43 MiB [cached] 55 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 23.1 KiB
+  ./src/App.js 18.3 KiB [code generated]
+  ./node_modules/react-router-dom/dist/index.mjs 383 bytes [built] [code generated]
+  ./src/HomePage.js 4.42 KiB [code generated]
+
+WARNING in ./src/App.js 91:21-32
+export 'useNavigate' (imported as 'useNavigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 92:21-32
+export 'useLocation' (imported as 'useLocation') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 178:39-45
+export 'Routes' (imported as 'Routes') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 180:41-46
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 186:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 192:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 198:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 204:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 210:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 216:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 222:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 228:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 234:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 240:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 246:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 252:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 254:41-49
+export 'Navigate' (imported as 'Navigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 279:27-33
+export 'BrowserRouter' (imported as 'Router') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/HomePage.js 61:52-56
+export 'Link' (imported as 'Link') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/App.js 14:0-34 182:41-49
+ @ ./src/index.js 5:0-24 14:32-35
+
+ERROR in ./node_modules/react-router-dom/dist/index.mjs 13:0-66
+Module not found: Error: Can't resolve 'react-router/dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist'
+resolve 'react-router/dom' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/package.json (relative path: .)
+            using exports field: ./dist/development/dom-export.mjs
+              using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/package.json (relative path: ./dist/development/dom-export.mjs)
+                Field 'browser' doesn't contain a valid alias configuration
+                /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/dist/development/dom-export.mjs doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/App.js 3:0-84 36:0-60 91:21-32 92:21-32 178:39-45 180:41-46 186:34-39 192:34-39 198:34-39 204:34-39 210:34-39 216:34-39 222:34-39 228:34-39 234:34-39 240:34-39 246:34-39 252:34-39 254:41-49 279:27-33
+ @ ./src/index.js 5:0-24 14:32-35
+
+ERROR in ./node_modules/react-router-dom/dist/index.mjs 14:0-29
+Module not found: Error: Can't resolve 'react-router' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist'
+resolve 'react-router' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist'
+  Parsed request is a module
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/dist/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router-dom/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules
+        single file module
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./node_modules/react-router)
+            no extension
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router is not a file
+            .js
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router.js doesn't exist
+            .jsx
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router.jsx doesn't exist
+        existing directory /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router
+          using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/package.json (relative path: .)
+            using exports field: ./dist/development/index.mjs
+              using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/package.json (relative path: ./dist/development/index.mjs)
+                no extension
+                  Field 'browser' doesn't contain a valid alias configuration
+                  /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/dist/development/index.mjs doesn't exist
+                .js
+                  Field 'browser' doesn't contain a valid alias configuration
+                  /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/dist/development/index.mjs.js doesn't exist
+                .jsx
+                  Field 'browser' doesn't contain a valid alias configuration
+                  /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/dist/development/index.mjs.jsx doesn't exist
+                as directory
+                  /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/react-router/dist/development/index.mjs doesn't exist
+      /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/code-generation/node_modules doesn't exist or is not a directory
+      /home/kavia/workspace/node_modules doesn't exist or is not a directory
+      /home/kavia/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+ @ ./src/App.js 3:0-84 36:0-60 91:21-32 92:21-32 178:39-45 180:41-46 186:34-39 192:34-39 198:34-39 204:34-39 210:34-39 216:34-39 222:34-39 228:34-39 234:34-39 240:34-39 246:34-39 252:34-39 254:41-49 279:27-33
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 2 errors and 19 warnings in 81 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 2.52 MiB
+  asset bundle.js 2.07 MiB [emitted] (name: main)
+  asset main.4e64cbab2fe5fbc853b6.hot-update.js 454 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.4e64cbab2fe5fbc853b6.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 2.52 MiB = bundle.js 2.07 MiB main.4e64cbab2fe5fbc853b6.hot-update.js 454 KiB
+cached modules 1.45 MiB [cached] 57 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 392 KiB
+  modules by path ./node_modules/react-router/ 385 KiB
+    ./node_modules/react-router/dist/development/dom-export.mjs 6.86 KiB [built] [code generated]
+    ./node_modules/react-router/dist/development/index.mjs 5.61 KiB [built] [code generated]
+    ./node_modules/react-router/dist/development/chunk-NL6KNZEE.mjs 365 KiB [built] [code generated]
+    ./node_modules/react-router/node_modules/cookie/dist/index.js 8.14 KiB [built] [code generated]
+  ./node_modules/react-router-dom/dist/index.mjs 383 bytes [code generated]
+  ./node_modules/set-cookie-parser/lib/set-cookie.js 6.47 KiB [built] [code generated]
+
+WARNING in ./src/App.js 91:21-32
+export 'useNavigate' (imported as 'useNavigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 92:21-32
+export 'useLocation' (imported as 'useLocation') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 178:39-45
+export 'Routes' (imported as 'Routes') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 180:41-46
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 186:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 192:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 198:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 204:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 210:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 216:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 222:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 228:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 234:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 240:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 246:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 252:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 254:41-49
+export 'Navigate' (imported as 'Navigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 279:27-33
+export 'BrowserRouter' (imported as 'Router') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/HomePage.js 61:52-56
+export 'Link' (imported as 'Link') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/App.js 14:0-34 182:41-49
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 19 warnings in 357 ms
+Injecting EditorRootWrapper import: ../.ve/EditorRootWrapper
+assets by path *.js 2.08 MiB
+  asset bundle.js 2.07 MiB [emitted] (name: main)
+  asset main.db8bfab2f1b9ea693b4e.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
+asset index.html 1.92 KiB [emitted]
+asset main.db8bfab2f1b9ea693b4e.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 2.08 MiB = bundle.js 2.07 MiB main.db8bfab2f1b9ea693b4e.hot-update.js 854 bytes
+cached modules 1.63 MiB [cached] 43 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 205 KiB
+  modules by path ./src/*.js 192 KiB
+    ./src/index.js 616 bytes [built]
+    ./src/App.js 18.3 KiB [built]
+    ./src/DetoxJourneyMap.js 15.2 KiB [built]
+    ./src/TimeReallocationTracker.js 16.4 KiB [built]
+    ./src/BuddyStreakSystem.js 11 KiB [built]
+    ./src/DetoxModes.js 19.1 KiB [built]
+    + 11 modules
+  modules by path ./.ve/ 12.2 KiB
+    ./.ve/EditorRootWrapper.js 2.68 KiB [built]
+    ./.ve/EditorOverlay.jsx 1.58 KiB [built]
+    ./.ve/SidePanel.js 7.93 KiB [built]
+
+WARNING in ./src/App.js 91:21-32
+export 'useNavigate' (imported as 'useNavigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 92:21-32
+export 'useLocation' (imported as 'useLocation') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 178:39-45
+export 'Routes' (imported as 'Routes') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 180:41-46
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 186:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 192:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 198:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 204:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 210:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 216:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 222:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 228:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 234:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 240:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 246:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 252:34-39
+export 'Route' (imported as 'Route') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 254:41-49
+export 'Navigate' (imported as 'Navigate') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/App.js 279:27-33
+export 'BrowserRouter' (imported as 'Router') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/index.js 5:0-24 14:32-35
+
+WARNING in ./src/HomePage.js 61:52-56
+export 'Link' (imported as 'Link') was not found in 'react-router-dom' (module has no exports)
+ @ ./src/App.js 14:0-34 182:41-49
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 19 warnings in 579 ms

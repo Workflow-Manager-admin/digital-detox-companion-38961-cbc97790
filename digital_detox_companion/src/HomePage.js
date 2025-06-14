@@ -1,225 +1,147 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-// PUBLIC_INTERFACE
 /**
- * HomePage
- * Digital Detox Companion Home page, redesigned.
- * (1) Description/use case/feature summary at the top.
- * (2) Each core feature is a card that only shows its name initially, expands/collapses on click for details.
- * Clean, branded/minimal UI.
+ * HomePage - Landing page showing clickable feature containers.
+ *
+ * Each feature is rendered as a card.
+ * When a card is clicked, navigates to its dedicated feature page/route.
  */
-export default function HomePage() {
-  // List of features and their descriptions
-  const FEATURES = [
+// PUBLIC_INTERFACE
+function HomePage() {
+  // Features and their routes
+  const features = [
     {
-      name: "Circles",
-      description: "Community groups to support and motivate digital wellbeing."
+      key: "plan",
+      label: "Personalized Detox Plan",
+      description:
+        "A plan tailored to you with steps to gradually reduce your social media usage.",
+      icon: "📝",
+      route: "/plan",
+      highlight: true,
     },
     {
-      name: "Parent-Teen",
-      description: "Tools to help parents and teens collaborate on healthy digital habits."
+      key: "buddy-system",
+      label: "Accountability Buddy System",
+      description:
+        "Get paired with an anonymous buddy for mutual support and accountability.",
+      icon: "🫂",
+      route: "/buddy-system",
     },
     {
-      name: "Integration",
-      description: "Sync with other wellness or productivity tools."
+      key: "rewards",
+      label: "Real-World Milestone Rewards",
+      description:
+        "Earn real-world rewards as you hit your digital detox goals.",
+      icon: "🎁",
+      route: "/rewards",
     },
     {
-      name: "Rewards",
-      description: "Earn real-world rewards for achieving digital detox milestones."
+      key: "checkin",
+      label: "Off-Grid Check-In",
+      description:
+        "Check in to real-world activities to reinforce healthy habits.",
+      icon: "✔️",
+      route: "/checkin",
     },
     {
-      name: "Check In",
-      description: "Record progress by checking in to real-world, offline activities."
+      key: "journal",
+      label: "Reflection & Habit Journal",
+      description:
+        "AI-powered prompts and habit tracking for mindful progress.",
+      icon: "📓",
+      route: "/journal",
     },
-    {
-      name: "Buddy System",
-      description: "Pair up anonymously for mutual accountability and encouragement."
-    }
   ];
 
-  // Expanded/collapsed state for each feature
-  const [expandedIdx, setExpandedIdx] = useState(null);
-
-  // App description & use case text
-  const appDescription =
-    "Digital Detox Companion is a multipage web app designed to help users reduce their social media usage and build healthier digital habits. It offers tailored plans, accountability partnerships, real-world rewards, and reflective prompts to promote balanced technology use.";
-  const appUseCase =
-    "Ideal for anyone seeking to curb excessive screen time, improve real-world engagement, and build sustainable digital habits—be it individuals, families, or groups.";
-
-  // Style vars (from app theme)
-  const COLORS = {
-    primary: "#2E7D32",
-    accent: "#FFD600",
-    secondary: "#B2DFDB"
-  };
-
-  // PUBLIC_INTERFACE
   return (
-    <div
-      style={{
-        marginTop: 36,
-        marginBottom: 34,
-        display: "flex",
-        flexDirection: "column",
-        gap: 32,
-        maxWidth: 650,
-        width: "100%",
-        marginLeft: "auto",
-        marginRight: "auto"
-      }}
-    >
-      {/* --------- DESCRIPTION SECTION --------- */}
+    <section style={{ marginTop: 18 }}>
+      <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: 25 }}>
+        Welcome to Your Digital Detox Companion 🌱
+      </h1>
+      <div>
+        {features.map((f) => (
+          <Link
+            key={f.key}
+            to={f.route}
+            style={{
+              textDecoration: "none",
+              display: "block",
+            }}
+            tabIndex={0}
+            aria-label={`Go to ${f.label} page`}
+          >
+            <div
+              style={{
+                marginBottom: 24,
+                borderRadius: 15,
+                boxShadow: f.highlight
+                  ? "0 3px 22px -4px #B2DFDB33"
+                  : "0 2px 5px 0 #E7F6EC11",
+                background: f.highlight ? "#EFFBFC" : "#FFF",
+                padding: f.highlight ? "28px 26px 18px" : "22px 18px 12px",
+                border: f.highlight
+                  ? "2.5px solid #B2DFDB"
+                  : "1px solid #E5EFEA99",
+                color: "#39544F",
+                transition:
+                  "box-shadow 0.14s cubic-bezier(.4,0,.2,1), border 0.17s cubic-bezier(.4,0,.2,1)",
+                cursor: "pointer",
+                outline: "none",
+                display: "block",
+              }}
+              className="feature-card"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontSize: 22,
+                  fontWeight: 600,
+                }}
+              >
+                <span style={{ fontSize: 28, marginRight: 16 }}>{f.icon}</span>
+                {f.label}
+              </div>
+              <div
+                style={{
+                  marginTop: 10,
+                  color: "#789262",
+                  fontWeight: 500,
+                  fontSize: 15,
+                  marginBottom: 0,
+                }}
+              >
+                {f.description}
+              </div>
+              <div
+                style={{
+                  marginTop: 7,
+                  color: "#82A97F",
+                  fontWeight: 500,
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  opacity: 0.85,
+                }}
+              >
+                Tap to explore the {f.label} page &rarr;
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
       <div
         style={{
-          background: "#F8FBF8",
-          border: "1px solid #e9f3ec",
-          borderRadius: 18,
-          padding: "30px 4vw 21px 4vw",
-          marginBottom: 6,
-          boxShadow: "0 1.5px 9px #b2dfdb09"
+          marginTop: 34,
+          color: "#8E9478",
+          fontSize: 15,
+          textAlign: "center",
         }}
       >
-        <div
-          style={{
-            fontWeight: 800,
-            fontSize: "1.61rem",
-            color: COLORS.primary,
-            marginBottom: 8,
-            letterSpacing: 0.01
-          }}
-        >
-          🌱 Digital Detox Companion
-        </div>
-        <div style={{ color: "#1A1A1A", fontSize: 15.6, lineHeight: 1.6, marginBottom: 10 }}>
-          {appDescription}
-        </div>
-        <div
-          style={{
-            color: COLORS.primary,
-            fontWeight: 500,
-            marginBottom: 9,
-            fontSize: 15
-          }}
-        >
-          Use Case:&nbsp;
-          <span style={{ color: "#6b795d", fontWeight: 400 }}>{appUseCase}</span>
-        </div>
-        <div style={{ marginTop: 12, color: "#B49A26", fontWeight: 500, fontSize: "1.02rem" }}>
-          Key Features:
-          <ul style={{ margin: "7px 0 0 24px", padding: 0, color: "#818A76", fontWeight: 400 }}>
-            <li>Personalized detox plans</li>
-            <li>Accountability buddy system</li>
-            <li>Community circles & parent-teen collaboration</li>
-            <li>Real-world milestone rewards</li>
-            <li>Off-grid activity check-ins</li>
-            <li>Tool integrations & reflective journaling</li>
-          </ul>
-        </div>
+        Designed for quick use. Go offline & enjoy the real world!
       </div>
-
-      {/* --------- FEATURE LIST (Expandable) --------- */}
-      <div>
-        <div
-          style={{
-            color: COLORS.primary,
-            fontWeight: 700,
-            fontSize: 19,
-            marginBottom: 13,
-            letterSpacing: ".01rem"
-          }}
-        >
-          Explore Features
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 17
-          }}
-        >
-          {FEATURES.map((feat, i) => (
-            <FeatureAccordionCard
-              key={feat.name}
-              name={feat.name}
-              description={feat.description}
-              expanded={expandedIdx === i}
-              onClick={() => setExpandedIdx(expandedIdx === i ? null : i)}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
-// PUBLIC_INTERFACE
-// Accordion-style minimal feature card
-function FeatureAccordionCard({ name, description, expanded, onClick }) {
-  // Custom icons for each feature name (optional for visual cue)
-  const icons = {
-    Circles: "🪢",
-    "Parent-Teen": "🏠",
-    Integration: "🔗",
-    Rewards: "🎁",
-    "Check In": "📋",
-    "Buddy System": "🤝"
-  };
-  const COLORS = {
-    primary: "#2E7D32",
-    accent: "#FFD600",
-    secondary: "#B2DFDB"
-  };
-  return (
-    <button
-      type="button"
-      aria-expanded={expanded}
-      onClick={onClick}
-      style={{
-        width: "100%",
-        textAlign: "left",
-        background: "#fff",
-        color: COLORS.primary,
-        border: expanded
-          ? `1.8px solid ${COLORS.accent}`
-          : "1.3px solid #B2DFDB",
-        borderRadius: 14,
-        padding: expanded ? "20px 22px 13px" : "17px 22px",
-        fontWeight: expanded ? 700 : 500,
-        fontSize: 17,
-        transition: "box-shadow 0.16s, border 0.16s",
-        boxShadow: expanded
-          ? "0 4px 18px #ffd6002b"
-          : "0 2px 11px #B2DFDB10",
-        outline: "none",
-        cursor: "pointer",
-        marginBottom: 0,
-        position: "relative"
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
-        <span style={{ fontSize: 25, marginRight: 7 }}>
-          {icons[name] || "✨"}
-        </span>
-        <span>{name}</span>
-        <span style={{ marginLeft: "auto", color: "#B49A26", fontSize: 21 }}>
-          {expanded ? "−" : "+"}
-        </span>
-      </div>
-      {expanded && (
-        <div
-          style={{
-            marginTop: 13,
-            color: "#6A816B",
-            fontWeight: 400,
-            fontSize: 15.2,
-            lineHeight: 1.5,
-            borderTop: "1px solid #F2F6F5",
-            paddingTop: 12
-          }}
-        >
-          {description}
-        </div>
-      )}
-    </button>
-  );
-}
+export default HomePage;
