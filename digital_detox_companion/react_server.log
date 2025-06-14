@@ -23,4 +23,130 @@ cacheable modules 1.44 MiB
       ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 2068 ms
+webpack 5.99.9 compiled successfully in 2047 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.66 MiB
+  asset bundle.js 1.62 MiB [emitted] (name: main)
+  asset main.3bcd0b9685ed7c8f0b19.hot-update.js 38.3 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.3bcd0b9685ed7c8f0b19.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.66 MiB = bundle.js 1.62 MiB main.3bcd0b9685ed7c8f0b19.hot-update.js 38.3 KiB
+cached modules 1.42 MiB [cached] 52 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 27.9 KiB [built] [code generated]
+
+ERROR in ./src/App.js 13:0-34
+Module not found: Error: Can't resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src/HomePage)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 1 error in 277 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.66 MiB
+  asset bundle.js 1.62 MiB [emitted] (name: main)
+  asset main.1e4a33f954bb3ec4e029.hot-update.js 38 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.1e4a33f954bb3ec4e029.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.66 MiB = bundle.js 1.62 MiB main.1e4a33f954bb3ec4e029.hot-update.js 38 KiB
+cached modules 1.42 MiB [cached] 52 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 27.5 KiB [built] [code generated]
+
+ERROR in ./src/App.js 13:0-34
+Module not found: Error: Can't resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src/HomePage)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 1 error in 130 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.65 MiB
+  asset bundle.js 1.62 MiB [emitted] (name: main)
+  asset main.611c2387973e0b9675a1.hot-update.js 37.1 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.611c2387973e0b9675a1.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.65 MiB = bundle.js 1.62 MiB main.611c2387973e0b9675a1.hot-update.js 37.1 KiB
+cached modules 1.42 MiB [cached] 52 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 26.9 KiB [built] [code generated]
+
+ERROR in ./src/App.js 13:0-34
+Module not found: Error: Can't resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+resolve './HomePage' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+  using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/package.json (relative path: ./src/HomePage)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/HomePage doesn't exist
+ @ ./src/index.js 5:0-24 14:32-35
+
+webpack 5.99.9 compiled with 1 error in 100 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.67 MiB
+  asset bundle.js 1.62 MiB [emitted] (name: main)
+  asset main.43daf05516864d266e66.hot-update.js 42.8 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.43daf05516864d266e66.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.67 MiB = bundle.js 1.62 MiB main.43daf05516864d266e66.hot-update.js 42.8 KiB
+cached modules 1.42 MiB [cached] 52 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 30.2 KiB
+  ./src/App.js 26.9 KiB [code generated]
+  ./src/HomePage.js 3.29 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 51 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.66 MiB
+  asset bundle.js 1.64 MiB [emitted] (name: main)
+  asset main.95275cd0370ead0eb3c7.hot-update.js 24.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.95275cd0370ead0eb3c7.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.66 MiB = bundle.js 1.64 MiB main.95275cd0370ead0eb3c7.hot-update.js 24.4 KiB
+cached modules 1.44 MiB [cached] 53 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 15.4 KiB
+  ./src/HomePage.js 2.87 KiB [built] [code generated]
+  ./src/RewardsPage.js 3.37 KiB [built] [code generated]
+  ./src/CheckInPage.js 3.5 KiB [built] [code generated]
+  ./src/BuddySystemPage.js 5.64 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 109 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.65 MiB
+  asset bundle.js 1.63 MiB [emitted] (name: main)
+  asset main.8d3fc3009b979898cedb.hot-update.js 22.8 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8d3fc3009b979898cedb.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.65 MiB = bundle.js 1.63 MiB main.8d3fc3009b979898cedb.hot-update.js 22.8 KiB
+cached modules 1.43 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 15.5 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 91 ms

@@ -10,6 +10,12 @@ import ParentTeenMode from "./ParentTeenMode";
 import DigitalBudgetMode from "./DigitalBudgetMode";
 import CommunityCircles from "./CommunityCircles";
 import IntegrationsHub from "./IntegrationsHub";
+import HomePage from "./HomePage";
+
+// Added modular imports for home sections:
+import BuddySystemPage from "./BuddySystemPage";
+import RewardsPage from "./RewardsPage";
+import CheckInPage from "./CheckInPage";
 
 // Color variables (from requirements)
 const COLORS = {
@@ -31,10 +37,15 @@ const minimalTheme = {
 
 // PUBLIC_INTERFACE
 function App() {
-  const [tab, setTab] = useState("plan");
+  const [tab, setTab] = useState("home");
 
-  // Navigation tabs, now including Community Circles and Digital Budget Mode
+  // Navigation tabs: removed features now present on Home page
   const navTabs = [
+    {
+      id: "home",
+      label: "Home",
+      icon: "🏡"
+    },
     {
       id: "journey",
       label: "Journey Map",
@@ -44,11 +55,6 @@ function App() {
       id: "plan",
       label: "Detox Plan",
       icon: "🗓️"
-    },
-    {
-      id: "circles",
-      label: "Circles",
-      icon: "🫂"
     },
     {
       id: "budget",
@@ -66,11 +72,6 @@ function App() {
       icon: "🎯"
     },
     {
-      id: "family",
-      label: "Parent-Teen",
-      icon: "🏠"
-    },
-    {
       id: "events",
       label: "Events",
       icon: "🗺️"
@@ -79,26 +80,6 @@ function App() {
       id: "reallocation",
       label: "Reallocation",
       icon: "⏳"
-    },
-    {
-      id: "integrations",
-      label: "Integrations",
-      icon: "🔗"
-    },
-    {
-      id: "buddy",
-      label: "Buddy System",
-      icon: "🤝"
-    },
-    {
-      id: "rewards",
-      label: "Rewards",
-      icon: "🎁"
-    },
-    {
-      id: "checkin",
-      label: "Check-In",
-      icon: "📍"
     },
     {
       id: "journal",
@@ -110,36 +91,26 @@ function App() {
   // Renders the currently active page/component
   function renderPage() {
     switch (tab) {
+      case "home":
+        return <HomePage />;
       case "journey":
         return <DetoxJourneyMap />;
       case "plan":
         return <DetoxPlanPage />;
-      case "circles":
-        return <CommunityCircles />;
       case "budget":
         return <DigitalBudgetMode />;
       case "games":
         return <MiniDetoxGames />;
       case "modes":
         return <DetoxModes />;
-      case "family":
-        return <ParentTeenMode />;
       case "events":
         return <OfflineEventGenerator />;
       case "reallocation":
         return <TimeReallocationTracker />;
-      case "integrations":
-        return <IntegrationsHub />;
-      case "buddy":
-        return <BuddySystemPage />;
-      case "rewards":
-        return <RewardsPage />;
-      case "checkin":
-        return <CheckInPage />;
       case "journal":
         return <JournalPage />;
       default:
-        return <DetoxPlanPage />;
+        return <HomePage />;
     }
   }
 
@@ -346,306 +317,6 @@ function ProgressBar({ progress }) {
         {Math.round(progress * 100)}% completed
       </div>
     </div>
-  );
-}
-
-// ----------- ACCOUNTABILITY BUDDY PAGE -----------
-// PUBLIC_INTERFACE
-function BuddySystemPage() {
-  const paired = true;
-  const buddy = { id: "anonbuddy14", status: "active", streak: 4 };
-
-  return (
-    <section style={{ marginTop: 24 }}>
-      <h2 style={{ color: COLORS.primary, fontSize: '2.1rem', marginBottom: 7 }}>
-        Accountability Buddy
-      </h2>
-      {paired ? (
-        <>
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 18,
-            background: "#EFFBFC",
-            padding: "18px 18px 15px",
-            borderRadius: 14,
-            marginBottom: 16
-          }}>
-            <span style={{
-              fontSize: 36,
-              color: COLORS.primary,
-              marginRight: 9
-            }}>
-              🤝
-            </span>
-            <div>
-              <div style={{ color: COLORS.primary, fontWeight: 600, fontSize: "1.1rem" }}>
-                Paired with: {buddy.id} &bull; <span style={{ fontWeight: 400, color: "#7a8875" }}>anonymous</span>
-              </div>
-              <div style={{ color: "#82B571", fontWeight: 500, fontSize: "1.06rem" }}>
-                Streak: {buddy.streak} days
-              </div>
-            </div>
-          </div>
-          <BuddyStreakSystem
-            streakDays={buddy.streak}
-            buddyName={buddy.id}
-            buddyStatus={buddy.status}
-            showBuddy={true}
-            onBreakReflection={(reflection) => {
-              alert("Reflection sent to buddy!\n\n" + reflection);
-            }}
-          />
-          <BuddyMessagePane />
-        </>
-      ) : (
-        <div>
-          <div style={{
-            padding: 18,
-            background: "#f8fbe9",
-            borderRadius: 12,
-            color: COLORS.primary,
-            marginBottom: 10
-          }}>
-            You are currently not paired.<br />
-            <button
-              style={{
-                marginTop: 8,
-                padding: "9px 20px",
-                borderRadius: 5,
-                background: COLORS.primary,
-                color: "white",
-                border: "none",
-                fontWeight: 500,
-                cursor: "pointer"
-              }}
-              onClick={() => null}
-            >
-              Find Buddy
-            </button>
-          </div>
-          <p style={{ color: "#787e7a" }}>
-            Pairing is anonymous for focused support!
-          </p>
-        </div>
-      )}
-    </section>
-  );
-}
-
-// Simulated buddy chat pane
-function BuddyMessagePane() {
-  const lastMessage = {
-    fromBuddy: true,
-    time: "2h ago",
-    text: "How did your check-in go today? Stay strong! 💪"
-  };
-  return (
-    <div style={{
-      padding: "18px 20px",
-      background: "#fff",
-      border: "1px solid #E0EFE4",
-      borderRadius: 9,
-      marginBottom: 8,
-      minHeight: 50
-    }}>
-      <div style={{
-        marginBottom: 8,
-        color: "#A1ACAE",
-        fontSize: 13
-      }}>
-        Latest from your buddy:
-      </div>
-      <div style={{ color: COLORS.primary, fontWeight: 500, fontSize: "1.04rem" }}>
-        "{lastMessage.text}"
-      </div>
-      <div style={{ textAlign: "right", color: "#9abcb9", fontSize: 11 }}>
-        {lastMessage.time}
-      </div>
-      <button
-        style={{
-          marginTop: 10,
-          background: COLORS.accent,
-          color: "#313619",
-          border: "none",
-          borderRadius: 5,
-          padding: "7px 22px",
-          fontWeight: 500,
-          fontSize: 15,
-          cursor: "pointer"
-        }}
-        onClick={() => alert("Message your buddy! (Demo only)")}
-      >
-        Send Encouragement
-      </button>
-    </div>
-  );
-}
-
-// ----------- REWARDS PAGE -----------
-// PUBLIC_INTERFACE
-function RewardsPage() {
-  const rewards = [
-    { id: 1, name: "Coffee voucher", unlocked: true, desc: "Earned at 3-day streak", icon: "☕" },
-    { id: 2, name: "Gift card", unlocked: false, desc: "7 days offline streak", icon: "🎟️" },
-    { id: 3, name: "Outdoor Yoga Pass", unlocked: false, desc: "Try 2 off-grid activities", icon: "🧘" },
-  ];
-
-  return (
-    <section style={{ marginTop: 24 }}>
-      <h2 style={{ color: COLORS.primary, fontSize: "2.1rem", marginBottom: 7 }}>
-        Milestone Rewards
-      </h2>
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 18,
-        marginTop: 12
-      }}>
-        {rewards.map((r, idx) => (
-          <div
-            key={r.id}
-            style={{
-              background: r.unlocked ? "#fafbe4" : "#F2F6F5",
-              border: r.unlocked ? `2px solid ${COLORS.accent}` : "1px solid #e2efe6",
-              borderRadius: 14,
-              padding: "22px 26px",
-              fontWeight: 500,
-              fontSize: 16,
-              minWidth: 180,
-              boxShadow: "0 2px 4px 0 rgba(46,125,50,0.02)",
-              opacity: r.unlocked ? 1 : 0.65,
-              color: r.unlocked ? COLORS.primary : "#888"
-            }}
-          >
-            <div style={{
-              fontSize: 32,
-              marginBottom: 6,
-              filter: r.unlocked ? "none" : "grayscale(0.7)"
-            }}>
-              {r.icon}
-            </div>
-            <div>{r.name}</div>
-            <div style={{
-              color: r.unlocked ? COLORS.accent : "#A7C5B1",
-              marginTop: 4,
-              fontWeight: 400,
-              fontSize: 14
-            }}>
-              {r.desc}
-            </div>
-            {r.unlocked && (
-              <span style={{
-                color: COLORS.accent,
-                background: "#fcfded",
-                borderRadius: 6,
-                fontWeight: 700,
-                padding: "2px 9px",
-                marginTop: 5,
-                fontSize: 12,
-                display: "inline-block"
-              }}>
-                Unlocked!
-              </span>
-            )}
-          </div>
-        ))}
-      </div>
-      <div style={{
-        marginTop: 30,
-        textAlign: "center",
-        color: "#999D86",
-        fontSize: 15
-      }}>
-        <span>
-          Rewards promote real-life experiences. <br />
-          Celebrate your milestones offline!
-        </span>
-      </div>
-    </section>
-  );
-}
-
-// ----------- CHECK IN PAGE -----------
-// PUBLIC_INTERFACE
-function CheckInPage() {
-  const checkinHistory = [
-    { id: 1, text: "Nature walk (Central Park)", date: "Yesterday", icon: "🌳" },
-    { id: 2, text: "Offline dinner with friends", date: "2 days ago", icon: "🍽️" }
-  ];
-
-  return (
-    <section style={{ marginTop: 24 }}>
-      <h2 style={{ color: COLORS.primary, fontSize: "2.1rem", marginBottom: 7 }}>
-        Off-Grid Check-In
-      </h2>
-      <div style={{
-        padding: "19px 24px 14px",
-        background: "#EFFBFC",
-        borderRadius: 12,
-        marginBottom: 16,
-        color: "#20502C"
-      }}>
-        Log an offline activity to boost your progress!
-      </div>
-      <button
-        style={{
-          background: COLORS.primary,
-          color: "#fff",
-          border: "none",
-          borderRadius: 6,
-          padding: "10px 24px",
-          fontWeight: 500,
-          fontSize: 16,
-          marginBottom: 18,
-          cursor: "pointer"
-        }}
-        onClick={() =>
-          alert("Demo: Check-in! In a full app, log activities here.")
-        }
-      >
-        New Check-In
-      </button>
-      <div style={{ marginTop: 8 }}>
-        <div style={{
-          color: COLORS.primary,
-          marginBottom: 7,
-          fontWeight: 500
-        }}>
-          Recent Check-Ins
-        </div>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {checkinHistory.map((c) => (
-            <li key={c.id} style={{
-              marginBottom: 11,
-              padding: "10px 18px",
-              background: "#fff",
-              borderRadius: 9,
-              border: "1px solid #cbe0d2",
-              color: "#426046",
-              fontWeight: 500,
-              display: "flex",
-              alignItems: "center",
-              gap: 13,
-              fontSize: 15
-            }}>
-              <span style={{ fontSize: 19 }}>{c.icon}</span>
-              <span>{c.text}</span>
-              <span style={{ marginLeft: "auto", color: "#B3B5A9", fontWeight: 400, fontSize: 14 }}>
-                {c.date}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div style={{
-        marginTop: 22,
-        color: "#9AADA6",
-        fontSize: 14
-      }}>
-        More check-ins, more progress!
-      </div>
-    </section>
   );
 }
 
