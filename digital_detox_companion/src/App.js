@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import DetoxJourneyMap from "./DetoxJourneyMap";
 import TimeReallocationTracker from "./TimeReallocationTracker";
-import BuddyStreakSystem from "./BuddyStreakSystem";
+import BuddyStreakSystem from "./BuddyStreakSystem"; // reserved/legacy, not shown
 import DetoxModes from "./DetoxModes";
 import OfflineEventGenerator from "./OfflineEventGenerator";
 import MiniDetoxGames from "./MiniDetoxGames";
@@ -15,6 +15,14 @@ import Toast from "./Toast";
 import Sidebar from "./Sidebar";
 import OnboardingSlides from "./OnboardingSlides";
 import { rewardsList } from "./rewardsData";
+
+// --- Placeholders for new feature modules if missing ---
+let CalendarSync = (props) => <div>Calendar Sync integration coming soon.</div>;
+let SpotifyHealthSync = (props) => <div>Spotify & Health app sync feature coming soon.</div>;
+let EmergencyBypassModal = (props) => <div>Emergency Bypass feature coming soon.</div>;
+try { CalendarSync = require("./CalendarSync").default || CalendarSync; } catch {}
+try { SpotifyHealthSync = require("./SpotifyHealthSync").default || SpotifyHealthSync; } catch {}
+try { EmergencyBypassModal = require("./EmergencyBypassModal").default || EmergencyBypassModal; } catch {}
 
 // Dynamic/fallback page assignments to avoid runtime/render errors for missing modules
 let DetoxPlanPage = (props) => <div>DetoxPlanPage is missing.</div>;
@@ -75,6 +83,15 @@ function App() {
     message: "",
     type: "info",
   });
+
+  // --- State slots for future features (as stubs only) ---
+  // Example: toggle switches, feature gating, sync status, etc.
+  // const [featureStates, setFeatureStates] = useState({
+  //   calendarSyncEnabled: false,
+  //   healthSyncEnabled: false,
+  //   ... // others as needed in future
+  // });
+
   // Onboarding overlay visibility (show onboarding if "onboarded" !== "yes" in localStorage)
   const [onboardingDone, setOnboardingDone] = useState(() => {
     try {
@@ -101,24 +118,36 @@ function App() {
       ({ ...prev, open: false })), 3300);
   };
 
-  // Seven main features for Digital Detox Companion (for nav):
-  // 1. Personalized Digital Detox Plans      → Detox Plan
-  // 2. Accountability Buddy System            → Buddy System
-  // 3. Real-World Milestone Rewards           → Rewards
-  // 4. Off-Grid Check-In System               → Check-In
-  // 5. AI-Powered Reflection & Habit Journal  → Journal
-  // 6. Journey Map                            → Journey Map
-  // 7. Community Circles                      → Circles
+  // TEN core features for Digital Detox Companion (per new requirements):
+  // [1] Time Reallocation Tracker           → tracker
+  // [2] Detox Modes (flexible)              → modes
+  // [3] Emergency Bypass & Mindful Pause    → bypass
+  // [4] Offline Event Generator             → events
+  // [5] Mini Detox Games/Tasks              → games
+  // [6] Parent-Teen Mode                    → family
+  // [7] Digital Budget Management           → budget
+  // [8] Community Circles                   → circles
+  // [9] Integration: Calendar Sync          → calendar
+  // [10] Integration: Spotify/Health Sync   → health
 
-  // Adjust navTabs to ensure all SEVEN key features are present in navigation.
+  // Adjust navTabs to ensure all TEN key features are present in navigation.
   const navTabs = [
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },          // Digital Detox Plan
-    { id: "buddy", label: "Buddy", icon: "🤝" },               // Buddy System
-    { id: "rewards", label: "Rewards", icon: "🎁" },           // Milestone Rewards
-    { id: "checkin", label: "Check-In", icon: "✅" },          // Off-Grid Check-In
-    { id: "journal", label: "Journal", icon: "📖" },           // Reflection Journal
-    { id: "journey", label: "Journey", icon: "🛤️" },          // Journey Map
-    { id: "circles", label: "Circles", icon: "🫂" }            // Community Circles
+    { id: "plan", label: "Detox Plan", icon: "🗺️" },            // Core Plan & progress
+    { id: "tracker", label: "Reallocation", icon: "⏱️" },       // Time Reallocation Tracker
+    { id: "modes", label: "Modes", icon: "🌀" },                 // Flexible Detox Modes
+    { id: "bypass", label: "Bypass", icon: "⛑️" },               // Emergency Bypass with Mindful Pause
+    { id: "events", label: "Events", icon: "🎉" },               // Offline Event Generator
+    { id: "games", label: "Games", icon: "🎮" },                 // Mini Detox Games
+    { id: "family", label: "Family", icon: "👨‍👩‍👦" },            // Parent-Teen Mode
+    { id: "budget", label: "Budget", icon: "💳" },               // Digital Budget Management
+    { id: "calendar", label: "Calendar", icon: "📅" },           // Calendar integration
+    { id: "health", label: "Health Sync", icon: "💚" },          // Spotify/Health Sync
+    { id: "circles", label: "Circles", icon: "🫂" },             // Community Circles
+    { id: "buddy", label: "Buddy", icon: "🤝" },                 // Buddy System (legacy)
+    { id: "rewards", label: "Rewards", icon: "🎁" },             // Milestone Rewards (legacy)
+    { id: "checkin", label: "Check-In", icon: "✅" },            // Off-Grid Check-In (legacy)
+    { id: "journal", label: "Journal", icon: "📖" },             // Reflection Journal (legacy)
+    { id: "journey", label: "Journey", icon: "🛤️" }             // Journey Map (legacy)
   ];
 
   // Renders the currently active page/component
@@ -126,24 +155,31 @@ function App() {
     switch (tab) {
       case "home":
         return <HomePage />;
-      case "journey":
-        return <DetoxJourneyMap />;
       case "plan":
         return <DetoxPlanPage showToast={showToast} />;
-      case "circles":
-        return <CommunityCircles />;
-      case "budget":
-        return <DigitalBudgetMode />;
-      case "games":
-        return <MiniDetoxGames />;
+      case "tracker":
+        return <TimeReallocationTracker />;
       case "modes":
         return <DetoxModes />;
-      case "family":
-        return <ParentTeenMode />;
+      case "bypass":
+        return <EmergencyBypassModal />;
       case "events":
         return <OfflineEventGenerator />;
-      case "reallocation":
-        return <TimeReallocationTracker />;
+      case "games":
+        return <MiniDetoxGames />;
+      case "family":
+        return <ParentTeenMode />;
+      case "budget":
+        return <DigitalBudgetMode />;
+      case "calendar":
+        return <CalendarSync />;
+      case "health":
+        return <SpotifyHealthSync />;
+      case "circles":
+        return <CommunityCircles />;
+      // Legacy/ancillary
+      case "journey":
+        return <DetoxJourneyMap />;
       case "integrations":
         return <IntegrationsHub />;
       case "buddy":

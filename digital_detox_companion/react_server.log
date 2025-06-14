@@ -20,4 +20,92 @@ cacheable modules 1.47 MiB
       ./node_modules/css-loader/dist/cjs.js!./src/index.css 875 bytes [built] [code generated]
       ./src/App.css 2.22 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./src/App.css 10.8 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 2094 ms
+webpack 5.99.9 compiled successfully in 2125 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.65 MiB [emitted] (name: main)
+  asset main.823296e73de0c253365c.hot-update.js 23.6 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.823296e73de0c253365c.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.65 MiB main.823296e73de0c253365c.hot-update.js 23.6 KiB
+cached modules 1.46 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 15.7 KiB [built] [code generated]
+
+WARNING in ./src/App.js 34:17-50
+Module not found: Error: Can't resolve './CalendarSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+WARNING in ./src/App.js 37:22-60
+Module not found: Error: Can't resolve './SpotifyHealthSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+2 warnings have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
+
+webpack 5.99.9 compiled with 2 warnings in 212 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.66 MiB [emitted] (name: main)
+  asset main.91147c4310bea0b01732.hot-update.js 24.7 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.91147c4310bea0b01732.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.66 MiB main.91147c4310bea0b01732.hot-update.js 24.7 KiB
+cached modules 1.46 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 16.8 KiB [built] [code generated]
+
+WARNING in ./src/App.js 34:17-50
+Module not found: Error: Can't resolve './CalendarSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+WARNING in ./src/App.js 37:22-60
+Module not found: Error: Can't resolve './SpotifyHealthSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+2 warnings have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
+
+webpack 5.99.9 compiled with 2 warnings in 97 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.66 MiB [emitted] (name: main)
+  asset main.abfdbe9035981e879e32.hot-update.js 25.3 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.abfdbe9035981e879e32.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.66 MiB main.abfdbe9035981e879e32.hot-update.js 25.3 KiB
+cached modules 1.46 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 17.2 KiB [built] [code generated]
+
+WARNING in ./src/App.js 34:17-50
+Module not found: Error: Can't resolve './CalendarSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+WARNING in ./src/App.js 37:22-60
+Module not found: Error: Can't resolve './SpotifyHealthSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+2 warnings have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
+
+webpack 5.99.9 compiled with 2 warnings in 91 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.66 MiB [emitted] (name: main)
+  asset main.8ecc37f61a0fb0afd0e6.hot-update.js 25.6 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8ecc37f61a0fb0afd0e6.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.66 MiB main.8ecc37f61a0fb0afd0e6.hot-update.js 25.6 KiB
+cached modules 1.46 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+./src/App.js 17.5 KiB [built] [code generated]
+
+WARNING in ./src/App.js 34:17-50
+Module not found: Error: Can't resolve './CalendarSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+WARNING in ./src/App.js 37:22-60
+Module not found: Error: Can't resolve './SpotifyHealthSync' in '/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src'
+ @ ./src/index.js 4:0-24 10:30-33
+
+2 warnings have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
+
+webpack 5.99.9 compiled with 2 warnings in 79 ms
