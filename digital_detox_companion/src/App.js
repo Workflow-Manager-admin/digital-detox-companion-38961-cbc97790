@@ -10,7 +10,7 @@ import ParentTeenMode from "./ParentTeenMode";
 import DigitalBudgetMode from "./DigitalBudgetMode";
 import CommunityCircles from "./CommunityCircles";
 import IntegrationsHub from "./IntegrationsHub";
-import HomePage from "./HomePage";
+import Dashboard from "./Dashboard"; // New Dashboard import
 import Toast from "./Toast";
 import Sidebar from "./Sidebar";
 import OnboardingSlides from "./OnboardingSlides";
@@ -118,8 +118,9 @@ function App() {
   // 13. Journey Map                          → Journey
 
   // To maximize clarity and modularity, all features are given a nav entry.
-  // (Only "Home" hidden, as it's default initial route.)
+  // Place "Home" tab as first and visible for initial/landing page.
   const navTabs = [
+    { id: "home", label: "Home", icon: "🏠" },
     { id: "plan", label: "Detox Plan", icon: "🗺️" },
     { id: "buddy", label: "Buddy", icon: "🤝" },
     { id: "rewards", label: "Rewards", icon: "🎁" },
@@ -139,7 +140,7 @@ function App() {
   function renderPage() {
     switch (tab) {
       case "home":
-        return <HomePage />;
+        return <Dashboard />;
       case "plan":
         return <DetoxPlanPage showToast={showToast} />;
       case "buddy":
