@@ -1,176 +1,108 @@
 import React, { useState } from "react";
 
 /**
- * DetoxPlanPage - Personalized Detox Plan
- * Minimal, playful UI showing user's digital detox plan and progress.
- * @param {function} showToast - Function to display toast messages (feedback).
+ * DetoxPlanPage - Personalized Digital Detox Plan Overview Page.
+ * @param {object} props
+ * @param {function} [props.showToast] - Function to trigger a toast message.
  */
 // PUBLIC_INTERFACE
 function DetoxPlanPage({ showToast }) {
-  // Example plan and progress (could be enhanced with real data)
+  // Example plan state and streaks
   const [plan, setPlan] = useState({
-    startDate: "Today",
-    endDate: "21 Days Later",
-    dailyGoal: "Max 1 hour social media",
-    extra: "Try one off-screen activity daily!",
+    goal: "2 hours max/day of social media",
+    startDate: "2024-05-10",
+    duration: 14,
+    completed: 8,
+    activities: [
+      "Walk 30 min daily",
+      "Check phone only twice before noon",
+      "One full off-grid Saturday"
+    ]
   });
-  const [progress, setProgress] = useState(0.33); // e.g., 33% through a 21-day plan
 
-  // Playful step tracker logic
-  const steps = [
-    "Begin Detox",
-    "3-Day Streak",
-    "1 Week Milestone",
-    "Halfway There!",
-    "Completed!",
-  ];
-  const currentStep =
-    progress < 0.15
-      ? 0
-      : progress < 0.4
-      ? 1
-      : progress < 0.7
-      ? 2
-      : progress < 1
-      ? 3
-      : 4;
-
-  // Playful nudge on clicking "Mark Today's Progress"
-  const handleButtonClick = () => {
-    if (progress < 1) {
-      const newProgress = Math.min(1, progress + 0.07 + Math.random() * 0.1);
-      setProgress(newProgress);
-      showToast &&
-        showToast(
-          newProgress >= 1
-            ? "🎉 Detox Complete! Celebrate screen-free wins!"
-            : "Great check-in! Stay strong; every day counts! 🌱",
-          "success"
-        );
-    }
+  // Handler for playful CTA (Start Today/Edit Plan)
+  const handleStartOrEdit = () => {
+    if (showToast) showToast("🔒 Digital Detox started! Good luck!", "success");
   };
 
+  // Progress: completed days / total
+  const progress = Math.min(1, plan.completed / plan.duration);
+
+  // Playful mascot
+  const mascot = "🦥";
+
   return (
-    <div className="detox-plan-page" style={{ marginTop: 18 }}>
-      <h2 style={{ color: "#2E7D32", marginBottom: 6, fontWeight: 600 }}>
-        Your Detox Plan
-      </h2>
-      <div
-        style={{
-          background: "#F2F6F5",
-          padding: 22,
-          borderRadius: 16,
-          border: "1px solid #E7F6EC",
-          margin: "12px 0 16px",
-          boxShadow: "0 1px 5px rgba(44,127,67,0.04)",
-        }}
-      >
-        <div>
-          <strong>Start:</strong> {plan.startDate}
-        </div>
-        <div>
-          <strong>End:</strong> {plan.endDate}
-        </div>
-        <div>
-          <strong>Daily Goal:</strong> {plan.dailyGoal}
-        </div>
-        <div style={{ color: "#789262", marginTop: 6, fontStyle: "italic" }}>
-          {plan.extra}
+    <div style={{paddingTop:20}}>
+      <div style={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 20
+      }}>
+        <span style={{ fontSize: 54, marginRight: 14 }}>{mascot}</span>
+        <div style={{flex:1}}>
+          <h2 style={{ margin: 0, fontWeight: 700, fontSize: 30 }}>
+            Your Detox Plan
+          </h2>
+          <p style={{ color: "#789262", fontWeight: 500, fontSize: 15 }}>
+            🌱 {plan.goal} <br />
+            ⏱ Duration: {plan.duration} days
+          </p>
+          <div style={{
+            background: "#B2DFDB22",
+            borderRadius: 10,
+            padding: 16,
+            marginBottom: 12,
+            boxShadow: "0 1px 4px rgba(44,127,67,0.06)"
+          }}>
+            <div style={{ color: "#2E7D32", fontWeight: 600, marginBottom: 3 }}>
+              Activities:
+            </div>
+            <ul style={{ margin: 0, paddingLeft: 19, color: "#1A1A1Abb" }}>
+              {plan.activities.map((act, i) => (
+                <li key={i} style={{marginBottom:2}}>{act}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      {/* Playful Progress Steps */}
-      <ol
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 12,
-          justifyContent: "center",
-          listStyle: "none",
-          padding: 0,
-          marginLeft: 0,
-          marginBottom: 16,
-        }}
-      >
-        {steps.map((label, idx) => (
-          <li
-            key={label}
-            className={idx === currentStep ? "active-step" : ""}
-            style={{
-              background:
-                idx === currentStep ? "#FFD600" : "#B2DFDB",
-              color: idx === currentStep ? "#2E7D32" : "#356c3d",
-              borderRadius: 10,
-              padding: "7px 13px",
-              fontWeight: idx === currentStep ? 600 : 400,
-              fontSize: 14,
-              boxShadow:
-                idx === currentStep
-                  ? "0 2px 5px rgba(44,127,67,0.12)"
-                  : "none",
-              border:
-                idx === currentStep
-                  ? "2px solid #2E7D32"
-                  : "1px solid #B2DFDB",
-              transition: "all 0.15s",
-              opacity: idx > currentStep ? 0.55 : 1,
-              minWidth: 70
-            }}
-          >
-            {label}
-          </li>
-        ))}
-      </ol>
-      {/* Visual Progress Bar */}
-      <div style={{ margin: "16px 0 6px" }}>
-        <div
-          style={{
-            background: "#ededed",
-            borderRadius: 6,
-            height: 14,
-            position: "relative",
-            overflow: "hidden",
-            width: "100%",
-            marginBottom: 2,
-          }}
-        >
-          <div
-            style={{
-              width: `${Math.round(progress * 100)}%`,
-              background:
-                "linear-gradient(90deg,#2E7D32,#B2DFDB)",
-              height: "100%",
-              transition: "width 0.7s cubic-bezier(.4,0,.2,1)",
-              borderRadius: 6,
-            }}
-          ></div>
+      {/* Progress/streak bar */}
+      <div style={{margin: "16px 0 4px"}}>
+        <div style={{
+          height:12, background:"#E7F6EC", borderRadius:9,
+          width:"100%", overflow:"hidden", marginBottom:3
+        }}>
+          <div style={{
+            height: "100%",
+            width: `${Math.round(progress * 100)}%`,
+            background: "linear-gradient(90deg, #2E7D32, #B2DFDB 90%)",
+            transition: "width 0.5s cubic-bezier(.42,0,.2,1)"
+          }} />
         </div>
-        <span style={{ fontSize: 13, color: "#789262" }}>
-          {Math.round(progress * 100)}% complete
-        </span>
+        <div style={{color:"#789262", fontSize:13}}>
+          {plan.completed} / {plan.duration} days completed
+        </div>
       </div>
+      {/* Playful cta */}
       <button
-        className="btn"
+        className="btn btn-large"
         style={{
+          marginTop: 18,
           background: "#FFD600",
-          color: "#2E7D32",
-          margin: "22px 0 0",
+          color: "#1A1A1A",
           fontWeight: 600,
-          fontSize: "1rem",
+          fontSize: 18,
+          padding: "13px 36px",
+          borderRadius: 15,
           border: "none",
-          borderRadius: 8,
-          padding: "13px 25px",
           cursor: "pointer",
-          boxShadow: "0 1px 8px rgba(89,186,106,0.08)",
-          transition: "background 0.15s",
+          letterSpacing: ".01em",
+          boxShadow: "0 2px 10px rgba(190,197,95,0.07)"
         }}
-        onClick={handleButtonClick}
-        disabled={progress >= 1}
+        onClick={handleStartOrEdit}
+        tabIndex={0}
       >
-        {progress < 1 ? "Mark Today's Progress" : "Detox Complete! 🎉"}
+        {plan.completed === 0 ? "Start Today!" : "Edit Plan"}
       </button>
-      <div style={{ marginTop: 18, color: "#B79A5A", fontSize: 15 }}>
-        Tip: The less you check this app, the better you’re doing! 🌳
-      </div>
     </div>
   );
 }

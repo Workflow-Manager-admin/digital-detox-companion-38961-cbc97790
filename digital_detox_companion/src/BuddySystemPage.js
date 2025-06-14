@@ -1,122 +1,112 @@
 import React, { useState } from "react";
 
 /**
- * BuddySystemPage - Accountability Buddy System
- * Minimal and playful UI for buddy pairing and encouragement.
- * @param {function} showToast - Function to display toast messages.
+ * BuddySystemPage - Find & manage accountability buddy; track streaks.
+ * @param {object} props
+ * @param {function} [props.showToast] - Optional, for toast feedback.
  */
 // PUBLIC_INTERFACE
 function BuddySystemPage({ showToast }) {
-  // For simplicity, use mock buddy names and check-in states
-  const [buddy, setBuddy] = useState({
-    name: "AnonymousBear",
-    checkedIn: false,
-    streak: 5,
-    encouragement: [
-      "You got this! 🐻",
-      "Keep each other accountable! 🤩",
-      "Stay strong together! 💪",
-      "Screen free = team win! 🌟"
-    ]
-  });
-  const [youCheckedIn, setYouCheckedIn] = useState(false);
+  // Example buddy state
+  const [hasBuddy, setHasBuddy] = useState(false);
+  const [buddy, setBuddy] = useState({ name: "MysterySloth42", streak: 5 });
+  const [pending, setPending] = useState(false);
 
-  // Simulate a playful check-in
-  const handleCheckIn = () => {
-    setYouCheckedIn(true);
-    showToast &&
-      showToast(
-        "You checked in! Your buddy will be notified 🎈",
-        "success"
-      );
+  // Playful mascot
+  const mascot = "🦦";
+
+  const handleRequestBuddy = () => {
+    setPending(true);
+    if (showToast) showToast("⏳ Looking for a buddy…", "info");
+    setTimeout(() => {
+      setHasBuddy(true);
+      setPending(false);
+      if (showToast) showToast("🤝 Buddy paired! Say hi to MysterySloth42!", "success");
+    }, 1300);
   };
 
-  // Simulate pairing with a new buddy
-  const handleSwitchBuddy = () => {
-    setBuddy({
-      name: "KindRedPanda",
-      checkedIn: false,
-      streak: Math.floor(Math.random() * 10 + 1),
-      encouragement: [
-        "Going strong, Panda buddy! 🐼",
-        "New streak, new beginnings! 🚀",
-        "Stay detoxed, stay wild! 🌱",
-        "One day at a time! 🍃"
-      ]
-    });
-    setYouCheckedIn(false);
-    showToast &&
-      showToast("You switched to a new buddy for a fresh start!", "info");
+  const handleCheer = () => {
+    if (showToast)
+      showToast("👏 You cheered your buddy!", "success");
   };
 
   return (
-    <div style={{ marginTop: 18 }}>
-      <h2 style={{ color: "#2E7D32", fontWeight: 600 }}>Accountability Buddy</h2>
-      <div
-        style={{
-          background: "#B2DFDB",
-          borderRadius: 16,
-          padding: 18,
-          margin: "18px 0",
-          boxShadow: "0 1px 4px rgba(30,77,63,0.09)",
-          border: "1px solid #B2DFDB",
-        }}
-      >
-        <div style={{ fontWeight: 600, fontSize: 16, marginBottom: 4 }}>
-          Your buddy is: <span style={{ color: "#FFD600" }}>{buddy.name}</span>
+    <div style={{ maxWidth: 460, margin: "0 auto", textAlign: "center", paddingTop: 30 }}>
+      <div style={{ fontSize: 49 }}>{mascot}</div>
+      <h2 style={{ margin: "15px 0 9px", fontWeight: 700 }}>
+        Accountability Buddy
+      </h2>
+      {!hasBuddy && !pending && (
+        <div>
+          <p style={{ color: "#789262", fontSize:16 }}>
+            Pair up with a mystery user to boost your detox streaks!
+          </p>
+          <button className="btn btn-large"
+            style={{
+              marginTop: 18,
+              background: "#2E7D32",
+              color: "#fff",
+              fontWeight: 600,
+              fontSize: 18,
+              padding: "13px 30px",
+              borderRadius: 15,
+              border: "none",
+              cursor: "pointer"
+            }}
+            onClick={handleRequestBuddy}
+            tabIndex={0}
+          >
+            Find me a Buddy!
+          </button>
         </div>
-        <div style={{ color: "#1A1A1A", marginBottom: 6 }}>
-          <span role="img" aria-label="fire">🔥</span> Current streak:{" "}
-          <span style={{ fontWeight: "bold" }}>{buddy.streak} days</span>
+      )}
+      {pending && (
+        <div style={{ color: "#2E7D32", marginTop: 22 }}>
+          <span>🔎 Pairing…</span>
         </div>
-        <div style={{ color: "#356c3d", fontSize: 15, marginBottom: 0 }}>
-          {
-            buddy.encouragement[
-              Math.floor(Math.random() * buddy.encouragement.length)
-            ]
-          }
-        </div>
-      </div>
-      <button
-        className="btn"
-        style={{
-          background: youCheckedIn ? "#DADADA" : "#FFD600",
-          color: "#2E7D32",
-          padding: "11px 25px",
-          fontWeight: 600,
-          border: "none",
-          borderRadius: 8,
-          fontSize: "1rem",
-          cursor: youCheckedIn ? "default" : "pointer",
-          marginBottom: 9,
-          width: "auto",
-          boxShadow: "0 1px 10px rgba(240,186,71,0.07)"
-        }}
-        disabled={youCheckedIn}
-        onClick={handleCheckIn}
-      >
-        {youCheckedIn ? "Checked In Today!" : "Check In With Buddy"}
-      </button>
-      <br />
-      <button
-        className="btn"
-        style={{
-          background: "#F2F6F5",
-          color: "#2E7D32",
-          border: "1.5px solid #FFD600",
-          borderRadius: 8,
-          fontWeight: 500,
-          fontSize: 15,
-          padding: "7px 18px",
-          cursor: "pointer",
-        }}
-        onClick={handleSwitchBuddy}
-      >
-        Switch Buddy
-      </button>
-      <div style={{ marginTop: 19, color: "#789262", fontSize: 14 }}>
-        Pairing is anonymous. Be kind and stay positive! ✨
-      </div>
+      )}
+      {hasBuddy && (
+        <>
+          <div style={{
+            background: "#B2DFDB10",
+            borderRadius: 16,
+            padding: "20px 12px",
+            margin: "18px auto 0",
+            boxShadow: "0 2px 10px rgba(44,127,67,0.02)"
+          }}>
+            <div style={{ fontWeight: 600, color: "#2E7D32", fontSize:18 }}>
+              {buddy.name}
+            </div>
+            <div style={{
+              color: "#A0BFA2",
+              fontSize: 13,
+              margin: "6px 0 3px"
+            }}>
+              Detox streak: <strong>{buddy.streak}</strong> days
+            </div>
+            <button
+              className="btn"
+              style={{
+                background: "#FFD600",
+                color: "#1A1A1A",
+                marginTop: 11,
+                fontWeight: 600,
+                padding: "7px 22px",
+                borderRadius: 9,
+                border: "none",
+                cursor: "pointer"
+              }}
+              onClick={handleCheer}
+              tabIndex={0}
+            >
+              Send Cheer 🎉
+            </button>
+          </div>
+          <p style={{ paddingTop: 13, color: "#789262" }}>
+            Encourage each other—every day longer, together!
+          </p>
+        </>
+      )}
     </div>
   );
 }

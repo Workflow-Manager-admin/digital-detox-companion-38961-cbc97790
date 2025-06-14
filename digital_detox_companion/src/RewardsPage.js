@@ -1,126 +1,67 @@
-import React, { useState } from "react";
+import React from "react";
 import { rewardsList } from "./rewardsData";
 
 /**
- * RewardsPage - Milestone Rewards for Detox
- * Minimal and playful UI for claiming real-world rewards for milestone achievements.
+ * RewardsPage - Shows earned and locked milestone rewards.
  */
 // PUBLIC_INTERFACE
 function RewardsPage() {
-  // Track rewards claimed by ID
-  const [claimed, setClaimed] = useState({});
-
-  // Claim reward interaction
-  const handleClaim = (rewardId) => {
-    setClaimed((prev) => ({ ...prev, [rewardId]: true }));
-  };
+  // Example completion state: number of milestones reached
+  const completedMilestones = 2;
 
   return (
-    <div style={{ marginTop: 18 }}>
-      <h2 style={{ color: "#2E7D32", fontWeight: 600 }}>Milestone Rewards</h2>
-      <div style={{ color: "#6A6F38", marginBottom: 18 }}>
-        Hit detox milestones, then claim your real-life rewards!
+    <div style={{ maxWidth: 520, margin: "0 auto", paddingTop: 34 }}>
+      <h2 style={{ fontWeight: 700, marginBottom: 14 }}>
+        🎁 Milestone Rewards
+      </h2>
+      <div style={{ marginBottom: 20, color: "#789262" }}>
+        Earn rewards for real-world achievements! Progress = real perks.
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 18,
-          justifyContent: "center",
-        }}
-      >
-        {rewardsList && rewardsList.length ? (
-          rewardsList.map((item) => (
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 22
+      }}>
+        {rewardsList && rewardsList.length > 0 ? (
+          rewardsList.map((reward, idx) => (
             <div
-              key={item.id}
+              key={reward.id || idx}
               style={{
-                background: "#FDF8EB",
-                border: `2px solid ${
-                  claimed[item.id] ? "#FFD600" : "#E7F6EC"
-                }`,
-                borderRadius: 15,
-                padding: "16px 22px 14px 22px",
-                minWidth: 180,
-                minHeight: 130,
-                position: "relative",
-                textAlign: "center",
-                color: "#1A1A1A",
-                boxShadow: claimed[item.id]
-                  ? "0 3px 10px rgba(220,180,76,0.12)"
-                  : "none",
-                opacity: claimed[item.id] ? 0.65 : 1,
-                transition: "all 0.16s",
-                fontWeight: 500,
-                fontSize: 16,
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 32,
-                  lineHeight: 1,
-                  marginBottom: 7,
-                  filter: claimed[item.id] ? "grayscale(0.7)" : "none",
-                }}
-              >
-                {item.emoji}
+                background: idx < completedMilestones ? "#FFF9DE" : "#F1F1F1",
+                border: idx < completedMilestones ? "2px solid #FFD600" : "1px solid #E7E7E7",
+                borderRadius: 17,
+                padding: "19px 13px",
+                minHeight: 80,
+                boxShadow: "0 1px 7px rgba(150,150,0,0.04)",
+                opacity: idx < completedMilestones ? 1 : 0.62,
+                position: "relative"
+              }}>
+              <span style={{
+                fontSize: 33,
+                position: "absolute",
+                top: 11,
+                right: 16,
+                opacity: idx < completedMilestones ? 1 : 0.2
+              }}>{reward.emoji || "🏅"}</span>
+              <div style={{
+                fontWeight: 600,
+                fontSize: 17,
+                color: idx < completedMilestones ? "#2E7D32" : "#999"
+              }}>
+                {reward.title}
               </div>
-              <div style={{ fontWeight: 600, marginBottom: 4 }}>
-                {item.title}
+              <div style={{
+                color: "#555",
+                fontSize: 14,
+                marginTop: 6
+              }}>
+                {idx < completedMilestones ? reward.description : "Keep progressing to unlock!"}
               </div>
-              <div
-                style={{
-                  fontSize: 14,
-                  color: "#977222",
-                  marginBottom: 7,
-                  fontStyle: "italic",
-                }}
-              >
-                {item.description}
-              </div>
-              <button
-                className="btn"
-                style={{
-                  background: claimed[item.id] ? "#B2DFDB" : "#FFD600",
-                  color: "#2E7D32",
-                  padding: "7px 16px",
-                  borderRadius: 6,
-                  border: claimed[item.id]
-                    ? "1px solid #B2DFDB"
-                    : "1.5px solid #FFD600",
-                  fontWeight: 500,
-                  fontSize: 15,
-                  marginTop: 7,
-                  cursor: claimed[item.id] ? "not-allowed" : "pointer",
-                  opacity: claimed[item.id] ? 0.7 : 1,
-                }}
-                disabled={claimed[item.id]}
-                onClick={() => handleClaim(item.id)}
-              >
-                {claimed[item.id] ? "Claimed!" : "Claim"}
-              </button>
-              {claimed[item.id] && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 6,
-                    right: 14,
-                    color: "#FFD600",
-                    fontWeight: 700,
-                    fontSize: 19,
-                    transform: "rotate(-8deg)",
-                  }}
-                >
-                  🏅
-                </div>
-              )}
             </div>
           ))
         ) : (
-          <div>No rewards available yet!</div>
+          <div>No rewards found. Start your plan!</div>
         )}
-      </div>
-      <div style={{ marginTop: 22, color: "#789262", fontSize: 15 }}>
-        The best reward? More life unplugged. 🏞️
       </div>
     </div>
   );
