@@ -1,90 +1,108 @@
 import React from "react";
 
+/**
+ * Dashboard/Home page for Digital Detox Companion.
+ * Shows primary description, user progress, and quick entry points to core features.
+ */
 // PUBLIC_INTERFACE
 function Dashboard() {
   return (
-    <div
-      style={{
-        padding: "40px 0 0 0",
-        textAlign: "center",
-        color: "#20542d",
-        minHeight: 360,
-      }}
-    >
-      <h1 style={{ fontSize: 37, fontWeight: 700 }}>
+    <div style={{ padding: "46px 0 12px 0" }}>
+      <h1
+        className="title"
+        style={{
+          color: "#2E7D32",
+          fontWeight: 700,
+          fontSize: 34,
+          marginBottom: 10,
+          letterSpacing: 0.001,
+        }}
+      >
         Welcome to Digital Detox Companion
       </h1>
-      <p
+      <div
         className="description"
         style={{
-          color: "#47653B",
-          fontSize: 18,
-          maxWidth: 530,
-          margin: "16px auto 34px",
-          lineHeight: 1.6,
+          margin: "22px 0 28px 0",
+          color: "#354e38",
+          fontSize: 20,
+          fontWeight: 400,
+          maxWidth: 690,
+          lineHeight: 1.7,
+          letterSpacing: 0.01,
         }}
       >
-        Digital Detox Companion empowers you to reclaim your time and attention, break free from screen overuse,
-        and rediscover vibrant, meaningful experiences beyond the device.
-        With personal plans, real accountability, tangible rewards, and a supportive community,
-        unlock a life where technology serves you—not the other way around!
-      </p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 30,
-          margin: "24px auto",
-          flexWrap: "wrap",
-          maxWidth: 850,
-        }}
-      >
-        {/* Example App Highlights */}
-        <Highlight
-          emoji="🗺️"
+        Digital Detox Companion empowers you to reclaim your time and reconnect—both with yourself and the world around you. Our holistic app helps you build lasting digital habits through tailored detox plans, real-world milestone rewards, and a supportive buddy system. Experience the joy of meaningful offline moments while growing a healthier, more mindful relationship with technology.
+      </div>
+
+      {/* Example feature highlights */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 30, marginTop: 22 }}>
+        <FeatureCard
+          icon="🗺️"
           title="Personalized Detox Plans"
-          body="Custom plans guide you step-by-step to develop healthier device habits that fit your goals and lifestyle."
+          description="Step-by-step plans tailored to your lifestyle and digital goals."
         />
-        <Highlight
-          emoji="🤝"
-          title="Accountability Buddy System"
-          body="Pair with an anonymous peer for genuine support, check-ins, and encouragement throughout your journey."
+        <FeatureCard
+          icon="🤝"
+          title="Accountability Buddy"
+          description="Pair anonymously for encouragement, check-ins, and shared milestones."
         />
-        <Highlight
-          emoji="🎁"
+        <FeatureCard
+          icon="🎁"
           title="Real-World Rewards"
-          body="Earn tangible rewards for meaningful milestones—because living offline has real life benefits!"
+          description="Celebrate your milestones with experiences and perks that matter."
         />
-        <Highlight
-          emoji="🫂"
-          title="Supportive Community"
-          body="Join circles, share progress, and celebrate each other in a healthy, positive environment."
+        <FeatureCard
+          icon="📖"
+          title="AI Reflection Journal"
+          description="Thoughtful prompts help you reflect, grow, and sustain new habits."
+        />
+        <FeatureCard
+          icon="🌱"
+          title="Offline Connection"
+          description="Tools to help you rediscover fulfillment beyond the screen."
         />
       </div>
     </div>
   );
 }
 
-// Simple stateless info card
-function Highlight({ emoji, title, body }) {
+/**
+ * Feature highlight card for main dashboard
+ */
+// PUBLIC_INTERFACE
+function FeatureCard({ icon, title, description }) {
   return (
     <div
       style={{
-        background: "#F6FBF7",
-        border: "1px solid #E7F6EC",
-        boxShadow: "0 4px 18px rgba(44,127,67,0.05)",
-        borderRadius: 16,
-        padding: "20px 22px",
-        margin: "0 0 18px 0",
-        minWidth: 185,
-        maxWidth: 220,
-        flex: "1 1 185px",
-        textAlign: "center",
+        minWidth: 210,
+        maxWidth: 235,
+        flex: "1 1 210px",
+        background: "#f4faf6",
+        border: "1px solid #e4eae1",
+        borderRadius: 14,
+        padding: "22px 20px 18px 20px",
+        boxShadow: "0 0.5px 10px rgba(44,127,67,0.06)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        marginBottom: 12,
       }}
     >
-      <div style={{ fontSize: 34, marginBottom: 7 }}>{emoji}</div>
-      <div style={{ fontWeight: 700, fontSize: 17 }}>{title}</div>
-      <div style={{ color: "#638267", fontSize: 15, marginTop: 7 }}>{body}</div>
+      <div style={{ fontSize: 32, marginBottom: 8 }}>{icon}</div>
+      <div
+        style={{
+          fontWeight: 600,
+          color: "#24652c",
+          marginBottom: 5,
+          fontSize: 18.5,
+        }}
+      >
+        {title}
+      </div>
+      <div style={{ color: "#54754a", fontSize: 15.1, lineHeight: 1.6 }}>
+        {description}
+      </div>
     </div>
   );
 }
