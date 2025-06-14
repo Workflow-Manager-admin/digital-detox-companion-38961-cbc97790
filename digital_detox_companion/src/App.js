@@ -101,24 +101,38 @@ function App() {
       ({ ...prev, open: false })), 3300);
   };
 
-  // Seven main features for Digital Detox Companion (for nav):
+  // === Digital Detox Companion feature navigation: all 12 features represented ===
+  // Existing + new features as stubs/placeholders:
   // 1. Personalized Digital Detox Plans      → Detox Plan
-  // 2. Accountability Buddy System            → Buddy System
-  // 3. Real-World Milestone Rewards           → Rewards
-  // 4. Off-Grid Check-In System               → Check-In
-  // 5. AI-Powered Reflection & Habit Journal  → Journal
-  // 6. Journey Map                            → Journey Map
-  // 7. Community Circles                      → Circles
+  // 2. Accountability Buddy System           → Buddy System
+  // 3. Real-World Milestone Rewards          → Rewards
+  // 4. Off-Grid Check-In System              → Check-In
+  // 5. AI-Powered Reflection & Habit Journal → Journal
+  // 6. Time Reallocation Tracker             → Time Reallocation
+  // 7. Flexible Detox Modes                  → Detox Modes
+  // 8. Offline Event Generator               → Offline Events
+  // 9. Mini Detox Games / Tasks              → Detox Games
+  // 10. Parent-Teen Mode                     → Parent-Teen Mode
+  // 11. Digital Budget Mode                  → Budget Mode
+  // 12. Community Circles                    → Circles
+  // 13. Journey Map                          → Journey
 
-  // Adjust navTabs to ensure all SEVEN key features are present in navigation.
+  // To maximize clarity and modularity, all features are given a nav entry.
+  // (Only "Home" hidden, as it's default initial route.)
   const navTabs = [
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },          // Digital Detox Plan
-    { id: "buddy", label: "Buddy", icon: "🤝" },               // Buddy System
-    { id: "rewards", label: "Rewards", icon: "🎁" },           // Milestone Rewards
-    { id: "checkin", label: "Check-In", icon: "✅" },          // Off-Grid Check-In
-    { id: "journal", label: "Journal", icon: "📖" },           // Reflection Journal
-    { id: "journey", label: "Journey", icon: "🛤️" },          // Journey Map
-    { id: "circles", label: "Circles", icon: "🫂" }            // Community Circles
+    { id: "plan", label: "Detox Plan", icon: "🗺️" },
+    { id: "buddy", label: "Buddy", icon: "🤝" },
+    { id: "rewards", label: "Rewards", icon: "🎁" },
+    { id: "checkin", label: "Check-In", icon: "✅" },
+    { id: "journal", label: "Journal", icon: "📖" },
+    { id: "reallocation", label: "Time Reallocation", icon: "⏳" },
+    { id: "modes", label: "Detox Modes", icon: "🛡️" },
+    { id: "events", label: "Offline Events", icon: "🌲" },
+    { id: "games", label: "Detox Games", icon: "🎮" },
+    { id: "family", label: "Parent-Teen", icon: "👨‍👩‍👧" },
+    { id: "budget", label: "Budget Mode", icon: "💰" },
+    { id: "circles", label: "Circles", icon: "🫂" },
+    { id: "journey", label: "Journey", icon: "🛤️" }
   ];
 
   // Renders the currently active page/component
@@ -126,26 +140,8 @@ function App() {
     switch (tab) {
       case "home":
         return <HomePage />;
-      case "journey":
-        return <DetoxJourneyMap />;
       case "plan":
         return <DetoxPlanPage showToast={showToast} />;
-      case "circles":
-        return <CommunityCircles />;
-      case "budget":
-        return <DigitalBudgetMode />;
-      case "games":
-        return <MiniDetoxGames />;
-      case "modes":
-        return <DetoxModes />;
-      case "family":
-        return <ParentTeenMode />;
-      case "events":
-        return <OfflineEventGenerator />;
-      case "reallocation":
-        return <TimeReallocationTracker />;
-      case "integrations":
-        return <IntegrationsHub />;
       case "buddy":
         return <BuddySystemPage showToast={showToast} />;
       case "rewards":
@@ -154,8 +150,38 @@ function App() {
         return <CheckInPage showToast={showToast} />;
       case "journal":
         return <JournalPage showToast={showToast} />;
+      case "journey":
+        return <DetoxJourneyMap />;
+      case "circles":
+        return <CommunityCircles />;
+      case "reallocation":
+        return <TimeReallocationTracker />;
+      case "modes":
+        return <DetoxModes />;
+      case "events":
+        return <OfflineEventGenerator />;
+      case "games":
+        return <MiniDetoxGames />;
+      case "family":
+        return <ParentTeenMode />;
+      case "budget":
+        return <DigitalBudgetMode />;
+      // If feature unimplemented: show stub.
+      // (Future-proofing: better than blank)
+      case "integrations":
+        return (
+          <div style={{ padding: 48, textAlign: "center", opacity: 0.75 }}>
+            <h2>Integrations Hub (Coming Soon)</h2>
+            <p>Third-party integrations for health, fitness, and productivity platforms will appear here.</p>
+          </div>
+        );
       default:
-        return <HomePage />;
+        return (
+          <div style={{ padding: 48, textAlign: "center", opacity: 0.75 }}>
+            <h2>Feature Not Implemented</h2>
+            <p>This section is a placeholder for an upcoming feature.</p>
+          </div>
+        );
     }
   }
 
