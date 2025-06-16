@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 /**
  * Time Reallocation Tracker (ADAPTIVE & GAMIFIED)
@@ -6,9 +6,11 @@ import React, { useState } from "react";
  * - Tracks milestones with achievements and visual progress.
  * - Suggests new “stacks” for time reallocation; gives rewarding, dynamic feedback.
  * - Uplifting, branded UI with playful progress bar, mascot, and celebration.
+ * - New: Adaptive suggestions, milestone unlocks, habit stacking, streaks, and dynamic, gamified feedback!
  *
  * PUBLIC_INTERFACE
  */
+
 const COLORS = {
   primary: "#2E7D32",
   secondary: "#B2DFDB",
@@ -17,57 +19,89 @@ const COLORS = {
   fail: "#DA8246",
 };
 
-const demoBaselines = {
-  baselineScreenTime: 3, // hours/day
-  diversityGoal: 5, // different offline activity types in a week
-};
+const mascots = ["🦔", "🦦", "🐢", "☀️", "🎉", "🌱"];
 
+// Gamified and adaptive milestones for habit stacking
 const habitMilestones = [
   {
     title: "Habit Stack 1: Try One New Thing!",
-    desc: "Replace 30 minutes of scrolling with a new offline activity.",
+    desc: "Replace 30+ min of screen time with a new offline activity.",
     required: 1,
+    type: "uniqueActivity",
     badge: "✨",
     reward: "Unlocked: New Explorer!",
-    suggestion: ["Try a walk, doodle, or read a chapter"],
+    suggestion: [
+      "Try a walk, doodle, or read a chapter",
+      "Call a friend instead of scrolling",
+      "Cook a meal or try journaling by hand",
+    ],
   },
   {
-    title: "Stack Up: Diversify (x3)",
+    title: "Stack Up: Activity Diversity (x3)",
     desc: "Log 3 different offline activities in your tracker.",
     required: 3,
+    type: "activityTypes",
     badge: "🔀",
-    reward: "Achievement: Multitasker Badge",
+    reward: "Achievement: Multitasker!",
     suggestion: [
-      "Add a meal, a book, and an outdoor moment to your week!",
-      "Invite a friend or family to join one session."
+      "Mix it up: add a meal, a book, and an outdoor moment to your week!",
+      "Invite a buddy to join one session",
+      "What’s one thing you enjoyed as a child?"
     ],
   },
   {
     title: "Streak Builder (5 days in row)",
     desc: "Log at least 10 minutes gained for 5 consecutive days.",
     required: 5,
+    type: "uniqueDays",
     badge: "🔥",
     reward: "Streak Champ!",
     suggestion: [
-      "Keep your streak alive: try meditation, art, or volunteering.",
-      "Reflect: How is your mood or focus changing?"
+      "Keep your streak alive: try meditation, art, or visiting a new place.",
+      "Reflect: How is your mood or focus changing?",
+      "Pair with a friend or family for accountability!",
     ],
   },
   {
-    title: "Expert Level: Habit Automation",
+    title: "Expert: Habit Automation",
     desc: "Log over 8 hours of healthy, screen-free activities in one week.",
     required: 8, // hours
+    type: "weekHours",
     badge: "🏆",
     reward: "Time Master!",
     suggestion: [
-      "Can you schedule daily offline blocks ahead?",
-      "Integrate activities into your routine (morning, commute, or after meals)."
+      "Schedule daily offline blocks ahead.",
+      "Try a full day without your device.",
+      "Integrate activities into your routine (morning, commute, or after meals).",
     ],
   },
 ];
 
-// Iconic mascot for encouragement
-const mascots = ["🦔", "🦦", "🐢", "☀️", "🎉", "🌱"];
+function getProgressForMilestone(mIdx, logs) {
+  // Helper computes the progress and goal for a milestone
+  const activityTypes = Array.from(new Set(logs.map(e => e.activity.toLowerCase())));
+  const uniqueDays = Array.from(new Set(logs.map(e => e.day)));
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
+  const weekLogs = logs.filter(e => new Date(e.time) >= oneWeekAgo);
+  const weekMins = weekLogs.reduce((sum, e) => sum + e.mins, 0);
+  const weekHours = Math.round((weekMins / 60) * 10) / 10;
+  const totalLogs = logs.length;
+
+  if (mIdx === 0) {
+    return { progress: totalLogs > 0 ? 1 : 0, progressGoal: 1 };
+  } else if (mIdx === 1) {
+    return { progress: activityTypes.length, progressGoal: habitMilestones[1].required };
+  } else if (mIdx === 2) {
+    return { progress: uniqueDays.length, progressGoal: habitMilestones[2].required };
+  } else {
+    // mIdx === 3
+    return {
+      progress: weekHours >= habitMilestones[3].required ? habitMilestones[3].required : weekHours,
+      progressGoal: habitMilestones[3].required
+    };
+  }
+}
 
 // PUBLIC_INTERFACE
 function TimeReallocationTracker() {
@@ -86,6 +120,8 @@ function TimeReallocationTracker() {
   const [feedback, setFeedback] = useState("");
   const [milestoneIdx, setMilestoneIdx] = useState(0);
   const [confetti, setConfetti] = useState(false);
+  const [dynamicSuggestion, setDynamicSuggestion] = useState("");
+  const [suggestionKey, setSuggestionKey] = useState(0);
 
   // Helper: update logs & localStorage together
   function updateLogs(newLogs) {
@@ -117,65 +153,102 @@ function TimeReallocationTracker() {
     setTimeout(() => setFeedback(""), 2000);
   }
 
-  // --- MILESTONE/GAMIFIED TRACKING LOGIC ---
-  // 1. Activities logged
-  const totalLogs = logs.length;
-  // 2. Diversity: how many unique activities
+  // --- Progress Logic & Milestone Advancement ---
+  // 1. Calculate user stats
   const activityTypes = Array.from(new Set(logs.map(e => e.activity.toLowerCase())));
-  // 3. Streak: how many unique consecutive days
   const uniqueDays = Array.from(new Set(logs.map(e => e.day)));
-  // 4. Weekly hours: sum up time for past 7 days
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
   const weekLogs = logs.filter(e => new Date(e.time) >= oneWeekAgo);
   const weekMins = weekLogs.reduce((sum, e) => sum + e.mins, 0);
   const weekHours = Math.round((weekMins / 60) * 10) / 10;
+  const totalLogs = logs.length;
 
-  // --- Determine CURRENT milestone/progress ---
+  // 2. Milestone progress index logic
   let mIdx = 0;
   if (activityTypes.length >= 3) mIdx = 1;
   if (uniqueDays.length >= 5) mIdx = 2;
   if (weekHours >= 8) mIdx = 3;
-  // Animate next milestone badge celebration
-  if (mIdx > milestoneIdx) {
-    setTimeout(() => setConfetti(true), 500);
-    setTimeout(() => setConfetti(false), 2400);
-    setMilestoneIdx(mIdx);
-  }
 
+  // 3. Animate milestone celebration on level up
+  const didLevelUp = mIdx > milestoneIdx;
   const milestone = habitMilestones[mIdx];
 
-  // Calculate current milestone's progress:
-  let progress = 0;
-  let progressGoal = 1;
-  if (mIdx === 0) {
-    progress = totalLogs > 0 ? 1 : 0;
-    progressGoal = 1;
-  } else if (mIdx === 1) {
-    progress = activityTypes.length;
-    progressGoal = habitMilestones[1].required;
-  } else if (mIdx === 2) {
-    progress = uniqueDays.length;
-    progressGoal = habitMilestones[2].required;
-  } else {
-    progress = weekHours >= habitMilestones[3].required ? habitMilestones[3].required : weekHours;
-    progressGoal = habitMilestones[3].required;
-  }
+  useEffect(() => {
+    if (didLevelUp) {
+      setTimeout(() => setConfetti(true), 400);
+      setTimeout(() => setConfetti(false), 2200);
+      setMilestoneIdx(mIdx);
+    }
+    // eslint-disable-next-line
+  }, [mIdx, milestoneIdx]);
+
+  // 4. Milestone progress
+  const { progress, progressGoal } = getProgressForMilestone(mIdx, logs);
   const milComplete = progress >= progressGoal;
 
-  // Adaptive suggestion for habit stacking
-  const suggestion = milestone.suggestion[
-    Math.floor(Math.random()*milestone.suggestion.length)
-  ];
+  // 5. Adaptive/rotating suggestion logic
+  function nextSuggestion() {
+    const arr = milestone.suggestion;
+    const idx = (suggestionKey + 1) % arr.length;
+    setDynamicSuggestion(arr[idx]);
+    setSuggestionKey(idx);
+  }
+  useEffect(() => {
+    setDynamicSuggestion(milestone.suggestion[0] || "");
+    setSuggestionKey(0);
+    // eslint-disable-next-line
+  }, [mIdx]);
 
   // Lively mascot changes for celebration/encouragement
   let mascot = mascots[mIdx % mascots.length];
   if (confetti) mascot = "🎉";
 
+  // Dynamic/interacting feedback, with gamified, playful progress
+  function getDynamicFeedback() {
+    if (didLevelUp) return "🎉 New milestone! Level up habit stack!";
+    if (milComplete)
+      return `Milestone complete: ${milestone.reward}`;
+    if (progressGoal - progress === 1)
+      return "One more to go!";
+    if (progressGoal - progress < 4)
+      return `Just ${progressGoal - progress} left for this milestone!`;
+    return "Habit-building is a stack—a little progress every day!";
+  }
+
+  // Streak Progress Bar logic
+  function getStreak() {
+    // streak is max streak of consecutive days in logs
+    const days = logs.map(e => e.day).sort();
+    let maxStreak = 0, streak = 0, prev = null;
+    for (const day of Array.from(new Set(days))) {
+      const date = new Date(day);
+      if (prev) {
+        const next = new Date(prev);
+        next.setDate(next.getDate() + 1);
+        if (
+          date.getFullYear() === next.getFullYear() &&
+          date.getMonth() === next.getMonth() &&
+          date.getDate() === next.getDate()
+        ) {
+          streak += 1;
+        } else {
+          streak = 1;
+        }
+      } else {
+        streak = 1;
+      }
+      if (streak > maxStreak) maxStreak = streak;
+      prev = day;
+    }
+    return maxStreak;
+  }
+
+  // UI Render
   return (
     <section
       style={{
-        maxWidth: 510,
+        maxWidth: 520,
         margin: "0 auto",
         padding: "22px 10px 25px",
         background: COLORS.faint,
@@ -195,7 +268,7 @@ function TimeReallocationTracker() {
       )}
       <div
         style={{
-          fontSize: 46, margin: "0 auto 8px",
+          fontSize: 48, margin: "0 auto 8px",
           filter: milComplete ? "drop-shadow(0 2px 16px #FFD60055)" : undefined,
           userSelect: "none"
         }}>{mascot}</div>
@@ -213,7 +286,7 @@ function TimeReallocationTracker() {
         style={{
           fontSize: 16.3,
           color: "#789262",
-          marginBottom: 5,
+          marginBottom: 6,
           marginTop: 0,
           fontWeight: 500
         }}
@@ -221,37 +294,56 @@ function TimeReallocationTracker() {
         {milestone.title}{" "}
         <span style={{ fontSize: 21 }}>{milestone.badge}</span>
       </div>
-      <div style={{ fontSize: 15.1, color: "#595B2A" }}>
+      <div style={{ fontSize: 15.1, color: "#595B2A", marginBottom: 2 }}>
         {milestone.desc}
       </div>
-      {/* Progress Bar */}
       <ProgressBar progress={progress/progressGoal} label={`${progress} / ${progressGoal}`} />
 
+      {/* Dynamic feedback */}
       <div style={{
         fontWeight: 500,
-        fontSize: 15.8,
-        margin: "11px 0 8px 0",
-        color: milComplete ? COLORS.accent : COLORS.primary
+        fontSize: 16.2,
+        margin: "11px 0 4px 0",
+        color: milComplete ? COLORS.accent : (didLevelUp ? COLORS.primary : COLORS.primary),
+        minHeight: 28
       }}>
-        {milComplete ? (
-          <>
-            <span>Milestone Complete: </span>
-            <span style={{ fontWeight: 700 }}>{milestone.reward}</span>
-          </>
-        ) : (
-          <span>Progress: {progress} of {progressGoal}</span>
-        )}
+        {getDynamicFeedback()}
       </div>
       <div style={{
         background: "#fffde8",
-        margin: "6px 0 18px",
-        padding: "13px 10px",
-        fontSize: 14.2,
+        margin: "6px 0 15px",
+        padding: "12px 10px",
+        fontSize: 14.6,
         borderRadius: 13,
-        color: "#CC980E",
-        fontWeight: 600
+        color: "#B59312",
+        fontWeight: 600,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
       }}>
-        Next suggestion: <span style={{fontWeight:700}}>{suggestion}</span>
+        <span>
+          <span style={{color:COLORS.primary}}>Next suggestion:</span>{" "}
+          <span style={{fontWeight:700}}>{dynamicSuggestion}</span>
+        </span>
+        {milestone.suggestion.length > 1 && (
+          <button
+            type="button"
+            title="Show another suggestion"
+            onClick={nextSuggestion}
+            style={{
+              marginLeft: 9,
+              fontSize: 12,
+              border: "none",
+              background: "#B2DFDB22",
+              borderRadius: 8,
+              color: COLORS.primary,
+              padding: "3px 9px",
+              cursor: "pointer"
+            }}
+          >
+            ⟳
+          </button>
+        )}
       </div>
 
       {/* LOGGING UI - playful card */}
@@ -263,7 +355,7 @@ function TimeReallocationTracker() {
           boxShadow: "0 1px 10px #CCD4B672",
           borderRadius: 13,
           padding: "16px 11px 13px",
-          marginTop: 14, marginBottom: 7
+          marginTop: 9, marginBottom: 7
         }}
         autoComplete="off"
       >
@@ -348,7 +440,7 @@ function TimeReallocationTracker() {
       {/* Weekly "What You Gained" */}
       <div
         style={{
-          marginTop: 15,
+          marginTop: 13,
           padding: "12px 12px 9px 12px",
           background: "#F8FBF9",
           borderRadius: 13,
@@ -400,11 +492,16 @@ function TimeReallocationTracker() {
         </ul>
       </div>
 
+      {/* Streak and streak bar */}
+      <div style={{ margin: "10px 0 0", textAlign: "left" }}>
+        <StreakProgressBar streak={getStreak()} />
+      </div>
+
       {/* Recent logs display */}
       {!!logs.length && (
         <div
           style={{
-            marginTop: 17,
+            marginTop: 13,
             padding: "10px 10px",
             background: "#fff",
             borderRadius: 11,
@@ -421,7 +518,7 @@ function TimeReallocationTracker() {
             padding: 0,
             textAlign: "left",
             fontSize: 14,
-            maxHeight: 119,
+            maxHeight: 116,
             overflowY: "auto"
           }}>
             {logs.slice(0, 8).map((e, idx) =>
@@ -441,8 +538,22 @@ function TimeReallocationTracker() {
           </ul>
         </div>
       )}
-      <div style={{ margin: "12px 0 2px", color: "#B9CEB5", fontSize: 12 }}>
+      <div style={{ margin: "14px 0 2px", color: "#B9CEB5", fontSize: 12 }}>
         Logs reset automatically each week for healthy refresh!
+      </div>
+      <div
+        style={{
+          marginTop: 15,
+          fontSize: 13.3,
+          color: "#668254",
+          textAlign: "center",
+          fontWeight: 500,
+          opacity: 0.64
+        }}>
+        <span>
+          Adaptive tracker: Add new activities and keep stacking for surprise rewards...<br />
+          Each completed stack brings dynamic, new suggestions and milestones!
+        </span>
       </div>
     </section>
   );
@@ -466,7 +577,7 @@ function ProgressBar({ progress = 0, label = "" }) {
         <div
           style={{
             width: `${Math.round(pct * 100)}%`,
-            background: `linear-gradient(90deg, ${COLORS.primary}, ${COLORS.accent} 75%)`,
+            background: `linear-gradient(90deg, ${COLORS.primary}, ${COLORS.accent} 80%)`,
             height: "100%",
             borderRadius: 8,
             transition: "width 0.8s cubic-bezier(.4,0,.15,1)"
@@ -489,7 +600,7 @@ function ProgressBar({ progress = 0, label = "" }) {
 }
 
 // PUBLIC_INTERFACE
-function CelebrationAnimation({ badge = "🎉", visible }) {
+function CelebrationAnimation({ badge = "🎉" }) {
   // Simple: badge animation + confetti-like overlay
   return (
     <div
@@ -509,7 +620,7 @@ function CelebrationAnimation({ badge = "🎉", visible }) {
           fontSize: 66,
           margin: "12px 0",
           transition: "transform 0.8s cubic-bezier(.28,1.5,.6,1)",
-          animation: "pop-badge 1.7s cubic-bezier(.3,1.7,.3,1) both"
+          animation: "pop-badge 1.6s cubic-bezier(.3,1.7,.3,1) both"
         }}
       >
         {badge}
@@ -521,6 +632,53 @@ function CelebrationAnimation({ badge = "🎉", visible }) {
           100% { transform: scale(1) rotate(0deg); opacity:1; }
         }
       `}</style>
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+function StreakProgressBar({ streak }) {
+  // Animates playful "flame" or "plant growing" for current streak
+  return (
+    <div style={{ margin: "7px 0 7px 0" }}>
+      <div style={{
+        fontWeight: 700,
+        color: "#937305",
+        fontSize: 14.6,
+        marginBottom: 3,
+      }}>
+        Current streak: <span style={{
+          color: "#FFD600",
+          fontWeight: 700,
+          fontSize: 15,
+        }}>{streak}</span> day{streak !== 1 ? "s" : ""}
+        {streak >= 3 ? <span style={{ fontSize: 20, marginLeft: 7 }}>🔥</span> : streak > 0 ? <span style={{ fontSize: 18, marginLeft: 7 }}>🌱</span> : ""}
+      </div>
+      <div style={{
+        background: "#E7F6EC",
+        borderRadius: 8,
+        height: 10,
+        width: "100%",
+        overflow: "hidden"
+      }}>
+        <div style={{
+          height: "100%",
+          width: `${Math.min(streak, 7) * 100 / 7}%`,
+          background: "linear-gradient(90deg, #FFD600 55%, #B2DFDB 100%)",
+          borderRadius: 8,
+          transition: "width 0.8s cubic-bezier(.4,0,.23,1)"
+        }} />
+      </div>
+      {streak >= 7 && (
+        <div style={{
+          color: "#62A522",
+          fontWeight: 700,
+          fontSize: 13.7,
+          marginTop: 2
+        }}>
+          Streak Hero! <span role="img" aria-label="Trophy">🏅</span>
+        </div>
+      )}
     </div>
   );
 }
