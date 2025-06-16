@@ -20,14 +20,14 @@ cacheable modules 1.38 MiB
       ./node_modules/css-loader/dist/cjs.js!./src/index.css 875 bytes [built] [code generated]
       ./src/App.css 2.22 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./src/App.css 10.8 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1531 ms
+webpack 5.99.9 compiled successfully in 1536 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.54 MiB
-  asset bundle.js 1.54 MiB [emitted] (name: main)
-  asset main.b8c87f472784cd3f83af.hot-update.js 2.62 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.b8c87f472784cd3f83af.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.54 MiB = bundle.js 1.54 MiB main.b8c87f472784cd3f83af.hot-update.js 2.62 KiB
-cached modules 1.38 MiB [cached] 55 modules
+assets by path *.js 1.57 MiB
+  asset bundle.js 1.55 MiB [emitted] (name: main)
+  asset main.bd1cda0244c3163ec53b.hot-update.js 19.5 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.bd1cda0244c3163ec53b.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.57 MiB = bundle.js 1.55 MiB main.bd1cda0244c3163ec53b.hot-update.js 19.5 KiB
+cached modules 1.37 MiB [cached] 55 modules
 runtime modules 27.5 KiB 14 modules
-./src/index.js 603 bytes [built] [code generated]
-webpack 5.99.9 compiled successfully in 74 ms
+./src/DetoxPlanPage.js 15 KiB [optional] [built] [code generated]
+webpack 5.99.9 compiled successfully in 166 ms
