@@ -385,3 +385,179 @@ SyntaxError: /home/kavia/workspace/code-generation/digital-detox-companion-38961
     at async.call.result.err.err (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:223:11)
 
 webpack 5.99.9 compiled with 1 error in 25 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 176 KiB
+  asset bundle.js 175 KiB [emitted] (name: main)
+  asset main.1266635d582f372d902e.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
+asset main.1266635d582f372d902e.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 176 KiB = bundle.js 175 KiB main.1266635d582f372d902e.hot-update.js 854 bytes
+cached modules 109 KiB [cached] 14 modules
+runtime modules 27.4 KiB 12 modules
+./src/index.js 39 bytes [built] [1 error]
+
+ERROR in ./src/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/index.js: Missing semicolon. (1:28)
+
+> 1 | import './index.css';iimport './index.css';mimport './index.css';pimport './index.css';oimport './index.css';rimport './index.css';timport './index.css'; import './index.css';'import './index.css';.import './index.css';/import './index.css';iimport './index.css';nimport './index.css';dimport './index.css';eimport './index.css';ximport './index.css';.import './index.css';cimport './index.css';simport './index.css';simport './index.css';'import './index.css';;import './index.css';
+    |                             ^
+  2 | import './index.css';iimport './index.css';iimport './index.css';mimport './index.css';pimport './index.css';oimport './index.css';rimport './index.css';timport './index.css'; import './index.css';'import './index.css';.import './index.css';/import './index.css';iimport './index.css';nimport './index.css';dimport './index.css';eimport './index.css';ximport './index.css';.import './index.css';cimport './index.css';simport './index.css';simport './index.css';'import './index.css';;import './index.css';
+  3 | import './index.css';mimport './index.css';iimport './index.css';mimport './index.css';pimport './index.css';oimport './index.css';rimport './index.css';timport './index.css'; import './index.css';'import './index.css';.import './index.css';/import './index.css';iimport './index.css';nimport './index.css';dimport './index.css';eimport './index.css';ximport './index.css';.import './index.css';cimport './index.css';simport './index.css';simport './index.css';'import './index.css';;import './index.css';
+  4 | import './index.css';pimport './index.css';iimport './index.css';mimport './index.css';pimport './index.css';oimport './index.css';rimport './index.css';timport './index.css'; import './index.css';'import './index.css';.import './index.css';/import './index.css';iimport './index.css';nimport './index.css';dimport './index.css';eimport './index.css';ximport './index.css';.import './index.css';cimport './index.css';simport './index.css';simport './index.css';'import './index.css';;import './index.css';
+    at constructor (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:363:19)
+    at JSXParserMixin.raise (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6609:19)
+    at JSXParserMixin.semicolon (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6906:10)
+    at JSXParserMixin.parseExpressionStatement (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13204:10)
+    at JSXParserMixin.parseStatementContent (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12818:19)
+    at JSXParserMixin.parseStatementLike (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12685:17)
+    at JSXParserMixin.parseModuleItem (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12662:17)
+    at JSXParserMixin.parseBlockOrModuleBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13235:36)
+    at JSXParserMixin.parseBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13228:10)
+    at JSXParserMixin.parseProgram (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12541:10)
+    at JSXParserMixin.parseTopLevel (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12531:25)
+    at JSXParserMixin.parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14410:10)
+    at parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14444:38)
+    at parser (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at step (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:261:32)
+    at /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:273:13
+    at async.call.result.err.err (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:223:11)
+
+webpack 5.99.9 compiled with 1 error in 40 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 176 KiB
+  asset bundle.js 175 KiB [emitted] (name: main)
+  asset main.5067b567e30e3c98f074.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
+asset main.5067b567e30e3c98f074.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 176 KiB = bundle.js 175 KiB main.5067b567e30e3c98f074.hot-update.js 854 bytes
+cached modules 109 KiB [cached] 14 modules
+runtime modules 27.4 KiB 12 modules
+./src/index.js 39 bytes [built] [1 error]
+
+ERROR in ./src/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/index.js: Missing semicolon. (1:29)
+
+> 1 | import './index.css';;iimport './index.css';;mimport './index.css';;pimport './index.css';;oimport './index.css';;rimport './index.css';;timport './index.css';; import './index.css';;'import './index.css';;.import './index.css';;/import './index.css';;iimport './index.css';;nimport './index.css';;dimport './index.css';;eimport './index.css';;ximport './index.css';;.import './index.css';;cimport './index.css';;simport './index.css';;simport './index.css';;'import './index.css';;;import './index.css';;
+    |                              ^
+  2 | import './index.css';;iimport './index.css';;iimport './index.css';;mimport './index.css';;pimport './index.css';;oimport './index.css';;rimport './index.css';;timport './index.css';; import './index.css';;'import './index.css';;.import './index.css';;/import './index.css';;iimport './index.css';;nimport './index.css';;dimport './index.css';;eimport './index.css';;ximport './index.css';;.import './index.css';;cimport './index.css';;simport './index.css';;simport './index.css';;'import './index.css';;;import './index.css';;
+  3 | import './index.css';;mimport './index.css';;iimport './index.css';;mimport './index.css';;pimport './index.css';;oimport './index.css';;rimport './index.css';;timport './index.css';; import './index.css';;'import './index.css';;.import './index.css';;/import './index.css';;iimport './index.css';;nimport './index.css';;dimport './index.css';;eimport './index.css';;ximport './index.css';;.import './index.css';;cimport './index.css';;simport './index.css';;simport './index.css';;'import './index.css';;;import './index.css';;
+  4 | import './index.css';;pimport './index.css';;iimport './index.css';;mimport './index.css';;pimport './index.css';;oimport './index.css';;rimport './index.css';;timport './index.css';; import './index.css';;'import './index.css';;.import './index.css';;/import './index.css';;iimport './index.css';;nimport './index.css';;dimport './index.css';;eimport './index.css';;ximport './index.css';;.import './index.css';;cimport './index.css';;simport './index.css';;simport './index.css';;'import './index.css';;;import './index.css';;
+    at constructor (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:363:19)
+    at JSXParserMixin.raise (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6609:19)
+    at JSXParserMixin.semicolon (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6906:10)
+    at JSXParserMixin.parseExpressionStatement (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13204:10)
+    at JSXParserMixin.parseStatementContent (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12818:19)
+    at JSXParserMixin.parseStatementLike (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12685:17)
+    at JSXParserMixin.parseModuleItem (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12662:17)
+    at JSXParserMixin.parseBlockOrModuleBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13235:36)
+    at JSXParserMixin.parseBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13228:10)
+    at JSXParserMixin.parseProgram (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12541:10)
+    at JSXParserMixin.parseTopLevel (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12531:25)
+    at JSXParserMixin.parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14410:10)
+    at parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14444:38)
+    at parser (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at step (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:261:32)
+    at /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:273:13
+    at async.call.result.err.err (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:223:11)
+
+webpack 5.99.9 compiled with 1 error in 27 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 176 KiB
+  asset bundle.js 175 KiB [emitted] (name: main)
+  asset main.171929425ba0719a35b7.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
+asset main.171929425ba0719a35b7.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 176 KiB = bundle.js 175 KiB main.171929425ba0719a35b7.hot-update.js 854 bytes
+cached modules 109 KiB [cached] 14 modules
+runtime modules 27.4 KiB 12 modules
+./src/index.js 39 bytes [built] [1 error]
+
+ERROR in ./src/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/index.js: Missing semicolon. (2:8)
+
+  1 | import './index.css';
+> 2 | ;iimport './index.css';
+    |         ^
+  3 | ;mimport './index.css';
+  4 | ;pimport './index.css';
+  5 | ;oimport './index.css';
+    at constructor (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:363:19)
+    at JSXParserMixin.raise (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6609:19)
+    at JSXParserMixin.semicolon (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6906:10)
+    at JSXParserMixin.parseExpressionStatement (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13204:10)
+    at JSXParserMixin.parseStatementContent (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12818:19)
+    at JSXParserMixin.parseStatementLike (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12685:17)
+    at JSXParserMixin.parseModuleItem (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12662:17)
+    at JSXParserMixin.parseBlockOrModuleBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13235:36)
+    at JSXParserMixin.parseBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13228:10)
+    at JSXParserMixin.parseProgram (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12541:10)
+    at JSXParserMixin.parseTopLevel (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12531:25)
+    at JSXParserMixin.parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14410:10)
+    at parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14444:38)
+    at parser (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at step (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:261:32)
+    at /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:273:13
+    at async.call.result.err.err (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:223:11)
+
+webpack 5.99.9 compiled with 1 error in 48 ms
+assets by status 176 KiB [cached] 2 assets
+cached modules 109 KiB (javascript) 27.4 KiB (runtime) [cached] 26 modules
+./src/index.js 39 bytes [built] [1 error]
+
+ERROR in ./src/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/index.js: Missing semicolon. (2:8)
+
+  1 | import './index.css';
+> 2 | ;iimport './index.css';
+    |         ^
+  3 | ;mimport './index.css';
+  4 | ;pimport './index.css';
+  5 | ;oimport './index.css';
+    at constructor (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:363:19)
+    at JSXParserMixin.raise (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6609:19)
+    at JSXParserMixin.semicolon (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:6906:10)
+    at JSXParserMixin.parseExpressionStatement (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13204:10)
+    at JSXParserMixin.parseStatementContent (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12818:19)
+    at JSXParserMixin.parseStatementLike (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12685:17)
+    at JSXParserMixin.parseModuleItem (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12662:17)
+    at JSXParserMixin.parseBlockOrModuleBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13235:36)
+    at JSXParserMixin.parseBlockBody (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:13228:10)
+    at JSXParserMixin.parseProgram (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12541:10)
+    at JSXParserMixin.parseTopLevel (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:12531:25)
+    at JSXParserMixin.parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14410:10)
+    at parse (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/parser/lib/index.js:14444:38)
+    at parser (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at step (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:261:32)
+    at /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:273:13
+    at async.call.result.err.err (/home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/node_modules/gensync/index.js:223:11)
+
+webpack 5.99.9 compiled with 1 error in 38 ms
