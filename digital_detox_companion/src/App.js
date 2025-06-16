@@ -101,30 +101,16 @@ function App() {
       ({ ...prev, open: false })), 3300);
   };
 
-  // Expanded features for Digital Detox Companion (for nav):
-  // 1. Detox Plan
-  // 2. Buddy System
-  // 3. Time Reallocation Tracker
-  // 4. Flexible Detox Modes
-  // 5. Offline Event Generator
-  // 6. Mini Detox Games
-  // 7. Parent-Teen Mode
-  // 8. Digital Budget Mode
-  // 9. Community Circles
-  // 10. (others: Rewards, Check-In, Journal, Journey Map)
+  // Navigation system refactor:
+  // Sidebar (vertical): Plan, Buddy, Time Gained, Detox Modes, Events, Mini Games, Parent Teen, Digital Budget, Circles
+  // Top nav (horizontal/tabs): all secondary or "auxiliary" features only. No duplication! Only the following:
+  // - Rewards
+  // - Check-In
+  // - Journal
+  // - Journey Map
+  // - Integrations
 
-  // Navigation tabs, now showing features 3–10 explicitly
   const navTabs = [
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },
-    { id: "buddy", label: "Buddy", icon: "🤝" },
-    { id: "reallocation", label: "Time Gained", icon: "⏳" },            // 3. Time Reallocation Tracker
-    { id: "modes", label: "Detox Modes", icon: "🔄" },                  // 4. Flexible Detox Modes
-    { id: "events", label: "Offline Events", icon: "🎟️" },              // 5. Offline Event Generator
-    { id: "games", label: "Mini Games", icon: "🎮" },                   // 6. Mini Detox Games
-    { id: "family", label: "Parent Teen", icon: "👨‍👩‍👧" },                 // 7. Parent-Teen Mode
-    { id: "budget", label: "Digital Budget", icon: "💡" },              // 8. Digital Budget Mode
-    { id: "circles", label: "Circles", icon: "🫂" },                    // 9. Community Circles
-    // Optionally, can add legacy/misc screens at far end for completeness:
     { id: "rewards", label: "Rewards", icon: "🎁" },
     { id: "checkin", label: "Check-In", icon: "✅" },
     { id: "journal", label: "Journal", icon: "📖" },

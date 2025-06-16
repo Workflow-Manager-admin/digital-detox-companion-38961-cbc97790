@@ -12,41 +12,29 @@ export default function Sidebar({
   primaryColor = "#2E7D32"
 }) {
   // Modular groupings; ensures scalability and maintainability if more features are added.
+  // Only show a subset in sidebar; only one navigation surface per feature!
+  // Sidebar = Core navigation, essential journeys. (No Rewards, Check-in, Journal, Journey Map, Integrations—those go to top navbar/tabs only.)
   const navGroups = [
     {
-      title: "Core",
+      title: "Plan & Progress",
       tabs: [
         { id: "plan", label: "Detox Plan", icon: "🗺️" },
         { id: "buddy", label: "Buddy", icon: "🤝" },
         { id: "reallocation", label: "Time Gained", icon: "⏳" },
-        { id: "modes", label: "Detox Modes", icon: "🔄" },
+        { id: "modes", label: "Detox Modes", icon: "🔄" }
+      ]
+    },
+    {
+      title: "Explore",
+      tabs: [
         { id: "events", label: "Offline Events", icon: "🎟️" },
-        { id: "games", label: "Mini Games", icon: "🎮" }
-      ]
-    },
-    {
-      title: "Family & Budget",
-      tabs: [
+        { id: "games", label: "Mini Games", icon: "🎮" },
         { id: "family", label: "Parent Teen", icon: "👨‍👩‍👧" },
-        { id: "budget", label: "Digital Budget", icon: "💡" }
-      ]
-    },
-    {
-      title: "Community",
-      tabs: [
+        { id: "budget", label: "Digital Budget", icon: "💡" },
         { id: "circles", label: "Circles", icon: "🫂" }
       ]
-    },
-    {
-      title: "More",
-      tabs: [
-        { id: "rewards", label: "Rewards", icon: "🎁" },
-        { id: "checkin", label: "Check-In", icon: "✅" },
-        { id: "journal", label: "Journal", icon: "📖" },
-        { id: "journey", label: "Journey", icon: "🛤️" },
-        { id: "integrations", label: "Integrations", icon: "🔌" }
-      ]
     }
+    // No "More" group here; all secondary/auxiliary features will be accessible from the top navigation bar only.
   ];
 
   return (
