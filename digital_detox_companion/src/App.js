@@ -101,24 +101,35 @@ function App() {
       ({ ...prev, open: false })), 3300);
   };
 
-  // Seven main features for Digital Detox Companion (for nav):
-  // 1. Personalized Digital Detox Plans      → Detox Plan
-  // 2. Accountability Buddy System            → Buddy System
-  // 3. Real-World Milestone Rewards           → Rewards
-  // 4. Off-Grid Check-In System               → Check-In
-  // 5. AI-Powered Reflection & Habit Journal  → Journal
-  // 6. Journey Map                            → Journey Map
-  // 7. Community Circles                      → Circles
+  // Expanded features for Digital Detox Companion (for nav):
+  // 1. Detox Plan
+  // 2. Buddy System
+  // 3. Time Reallocation Tracker
+  // 4. Flexible Detox Modes
+  // 5. Offline Event Generator
+  // 6. Mini Detox Games
+  // 7. Parent-Teen Mode
+  // 8. Digital Budget Mode
+  // 9. Community Circles
+  // 10. (others: Rewards, Check-In, Journal, Journey Map)
 
-  // Adjust navTabs to ensure all SEVEN key features are present in navigation.
+  // Navigation tabs, now showing features 3–10 explicitly
   const navTabs = [
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },          // Digital Detox Plan
-    { id: "buddy", label: "Buddy", icon: "🤝" },               // Buddy System
-    { id: "rewards", label: "Rewards", icon: "🎁" },           // Milestone Rewards
-    { id: "checkin", label: "Check-In", icon: "✅" },          // Off-Grid Check-In
-    { id: "journal", label: "Journal", icon: "📖" },           // Reflection Journal
-    { id: "journey", label: "Journey", icon: "🛤️" },          // Journey Map
-    { id: "circles", label: "Circles", icon: "🫂" }            // Community Circles
+    { id: "plan", label: "Detox Plan", icon: "🗺️" },
+    { id: "buddy", label: "Buddy", icon: "🤝" },
+    { id: "reallocation", label: "Time Gained", icon: "⏳" },            // 3. Time Reallocation Tracker
+    { id: "modes", label: "Detox Modes", icon: "🔄" },                  // 4. Flexible Detox Modes
+    { id: "events", label: "Offline Events", icon: "🎟️" },              // 5. Offline Event Generator
+    { id: "games", label: "Mini Games", icon: "🎮" },                   // 6. Mini Detox Games
+    { id: "family", label: "Parent Teen", icon: "👨‍👩‍👧" },                 // 7. Parent-Teen Mode
+    { id: "budget", label: "Digital Budget", icon: "💡" },              // 8. Digital Budget Mode
+    { id: "circles", label: "Circles", icon: "🫂" },                    // 9. Community Circles
+    // Optionally, can add legacy/misc screens at far end for completeness:
+    { id: "rewards", label: "Rewards", icon: "🎁" },
+    { id: "checkin", label: "Check-In", icon: "✅" },
+    { id: "journal", label: "Journal", icon: "📖" },
+    { id: "journey", label: "Journey Map", icon: "🛤️" },
+    { id: "integrations", label: "Integrations", icon: "🔌" }
   ];
 
   // Renders the currently active page/component
@@ -126,34 +137,34 @@ function App() {
     switch (tab) {
       case "home":
         return <HomePage />;
-      case "journey":
-        return <DetoxJourneyMap />;
       case "plan":
         return <DetoxPlanPage showToast={showToast} />;
-      case "circles":
-        return <CommunityCircles />;
-      case "budget":
-        return <DigitalBudgetMode />;
-      case "games":
-        return <MiniDetoxGames />;
-      case "modes":
-        return <DetoxModes />;
-      case "family":
-        return <ParentTeenMode />;
-      case "events":
-        return <OfflineEventGenerator />;
-      case "reallocation":
-        return <TimeReallocationTracker />;
-      case "integrations":
-        return <IntegrationsHub />;
       case "buddy":
         return <BuddySystemPage showToast={showToast} />;
+      case "reallocation":
+        return <TimeReallocationTracker />;      // 3
+      case "modes":
+        return <DetoxModes />;                   // 4
+      case "events":
+        return <OfflineEventGenerator />;        // 5
+      case "games":
+        return <MiniDetoxGames />;               // 6
+      case "family":
+        return <ParentTeenMode />;               // 7
+      case "budget":
+        return <DigitalBudgetMode />;            // 8
+      case "circles":
+        return <CommunityCircles />;             // 9
       case "rewards":
         return <RewardsPage />;
       case "checkin":
         return <CheckInPage showToast={showToast} />;
       case "journal":
         return <JournalPage showToast={showToast} />;
+      case "journey":
+        return <DetoxJourneyMap />;
+      case "integrations":
+        return <IntegrationsHub />;
       default:
         return <HomePage />;
     }
