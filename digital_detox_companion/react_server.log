@@ -21,3 +21,108 @@ cacheable modules 1.56 MiB
       ./src/App.css 2.22 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./src/App.css 62.7 KiB [built] [code generated]
 webpack 5.99.9 compiled successfully in 1852 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.68 MiB [emitted] (name: main)
+  asset main.3e3d560f727e3036cc59.hot-update.js 2.77 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.3e3d560f727e3036cc59.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.68 MiB main.3e3d560f727e3036cc59.hot-update.js 2.77 KiB
+cached modules 1.49 MiB [cached] 57 modules
+runtime modules 27.5 KiB 14 modules
+./node_modules/css-loader/dist/cjs.js!./src/App.css 426 bytes [built] [code generated]
+webpack 5.99.9 compiled successfully in 94 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 1.68 MiB
+  asset bundle.js 1.68 MiB [emitted] (name: main)
+  asset main.8db549f3535909ac9283.hot-update.js 1.66 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8db549f3535909ac9283.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.68 MiB = bundle.js 1.68 MiB main.8db549f3535909ac9283.hot-update.js 1.66 KiB
+cached modules 1.49 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 2.26 KiB
+  ./src/App.css 2.22 KiB [code generated]
+  ./node_modules/css-loader/dist/cjs.js!./src/App.css 39 bytes [built] [code generated] [1 error]
+
+ERROR in ./src/App.css (./node_modules/css-loader/dist/cjs.js!./src/App.css)
+Module build failed (from ./node_modules/css-loader/dist/cjs.js):
+
+SyntaxError
+
+(103533:2) /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/App.css At-rule without name
+
+  103531 |   border-top: 1px solid var(--border-color);
+  103532 |   font-size: 1.12rem;
+> 103533 | }@/* Root brand variables */
+         |  ^
+  103534 | :root {
+  103535 |   --kavia-orange: #E87A41;
+ @ ./src/App.css 8:6-97 20:17-24 24:7-21 50:25-39 51:36-47 51:50-64 55:6-65:7 56:54-65 56:68-82 62:42-53 62:56-70 64:21-28 75:0-67 75:0-67 76:22-29 76:33-47 76:50-64 53:4-66:5
+ @ ./src/App.js 2:0-19
+ @ ./src/index.js 4:0-24 10:30-33
+
+webpack 5.99.9 compiled with 1 error in 2178 ms
+assets by status 792 bytes [cached] 1 asset
+assets by path *.js 2.51 MiB
+  asset bundle.js 2.09 MiB [emitted] (name: main)
+  asset main.5a67c24bbf54884353df.hot-update.js 425 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.5a67c24bbf54884353df.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 2.51 MiB = bundle.js 2.09 MiB main.5a67c24bbf54884353df.hot-update.js 425 KiB
+cached modules 1.49 MiB [cached] 56 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 401 KiB
+  ./node_modules/css-loader/dist/cjs.js!./src/index.css 401 KiB [built] [code generated]
+  ./node_modules/css-loader/dist/cjs.js!./src/App.css 39 bytes [built] [1 error]
+
+ERROR in ./src/App.css (./node_modules/css-loader/dist/cjs.js!./src/App.css)
+Module build failed (from ./node_modules/css-loader/dist/cjs.js):
+
+SyntaxError
+
+(103533:2) /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/App.css At-rule without name
+
+  103531 |   border-top: 1px solid var(--border-color);
+  103532 |   font-size: 1.12rem;
+> 103533 | }@/* Root brand variables */
+         |  ^
+  103534 | :root {
+  103535 |   --kavia-orange: #E87A41;
+ @ ./src/App.css 8:6-97 20:17-24 24:7-21 50:25-39 51:36-47 51:50-64 55:6-65:7 56:54-65 56:68-82 62:42-53 62:56-70 64:21-28 75:0-67 75:0-67 76:22-29 76:33-47 76:50-64 53:4-66:5
+ @ ./src/App.js 2:0-19
+ @ ./src/index.js 4:0-24 10:30-33
+
+webpack 5.99.9 compiled with 1 error in 2123 ms
+assets by path *.js 2.09 MiB
+  asset bundle.js 2.09 MiB [emitted] (name: main)
+  asset main.63f89bfbb1eee25e2cc6.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
+asset index.html 792 bytes [emitted]
+asset main.63f89bfbb1eee25e2cc6.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 2.09 MiB = bundle.js 2.09 MiB main.63f89bfbb1eee25e2cc6.hot-update.js 854 bytes
+cached modules 1.63 MiB [cached] 33 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 256 KiB
+  optional modules 54.4 KiB [optional]
+    ./src/DetoxPlanPage.js 18.2 KiB [optional] [built]
+    ./src/BuddySystemPage.js 4.59 KiB [optional] [built]
+    ./src/RewardsPage.js 22.3 KiB [optional] [built]
+    ./src/CheckInPage.js 3.28 KiB [optional] [built]
+    ./src/JournalPage.js 5.99 KiB [optional] [built]
+  + 20 modules
+
+ERROR in ./src/App.css (./node_modules/css-loader/dist/cjs.js!./src/App.css)
+Module build failed (from ./node_modules/css-loader/dist/cjs.js):
+
+SyntaxError
+
+(103533:2) /home/kavia/workspace/code-generation/digital-detox-companion-38961-cbc97790/digital_detox_companion/src/App.css At-rule without name
+
+  103531 |   border-top: 1px solid var(--border-color);
+  103532 |   font-size: 1.12rem;
+> 103533 | }@/* Root brand variables */
+         |  ^
+  103534 | :root {
+  103535 |   --kavia-orange: #E87A41;
+ @ ./src/App.css 8:6-97 20:17-24 24:7-21 50:25-39 51:36-47 51:50-64 55:6-65:7 56:54-65 56:68-82 62:42-53 62:56-70 64:21-28 75:0-67 75:0-67 76:22-29 76:33-47 76:50-64 53:4-66:5
+ @ ./src/App.js 2:0-19
+ @ ./src/index.js 4:0-24 10:30-33
+
+webpack 5.99.9 compiled with 1 error in 2543 ms
