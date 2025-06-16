@@ -16,7 +16,7 @@ import Sidebar from "./Sidebar";
 import OnboardingSlides from "./OnboardingSlides";
 import { rewardsList } from "./rewardsData";
 import EmergencyBypassModal from "./EmergencyBypassModal"; // NEW
-
+import EnhancedNavigationBar from "./EnhancedNavigationBar";
 
 // Dynamic/fallback page assignments to avoid runtime/render errors for missing modules
 let DetoxPlanPage = (props) => <div>DetoxPlanPage is missing.</div>;
@@ -227,128 +227,12 @@ function App() {
       {/** 
         Example icon choices: 🏠 Journey: 🗺️ Plan: 📝 Circles: 👥 Budget: 💸 Games: 🎮 Modes: 🔄 Family: 👪 Events: 📅 Reallocation: ⏳ Integrations: 🔌 Buddy: 🤝 Rewards: 🎁 CheckIn: ✅ Journal: 📖 
       **/}
-      {(() => {
-        // Only declare once per render
-        if (!window._digitalDetox_navTabs) {
-          window._digitalDetox_navTabs = [
-            { id: "home", label: "Home", icon: "🏠" },
-            { id: "journey", label: "Journey", icon: "🗺️" },
-            { id: "plan", label: "Plan", icon: "📝" },
-            { id: "circles", label: "Circles", icon: "👥" },
-            { id: "budget", label: "Budget", icon: "💸" },
-            { id: "games", label: "Games", icon: "🎮" },
-            { id: "modes", label: "Modes", icon: "🔄" },
-            { id: "family", label: "Family", icon: "👪" },
-            { id: "events", label: "Events", icon: "📅" },
-            { id: "reallocation", label: "Reallocation", icon: "⏳" },
-            { id: "integrations", label: "Integrations", icon: "🔌" },
-            { id: "buddy", label: "Buddy", icon: "🤝" },
-            { id: "rewards", label: "Rewards", icon: "🎁" },
-            { id: "checkin", label: "Check-In", icon: "✅" },
-            { id: "journal", label: "Journal", icon: "📖" }
-          ];
-        }
-      })()}
-      <nav
-        className="navbar"
-        style={{
-          background: "#fff",
-          borderBottom: "1px solid #eee",
-          color: COLORS.primary,
-          padding: 0,
-          boxShadow: "0 2px 6px rgba(44,127,67,0.03)",
-          zIndex: 20,
-          width: "100%",
-          left: 0,
-          display: "flex",
-          justifyContent: "center",
-          position: "sticky",
-          top: 0,
-        }}
-      >
-        <div
-          className="container"
-          style={{
-            maxWidth: 950,
-            width: "100%",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            padding: "0 10px",
-            minHeight: 60,
-            position: "relative"
-          }}
-        >
-          <div
-            className="logo"
-            style={{
-              fontWeight: 600,
-              color: COLORS.primary,
-              fontSize: 20,
-              display: "flex",
-              alignItems: "center",
-              minWidth: 220,
-              justifyContent: "flex-start",
-              letterSpacing: "0.01em",
-              flexShrink: 0,
-              paddingRight: 12,
-            }}
-          >
-            <span
-              className="logo-symbol"
-              style={{
-                color: COLORS.accent,
-                fontWeight: 700,
-                fontSize: 24,
-                verticalAlign: "middle",
-                marginRight: 10,
-              }}
-            >
-              💡
-            </span>
-            Digital Detox Companion
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flex: 1,
-              overflowX: "auto",
-              marginLeft: "auto",
-              gap: 2,
-              justifyContent: "flex-end",
-              alignItems: "center",
-              padding: "0 0 0 4px",
-              scrollbarWidth: "thin",
-              WebkitOverflowScrolling: "touch",
-              msOverflowStyle: "none"
-            }}
-          >
-            <div
-              className="navtab-scroll"
-              style={{
-                display: "flex",
-                gap: 2,
-                flexWrap: "nowrap",
-                minWidth: 0,
-                width: "100%",
-                overflowX: "auto"
-              }}
-            >
-              {(window._digitalDetox_navTabs || []).map((t) => (
-                <NavTab
-                  key={t.id}
-                  label={t.label}
-                  icon={t.icon}
-                  active={tab === t.id}
-                  onClick={() => setTab(t.id)}
-                  accentColor={COLORS.accent}
-                  primaryColor={COLORS.primary}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* --- Enhanced Navigation: Collapsible Sidebar (mobile friendly) and Dropdown Section Grouping --- */}
+      <EnhancedNavigationBar
+        tab={tab}
+        setTab={setTab}
+        COLORS={COLORS}
+      />
 
       {/* Modal overlay for Emergency Bypass (block trigger) */}
       <EmergencyBypassModal
