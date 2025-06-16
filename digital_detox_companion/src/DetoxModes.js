@@ -1,521 +1,421 @@
-import React, { useState, useEffect, useRef } from "react";
-import EmergencyBypassModal, { useEmergencyBypassModal } from "./EmergencyBypassModal";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 /**
- * DetoxModes Component
- * Branded, minimal UI for selecting between digital detox modes:
- * - Gradual Decline: Reduce usage over a timespan
- * - Weekend Retreat: Block/limit for a defined weekend window
- * - Focus Burst: Short, intense screen break (e.g. 45–180min)
- * Each mode includes tailored description, configurable timer, and clear visual feedback.
- * PUBLIC_INTERFACE
+ * Detox strategy options as objects for clarity and UI rendering.
  */
-export default function DetoxModes() {
-  // Modes
-  const MODES = [
-    {
-      id: "gradual",
-      name: "Gradual Decline",
-      icon: "📉",
-      desc:
-        "Ease down your daily screen time step by step. Good for sustainable habit change.",
-      instructions:
-        "Set a daily goal and period for tapering off."
-    },
-    {
-      id: "weekend",
-      name: "Weekend Retreat",
-      icon: "🏕️",
-      desc:
-        "Commit to a digital-free weekend, focusing on rest, nature, or friends.",
-      instructions:
-        "Pick your next retreat dates and commit."
-    },
-    {
-      id: "focus",
-      name: "Focus Burst",
-      icon: "⚡",
-      desc:
-        "Unplug for a focused block—ideal for studying, work, or creative flow.",
-      instructions:
-        "Choose a screen-free session length."
-    }
-  ];
+const DETOX_MODES = [
+  {
+    key: "gradual-decline",
+    label: "Gradual Decline",
+    emoji: "📉",
+    description:
+      "Slowly reduces your allowed daily time each week to help you sustainably break free from habits. Enables easing into digital-free routines.",
+    configComponent: GradualDeclineConfig,
+  },
+  {
+    key: "weekend-retreat",
+    label: "Weekend Retreat",
+    emoji: "🏕️",
+    description:
+      "Total detox for chosen hours or days on weekends. Go completely offline during your selected times and rediscover the real world.",
+    configComponent: WeekendRetreatConfig,
+  },
+  {
+    key: "focus-burst",
+    label: "Focus Burst",
+    emoji: "⏱️",
+    description:
+      "Commit to a distraction-free block (e.g., 3–4 hours) each day. Useful for study, work, or creative periods.",
+    configComponent: FocusBurstConfig,
+  },
+];
 
-  // State for mode, config, timer, status
-  const [selected, setSelected] = useState(null); // mode id
-  // For timer logic (focus burst, retreat): different time forms
-  const [timerConfig, setTimerConfig] = useState({
-    gradualDays: 7,
-    gradualInitial: 120,
-    gradualGoal: 60,
-    weekendStart: getNextWeekend().start,
-    weekendEnd: getNextWeekend().end,
-    focusMinutes: 45
-  });
-  const [timer, setTimer] = useState(0); // in seconds
-  const [running, setRunning] = useState(false);
-  const [countdownDone, setCountdownDone] = useState(false);
-  const timerRef = useRef();
+/**
+ * Key used for storing mode/settings in localStorage.
+ */
+const STORAGE_KEY = "detoxModeSettings";
 
-  // EmergencyBypassModal (Mindful Pause) state/hook
-  const [bypassModalOpen, openBypassModal, closeBypassModal, renderBypassModal] = useEmergencyBypassModal();
-  // Store last bypass reason for confirmation (could be logged)
-  const [lastBypassReason, setLastBypassReason] = useState(null);
-  // After bypass, briefly show confirmation/encouragement
-  const [showBypassThanks, setShowBypassThanks] = useState(false);
-
-  // Demo: simulate a bypass trigger
-  function handleBypassAttempt() {
-    openBypassModal();
+/**
+ * Loads mode settings from localStorage.
+ */
+function loadSettings() {
+  try {
+    const json = localStorage.getItem(STORAGE_KEY);
+    return json ? JSON.parse(json) : {};
+  } catch {
+    return {};
   }
-
-  // Called when user selects a bypass reason
-  function handleBypassReflection(reason) {
-    setLastBypassReason(reason);
-    setShowBypassThanks(true);
-    setTimeout(() => setShowBypassThanks(false), 2800);
-    // In a real app, proceed to "unlock"/bypass OR cancel based on logic
-  }
-
-  // Handle starting a timer (focus burst or retreat)
-  function startTimer(durationMinutes) {
-    setTimer(durationMinutes * 60);
-    setCountdownDone(false);
-    setRunning(true);
-  }
-
-  // Timer effect logic
-  useEffect(() => {
-    if (!running || timer <= 0) {
-      if (timer === 0 && running) setCountdownDone(true);
-      setRunning(false);
-      return;
-    }
-    timerRef.current = setTimeout(() => setTimer(timer - 1), 1000);
-    return () => clearTimeout(timerRef.current);
-  }, [running, timer]);
-
-  // Timer display utility
-  function prettyTime(secs) {
-    const m = Math.floor(secs / 60)
-      .toString()
-      .padStart(2, "0");
-    const s = (secs % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  }
-
-  // Display for mode-specific form/block
-  function renderModeConfigPanel() {
-    if (!selected) return null;
-    if (selected === "gradual") {
-      return (
-        <div style={modePanelStyle}>
-          <h3 style={{ color: COLORS.primary }}>Set Gradual Decline Plan</h3>
-          <div style={formRow}>
-            <label>
-              Days:{" "}
-              <input
-                type="number"
-                min="3"
-                max="30"
-                value={timerConfig.gradualDays}
-                onChange={e =>
-                  setTimerConfig(cfg => ({
-                    ...cfg,
-                    gradualDays: e.target.value
-                  }))
-                }
-                style={inputStyle}
-              />{" "}
-              days
-            </label>
-          </div>
-          <div style={formRow}>
-            <label>
-              Start limit:{" "}
-              <input
-                type="number"
-                min="20"
-                max="480"
-                value={timerConfig.gradualInitial}
-                onChange={e =>
-                  setTimerConfig(cfg => ({
-                    ...cfg,
-                    gradualInitial: e.target.value
-                  }))
-                }
-                style={inputStyle}
-              />{" "}
-              min/day
-            </label>
-          </div>
-          <div style={formRow}>
-            <label>
-              End goal:{" "}
-              <input
-                type="number"
-                min="10"
-                max={timerConfig.gradualInitial || 120}
-                value={timerConfig.gradualGoal}
-                onChange={e =>
-                  setTimerConfig(cfg => ({
-                    ...cfg,
-                    gradualGoal: e.target.value
-                  }))
-                }
-                style={inputStyle}
-              />{" "}
-              min/day
-            </label>
-          </div>
-          <div style={descPanelStyle}>
-            Daily screen time will gently decrease from{" "}
-            <b>{timerConfig.gradualInitial} min</b> to{" "}
-            <b>{timerConfig.gradualGoal} min</b> across{" "}
-            <b>{timerConfig.gradualDays} days</b>.
-          </div>
-        </div>
-      );
-    }
-    if (selected === "weekend") {
-      return (
-        <div style={modePanelStyle}>
-          <h3 style={{ color: COLORS.primary }}>Plan a Weekend Retreat</h3>
-          <div style={formRow}>
-            <label>
-              Retreat start:{" "}
-              <input
-                type="date"
-                value={timerConfig.weekendStart}
-                onChange={e =>
-                  setTimerConfig(cfg => ({
-                    ...cfg,
-                    weekendStart: e.target.value
-                  }))
-                }
-                style={inputStyle}
-              />
-            </label>
-          </div>
-          <div style={formRow}>
-            <label>
-              Retreat end:{" "}
-              <input
-                type="date"
-                value={timerConfig.weekendEnd}
-                onChange={e =>
-                  setTimerConfig(cfg => ({
-                    ...cfg,
-                    weekendEnd: e.target.value
-                  }))
-                }
-                style={inputStyle}
-              />
-            </label>
-          </div>
-          <div style={descPanelStyle}>
-            <b>Tip:</b> Try to unplug from <b>Friday {formatDate(timerConfig.weekendStart)}</b> to <b>Sunday {formatDate(timerConfig.weekendEnd)}</b>. Set reminders to prepare!
-          </div>
-          {/* Timer for active retreat, demo only */}
-          {new Date(timerConfig.weekendStart) <= new Date() &&
-            new Date(timerConfig.weekendEnd) >= new Date() && (
-              <button
-                style={timerBtnStyle}
-                onClick={() => startTimer(getMinutesUntilDate(timerConfig.weekendEnd))}
-              >
-                Start Retreat Timer
-              </button>
-            )}
-          {running && (
-            <CountdownTimerUI
-              timer={timer}
-              prettyTime={prettyTime}
-              onReset={() => setRunning(false)}
-              done={countdownDone}
-            />
-          )}
-        </div>
-      );
-    }
-    if (selected === "focus") {
-      return (
-        <div style={modePanelStyle}>
-          <h3 style={{ color: COLORS.primary }}>Start a Focus Burst</h3>
-          <label>
-            Minutes:{" "}
-            <input
-              type="number"
-              min="15"
-              max="180"
-              value={timerConfig.focusMinutes}
-              onChange={e =>
-                setTimerConfig(cfg => ({
-                  ...cfg,
-                  focusMinutes: e.target.value
-                }))
-              }
-              style={{ ...inputStyle, width: 64 }}
-            />
-          </label>
-          <button
-            style={timerBtnStyle}
-            onClick={() => startTimer(timerConfig.focusMinutes)}
-          >
-            Start Burst
-          </button>
-          {running && (
-            <CountdownTimerUI
-              timer={timer}
-              prettyTime={prettyTime}
-              onReset={() => setRunning(false)}
-              done={countdownDone}
-            />
-          )}
-        </div>
-      );
-    }
-    return null;
-  }
-
-  return (
-    <section style={{ marginTop: 30, marginBottom: 15 }}>
-      <h2 style={{ color: COLORS.primary, fontSize: "2.08rem", fontWeight: 700, marginBottom: 9 }}>
-        Detox Modes
-      </h2>
-      <div style={{ color: "#678964", fontWeight: 500, fontSize: "1.06rem", marginBottom: 13 }}>
-        Choose a detox approach that matches your goals—sustainable, immersive, or focused!
-      </div>
-      <div style={{ display: "flex", gap: 22, flexWrap: "wrap", marginBottom: 13 }}>
-        {MODES.map(m => (
-          <button
-            key={m.id}
-            onClick={() => setSelected(m.id)}
-            aria-pressed={selected === m.id}
-            style={{
-              background: selected === m.id ? "#F3FCF9" : "#EFFBFC",
-              border: selected === m.id ? `2.5px solid ${COLORS.primary}` : "1.2px solid #ddebef",
-              borderRadius: 13,
-              padding: "18px 17px",
-              minWidth: 166,
-              minHeight: 115,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 7,
-              fontWeight: selected === m.id ? 700 : 500,
-              color: COLORS.primary,
-              boxShadow:
-                selected === m.id ? "0 2px 8px 0 #B2DFDB18" : "0 2px 8px 0 #b2dfdb08",
-              fontSize: 15.5,
-              cursor: "pointer"
-            }}
-          >
-            <span style={{ fontSize: 34, marginBottom: 2 }}>{m.icon}</span>
-            <span style={{ fontSize: 16 }}>{m.name}</span>
-            <span style={{ color: "#8d9492", fontWeight: 400, fontSize: 13 }}>
-              {m.desc}
-            </span>
-            <span style={{ color: "#b49a26", fontWeight: 500, fontSize: 12 }}>{m.instructions}</span>
-          </button>
-        ))}
-      </div>
-      {/* Bypass Button: only show if a timer is running, blocked, or in a real app, if blocked */}
-      {running && (
-        <button
-          style={{
-            background: "#FFD600",
-            color: "#2E7D32",
-            border: "none",
-            borderRadius: 8,
-            fontWeight: 700,
-            fontSize: 17,
-            padding: "12px 25px",
-            marginBottom: 15,
-            marginTop: 2,
-            boxShadow: "0 2px 7px #B2DFDB19",
-            cursor: "pointer"
-          }}
-          onClick={handleBypassAttempt}
-        >
-          🚦 Emergency Bypass (Mindful Pause)
-        </button>
-      )}
-      {/* Modal rendering */}
-      {renderBypassModal(handleBypassReflection, closeBypassModal)}
-      {/* Supportive message after bypass */}
-      {showBypassThanks && (
-        <div style={{
-          background: "#FFFDE6",
-          border: "1.5px solid #FFD60077",
-          color: "#A88D1B",
-          fontWeight: 500,
-          fontSize: 15.5,
-          borderRadius: 9,
-          marginTop: 17,
-          marginBottom: 8,
-          padding: "15px 22px",
-          textAlign: "center"
-        }}>
-          It's ok to notice your urge to bypass: <b>{lastBypassReason}</b>. Remember your intentions—you've got this! 🌱
-        </div>
-      )}
-      {renderModeConfigPanel()}
-      <div style={{ marginTop: 18, color: "#819c7b", fontSize: 14.4 }}>
-        The right detox approach can make your offline life more rewarding!
-      </div>
-    </section>
-  );
 }
 
-// ------- Timer UI Component -------
-function CountdownTimerUI({ timer, prettyTime, onReset, done }) {
+/**
+ * Persists mode settings to localStorage.
+ */
+function saveSettings(settings) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+  } catch {
+    // Fail silently
+  }
+}
+
+/**
+ * DetoxModes main export: holds selector, description, and configuration for modes.
+ */
+// PUBLIC_INTERFACE
+function DetoxModes() {
+  // On load, retrieve user's previously selected mode/settings.
+  const [settings, setSettings] = useState(() => loadSettings());
+  const [selectedKey, setSelectedKey] = useState(
+    () =>
+      settings.selectedKey ||
+      DETOX_MODES[0].key // default to Gradual Decline
+  );
+
+  useEffect(() => {
+    setSettings((prev) => {
+      // Ensure settings record for the current mode exists
+      if (!prev[selectedKey]) {
+        return { ...prev, [selectedKey]: defaultConfig(selectedKey) };
+      }
+      return prev;
+    });
+  }, [selectedKey]);
+
+  useEffect(() => {
+    saveSettings({ ...settings, selectedKey });
+  }, [settings, selectedKey]);
+
+  // Handle mode selection from user
+  const handleModeChange = (key) => {
+    setSelectedKey(key);
+  };
+
+  // Handle config change from config component
+  const handleConfigChange = (config) => {
+    setSettings((prev) => ({ ...prev, [selectedKey]: config }));
+  };
+
+  const activeMode = DETOX_MODES.find((m) => m.key === selectedKey);
+  const ModeConfigComponent = activeMode?.configComponent || null;
+  const modeConfig = settings[selectedKey] || defaultConfig(selectedKey);
+
   return (
-    <div
-      style={{
-        marginTop: 17,
-        background: "#fff8de",
-        color: "#313619",
-        border: "2px solid #FFD60077",
-        borderRadius: 12,
-        padding: "25px 17px 19px",
-        textAlign: "center",
-        fontWeight: 600,
-        fontSize: 21,
-        letterSpacing: ".035rem",
-        position: "relative"
-      }}
-    >
-      {done ? (
-        <>
-          <span role="img" aria-label="done" style={{ fontSize: 31 }}>
-            🎉
-          </span>
-          <div style={{ marginTop: 8, fontSize: 17 }}>
-            Offline time complete!
-          </div>
-          <button
-            style={{
-              marginTop: 11,
-              background: "#2E7D32",
-              color: "#fff",
-              border: "none",
-              borderRadius: 6,
-              padding: "8px 18px",
-              fontWeight: 600,
-              fontSize: 15,
-              cursor: "pointer"
-            }}
-            onClick={onReset}
-          >
-            Finish
-          </button>
-        </>
-      ) : (
-        <>
-          <div style={{ fontSize: 23, marginBottom: 5 }}>
-            {prettyTime(timer)}
-          </div>
-          <button
-            style={{
-              marginTop: 10,
-              background: "#FFF176",
-              color: "#333",
-              border: "none",
-              borderRadius: 6,
-              padding: "6px 18px",
-              fontWeight: 600,
-              fontSize: 14,
-              cursor: "pointer"
-            }}
-            onClick={onReset}
-          >
-            Cancel
-          </button>
-        </>
-      )}
+    <div className="detox-modes-main" style={{ padding: "32px 0" }}>
+      <h2
+        style={{
+          color: "var(--primary, #2E7D32)",
+          fontWeight: 700,
+          fontSize: "1.55rem",
+          marginBottom: 20,
+        }}
+      >
+        Flexible Detox Modes
+      </h2>
+      <p style={{ color: "#5f705b", fontSize: 17, marginBottom: 20 }}>
+        Select a digital detox strategy that best fits your lifestyle. Each mode can be customized.
+      </p>
+      <DetoxModeSelector
+        modes={DETOX_MODES}
+        selectedKey={selectedKey}
+        onChange={handleModeChange}
+      />
+      <div
+        style={{
+          border: "1px solid #e9eded",
+          borderRadius: 10,
+          margin: "28px 0",
+          background: "#f8faf9",
+          padding: 24,
+        }}
+      >
+        <h3 style={{ fontSize: "1.22rem", fontWeight: 600 }}>
+          {activeMode.emoji} {activeMode.label}
+        </h3>
+        <p style={{ color: "#355c3a", fontSize: 16, margin: "8px 0 14px" }}>
+          {activeMode.description}
+        </p>
+        {ModeConfigComponent && (
+          <ModeConfigComponent config={modeConfig} onChange={handleConfigChange} />
+        )}
+      </div>
+      <div style={{ marginTop: 16, color: "#948", fontSize: 14 }}>
+        <b>Tip:</b> Your detox mode is saved automatically. Adjust settings anytime to match your goals!
+      </div>
     </div>
   );
 }
 
-// --- Helpers ---
-// Color vars (or use inline app css vars)
-const COLORS = {
-  primary: "#2E7D32",
-  accent: "#FFD600",
-  secondary: "#B2DFDB"
-};
-const modePanelStyle = {
-  background: "#F8FBF8",
-  borderRadius: 13,
-  padding: "19px 19px 12px",
-  boxShadow: "0 1.5px 12px #b2dfdb11",
-  marginTop: 10,
-  marginBottom: 10,
-  color: COLORS.primary,
-  fontWeight: 500
-};
-const descPanelStyle = {
-  background: "#EFFBFC",
-  color: "#678964",
-  padding: "12px 15px",
-  fontSize: 13.6,
-  fontWeight: 400,
-  borderRadius: 8,
-  marginTop: 8
-};
-const formRow = { marginBottom: 10, fontSize: 15.3 };
-const inputStyle = {
-  borderRadius: 7,
-  border: "1.2px solid #B2DFDB",
-  padding: "7px 10px",
-  fontSize: 15,
-  marginLeft: 6,
-  width: 72
-};
-const timerBtnStyle = {
-  background: COLORS.accent,
-  color: "#324116",
-  border: "none",
-  borderRadius: 7,
-  padding: "9px 22px",
-  fontWeight: 600,
-  fontSize: 15,
-  cursor: "pointer",
-  marginLeft: 13,
-  marginTop: 10
-};
-
-// For "Weekend Retreat", get next Friday-Sunday as defaults
-function getNextWeekend() {
-  const today = new Date();
-  // 0=sun, 1=mon, ... 5=fri, 6=sat
-  const nextFriday = new Date(today);
-  nextFriday.setDate(today.getDate() + ((5 - today.getDay() + 7) % 7));
-  const nextSunday = new Date(nextFriday);
-  nextSunday.setDate(nextFriday.getDate() + 2);
-  return {
-    start: nextFriday.toISOString().slice(0, 10), // yyyy-mm-dd
-    end: nextSunday.toISOString().slice(0, 10)
-  };
-}
-
-// Given ISO date string, format as "MMM D"
-function formatDate(str) {
-  if (!str) return "";
-  const d = new Date(str);
+/**
+ * DetoxModeSelector: radio-style card selector UI for modes.
+ */
+function DetoxModeSelector({ modes, selectedKey, onChange }) {
   return (
-    d.toLocaleDateString(undefined, {
-      month: "short",
-      day: "numeric"
-    }) || str
+    <div
+      className="detox-mode-selector"
+      style={{
+        display: "flex",
+        gap: 16,
+        flexWrap: "wrap",
+        marginBottom: 4,
+        marginLeft: 2,
+      }}
+    >
+      {modes.map((mode) => (
+        <button
+          key={mode.key}
+          className="mode-card"
+          aria-pressed={selectedKey === mode.key}
+          onClick={() => onChange(mode.key)}
+          style={{
+            border: selectedKey === mode.key
+              ? "2px solid var(--primary, #2E7D32)"
+              : "1px solid #c7dec2",
+            background: selectedKey === mode.key ? "#e5fadd" : "#fff",
+            borderRadius: 13,
+            padding: "16px 20px",
+            minWidth: 148,
+            cursor: "pointer",
+            fontWeight: selectedKey === mode.key ? 700 : 500,
+            color: "#24562b",
+            fontSize: 16,
+            boxShadow: selectedKey === mode.key
+              ? "0 3px 8px rgba(44,127,67,0.08)"
+              : "0 1px 4px rgba(44,127,67,0.03)",
+            outline: selectedKey === mode.key ? "3px solid #ffd60040" : "none",
+            transition: "box-shadow .19s, border .19s, background .15s"
+          }}
+        >
+          <span style={{ fontSize: 25, marginRight: 10 }}>{mode.emoji}</span>
+          {mode.label}
+        </button>
+      ))}
+    </div>
   );
 }
 
-// Get minutes until a future ISO date string
-function getMinutesUntilDate(dateStr) {
-  const now = new Date();
-  const target = new Date(dateStr);
-  const diff = Math.max(0, Math.floor((target - now) / 60000));
-  return diff || 120; // fallback to 2hrs demo
+/**
+ * Default config/state used for each mode.
+ */
+function defaultConfig(key) {
+  switch (key) {
+    case "gradual-decline":
+      return { startMinutes: 120, endMinutes: 45, weeks: 4 }; // by default, 120→45 min in 4 weeks
+    case "weekend-retreat":
+      return {
+        days: ["Saturday", "Sunday"],
+        start: "10:00",
+        end: "18:00",
+      };
+    case "focus-burst":
+      return { blockStart: "17:00", blockEnd: "20:00", enabled: true };
+    default:
+      return {};
+  }
 }
+
+/**
+ * GRADUAL DECLINE CONFIG UI
+ */
+function GradualDeclineConfig({ config, onChange }) {
+  return (
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      style={{ marginTop: 16, marginBottom: 4 }}
+    >
+      <label style={{ display: "block", color: "#376146" }}>
+        Start Daily Limit:
+        <input
+          type="number"
+          min={15}
+          max={480}
+          value={config.startMinutes}
+          onChange={(e) =>
+            onChange({ ...config, startMinutes: parseInt(e.target.value, 10) })
+          }
+          style={{
+            margin: "0 9px 0 12px",
+            width: 70,
+            padding: "2px 6px",
+            borderRadius: 5,
+            border: "1px solid #aacdae"
+          }}
+        />
+        minutes/day
+      </label>
+      <label style={{ display: "block", color: "#376146", marginTop: 10 }}>
+        End Goal Limit:
+        <input
+          type="number"
+          min={10}
+          max={240}
+          value={config.endMinutes}
+          onChange={(e) =>
+            onChange({ ...config, endMinutes: parseInt(e.target.value, 10) })
+          }
+          style={{
+            margin: "0 9px 0 12px",
+            width: 70,
+            padding: "2px 6px",
+            borderRadius: 5,
+            border: "1px solid #aacdae"
+          }}
+        />
+        minutes/day
+      </label>
+      <label style={{ display: "block", color: "#376146", marginTop: 10 }}>
+        Reduction Period:
+        <input
+          type="number"
+          min={2}
+          max={12}
+          value={config.weeks}
+          onChange={(e) =>
+            onChange({ ...config, weeks: parseInt(e.target.value, 10) })
+          }
+          style={{
+            margin: "0 9px 0 12px",
+            width: 50,
+            padding: "2px 6px",
+            borderRadius: 5,
+            border: "1px solid #aacdae"
+          }}
+        />
+        weeks
+      </label>
+    </form>
+  );
+}
+
+/**
+ * WEEKEND RETREAT CONFIG UI
+ */
+function WeekendRetreatConfig({ config, onChange }) {
+  const ALL_DAYS = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const toggleDay = (day) => {
+    const next =
+      config.days.includes(day)
+        ? config.days.filter((d) => d !== day)
+        : [...config.days, day];
+    onChange({ ...config, days: next });
+  };
+  return (
+    <div style={{ marginTop: 16 }}>
+      <div style={{ marginBottom: 8, color: "#376146" }}>
+        <b>Retreat Days:</b>
+        <div style={{ display: "flex", gap: 5, margin: "8px 0" }}>
+          {ALL_DAYS.map((day) => (
+            <label
+              key={day}
+              style={{
+                background: config.days.includes(day)
+                  ? "var(--primary, #2E7D32)"
+                  : "rgba(160,220,167,0.21)",
+                color: config.days.includes(day) ? "#fff" : "#23552b",
+                borderRadius: 7,
+                padding: "3px 10px",
+                fontWeight: config.days.includes(day) ? 600 : 500,
+                fontSize: 15,
+                cursor: "pointer"
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={config.days.includes(day)}
+                onChange={() => toggleDay(day)}
+                style={{ marginRight: 6 }}
+              />
+              {day.slice(0, 3)}
+            </label>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 18, color: "#376146" }}>
+        <label>
+          Start Time:
+          <input
+            type="time"
+            value={config.start}
+            onChange={(e) => onChange({ ...config, start: e.target.value })}
+            style={{
+              margin: "0 8px 0 10px",
+              border: "1px solid #aacdae",
+              borderRadius: 5,
+              padding: "2px 7px"
+            }}
+          />
+        </label>
+        <label>
+          End Time:
+          <input
+            type="time"
+            value={config.end}
+            onChange={(e) => onChange({ ...config, end: e.target.value })}
+            style={{
+              margin: "0 8px 0 10px",
+              border: "1px solid #aacdae",
+              borderRadius: 5,
+              padding: "2px 7px"
+            }}
+          />
+        </label>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * FOCUS BURST CONFIG UI
+ */
+function FocusBurstConfig({ config, onChange }) {
+  return (
+    <div style={{ marginTop: 16 }}>
+      <label style={{ color: "#376146", display: "block" }}>
+        <input
+          type="checkbox"
+          checked={config.enabled}
+          onChange={(e) => onChange({ ...config, enabled: e.target.checked })}
+          style={{ marginRight: 9, accentColor: "#2E7D32" }}
+        />
+        Enable Focus Burst block each day
+      </label>
+      <div style={{ marginLeft: 20, marginTop: 8, display: config.enabled ? "block" : "none" }}>
+        <span style={{ fontSize: 15 }}>Detox Time: </span>
+        <input
+          type="time"
+          value={config.blockStart}
+          onChange={(e) => onChange({ ...config, blockStart: e.target.value })}
+          style={{
+            margin: "0 6px 0 9px",
+            border: "1px solid #aacdae",
+            borderRadius: 5,
+            padding: "2px 7px"
+          }}
+        />
+        to
+        <input
+          type="time"
+          value={config.blockEnd}
+          onChange={(e) => onChange({ ...config, blockEnd: e.target.value })}
+          style={{
+            margin: "0 8px 0 13px",
+            border: "1px solid #aacdae",
+            borderRadius: 5,
+            padding: "2px 7px"
+          }}
+        />
+        hours
+      </div>
+    </div>
+  );
+}
+
+export default DetoxModes;
