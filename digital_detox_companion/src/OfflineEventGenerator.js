@@ -1,246 +1,153 @@
-import React, { useState } from "react";
+import React from "react";
 
 /**
- * OfflineEventGenerator
- * Page for suggesting real-world activities and local events based on user interests or location.
- * - Provides static sample suggestions by default
- * - Structured for optional future integration (Eventbrite/Meetup APIs, etc.)
- * - Branded, minimal UI for integration with the KAVIA theme
- * 
- * PUBLIC_INTERFACE
+ * OFFLINE EVENT GENERATOR
+ * Shows a list of real-world events or activities, mocking local filtering based on stubbed user location/interests.
+ * Hardcoded example events. Supports future extension for real APIs/GPS data.
  */
-function OfflineEventGenerator() {
-  // Sample (static) user interests and fake location input
-  const INTEREST_OPTIONS = [
-    "Nature", "Wellness", "Art", "Food", "Volunteering", "Exercise", "Social", "Learning"
-  ];
-  const SAMPLE_EVENTS = [
-    {
-      title: "Community Park Picnic",
-      interest: "Nature",
-      location: "Central Park",
-      summary: "Picnic and music with neighbors in the open air.",
-      when: "This Saturday, 2pm",
-      emoji: "🌳"
-    },
-    {
-      title: "Sunrise Yoga by the Lake",
-      interest: "Wellness",
-      location: "Lakeview Gardens",
-      summary: "Outdoor yoga for all levels, mats provided.",
-      when: "Tomorrow, 7am",
-      emoji: "🧘"
-    },
-    {
-      title: "Gallery Art Walk",
-      interest: "Art",
-      location: "Arts District",
-      summary: "Explore 12 local artists' new work with friends.",
-      when: "Friday Evening",
-      emoji: "🖼️"
-    },
-    {
-      title: "Farmers Market Stroll",
-      interest: "Food",
-      location: "Downtown",
-      summary: "Fresh food, samples, and live music outdoors.",
-      when: "Sunday, 9am-1pm",
-      emoji: "🍓"
-    },
-    {
-      title: "Beach Cleanup Volunteer",
-      interest: "Volunteering",
-      location: "Seaside Beach",
-      summary: "Help restore the shoreline and meet the community.",
-      when: "Next Saturday, 8am",
-      emoji: "🌊"
-    },
-    {
-      title: "Running Club (5K social)",
-      interest: "Exercise",
-      location: "Riverside Trail",
-      summary: "Meet new people and move your body.",
-      when: "Wednesday, 6pm",
-      emoji: "🏃"
-    },
-    {
-      title: "Board Game Night",
-      interest: "Social",
-      location: "Hilltop Library",
-      summary: "Unplug, make new friends — games for all ages.",
-      when: "Friday, 7pm",
-      emoji: "🎲"
-    },
-    {
-      title: "Photography Basics Workshop",
-      interest: "Learning",
-      location: "City Studio",
-      summary: "Bring any camera/phone, outdoors photo walk.",
-      when: "Sunday, 3pm",
-      emoji: "📸"
-    },
-  ];
 
-  const [interest, setInterest] = useState("");
-  const [location, setLocation] = useState("");
-  // For demo: filter locally, prepare for future API call
-  function getFilteredEvents() {
-    return SAMPLE_EVENTS.filter(ev =>
-      (interest === "" || ev.interest === interest) &&
-      (location === "" || ev.location.toLowerCase().includes(location.toLowerCase()))
-    );
+// Example hardcoded events list
+const mockEvents = [
+  {
+    title: "Sunset at Local Park",
+    location: "Central Park, near the east gate",
+    time: "Today, 7:30 PM",
+    description: "Catch a beautiful sunset. Consider a short walk or a mindfulness break with friends or solo.",
+    tags: ["Nature", "Relaxation"]
+  },
+  {
+    title: "Farmer’s Market Visit",
+    location: "Riverside Market",
+    time: "Saturday, 8:00 AM - 1:00 PM",
+    description: "Stock up on fresh produce and connect with the community. Enjoy live music on-site.",
+    tags: ["Community", "Food"]
+  },
+  {
+    title: "Book Club at City Library",
+    location: "Main Library, Room 210",
+    time: "Sunday, 3:00 PM",
+    description: "Casual discussion of the monthly book pick; all are welcome, even if you haven’t finished reading.",
+    tags: ["Social", "Learning"]
+  },
+  {
+    title: "Yoga in the Park",
+    location: "Hillcrest Green",
+    time: "Tomorrow, 9:00 AM",
+    description: "Free outdoor yoga session. Bring a mat and enjoy a tech-free start to your day.",
+    tags: ["Wellness", "Fitness"]
+  },
+  {
+    title: "Weekly Art Walk",
+    location: "Downtown Art District",
+    time: "Friday, 5:00 PM - 9:00 PM",
+    description: "Explore local galleries and open studios during the weekly art event.",
+    tags: ["Arts", "Exploration"]
   }
-  const filteredEvents = getFilteredEvents();
+];
 
-  // Branded colors (matches KAVIA scheme/fallbacks)
-  const COLORS = {
-    primary: "var(--primary, #2E7D32)",
-    accent: "var(--accent, #FFD600)",
-    secondary: "var(--secondary, #B2DFDB)"
-  };
+// Stub for location/interests logic (always returns true for simplicity)
+function mockLocationFilter(event) {
+  // Future: filter based on real location/interests
+  return true;
+}
+
+// PUBLIC_INTERFACE
+function OfflineEventGenerator() {
+  // Simulate user preferences (stubbed)
+  const userLocation = "Your City (stubbed)";
+  const userInterests = ["Nature", "Community", "Wellness"]; // stubbed
+
+  // Filtered list (no-op filter for now)
+  const filteredEvents = mockEvents.filter(mockLocationFilter);
 
   return (
-    <section style={{ marginTop: 30, marginBottom: 26 }}>
-      <h2 style={{
-        color: COLORS.primary,
-        fontSize: "2.08rem",
-        fontWeight: 700,
-        marginBottom: 8
-      }}>
-        Offline Event Generator
-      </h2>
-      <div style={{
-        color: "#66777f", fontSize: "1.06rem", fontWeight: 500, marginBottom: 16
-      }}>
-        Discover real-world activities and nearby events tailored to your interests.
-        Choose a category or update your location for local inspiration!
-      </div>
-      {/* Filters */}
-      <div style={{
-        background: "#F8FBF8",
-        padding: "17px 20px 10px 20px",
-        borderRadius: 13,
-        boxShadow: "0 1.5px 12px #B2DFDB13",
-        marginBottom: 16,
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 17,
-        alignItems: "center"
-      }}>
-        <div>
-          <label style={{ color: COLORS.primary, fontWeight: 600, fontSize: 15.3 }}>
-            Area/Location&nbsp;
-            <input
-              value={location}
-              onChange={e => setLocation(e.target.value)}
-              placeholder="e.g. park, downtown…"
-              style={{
-                border: "1.2px solid #B2DFDB", borderRadius: 8,
-                padding: "8px 11px", fontSize: 15, width: 150
-              }}
-            />
-          </label>
+    <div
+      style={{
+        background: "#F1F7F4",
+        borderRadius: 12,
+        padding: "34px 24px 26px",
+        boxShadow: "0 3px 14px rgba(44,127,67,0.04)",
+        maxWidth: 580,
+        margin: "34px auto",
+        color: "#1A1A1A"
+      }}
+      aria-label="Offline Event Suggestions"
+    >
+      <div style={{ marginBottom: 18 }}>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 22,
+            lineHeight: 1.18,
+            color: "#2E7D32",
+            marginBottom: 4
+          }}
+        >
+          Offline Event Ideas
         </div>
-        <div>
-          <label style={{ color: COLORS.primary, fontWeight: 600, fontSize: 15.3 }}>
-            Interest&nbsp;
-            <select
-              value={interest}
-              onChange={e => setInterest(e.target.value)}
-              style={{
-                border: "1.2px solid #B2DFDB", borderRadius: 8,
-                padding: "8px 12px", fontSize: 15, minWidth: 120
-              }}
-            >
-              <option value="">All</option>
-              {INTEREST_OPTIONS.map(val => (
-                <option value={val} key={val}>{val}</option>
-              ))}
-            </select>
-          </label>
+        <div style={{ color: "#555", fontSize: 15.5, marginBottom: 5 }}>
+          These local events and activity ideas are suggested for you
+          <span style={{ color: "#FFD600", fontWeight: 600 }}> (based on your interests and location - stubbed)</span>.
+          <br />
+          Try exploring something outside your usual routine!
         </div>
-        {/* Future/optional: Use device geolocation button */}
-        {/* <button>Add "Use my location" (web geolocation) in future API build</button> */}
-      </div>
-      {/* Results List */}
-      <div style={{ marginTop: 3 }}>
-        {filteredEvents.length === 0 && (
-          <div style={{
-            color: "#748084",
-            background: "#FDF8E7",
-            borderRadius: 10,
-            border: `1.5px solid ${COLORS.accent}`,
-            padding: "14px 20px",
-            fontWeight: 500,
-            fontSize: 16,
-            marginBottom: 6
-          }}>
-            No event suggestions found for your filters—try a different interest or explore another area!
-          </div>
-        )}
-        <ul style={{
-          listStyle: "none",
-          margin: 0,
-          padding: 0,
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(255px, 1fr))",
-          gap: 12
+        <div style={{
+          fontSize: 13,
+          color: "#789262",
         }}>
-          {filteredEvents.map((ev, idx) => (
-            <li key={`${ev.title}-${idx}`} style={{
-              display: "flex",
-              flexDirection: "column",
+          (Location: {userLocation}; Interests: {userInterests.join(", ")})
+        </div>
+      </div>
+
+      <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+        {filteredEvents.map((event, i) => (
+          <li
+            key={event.title + event.time}
+            style={{
               background: "#fff",
-              border: "1.2px solid #E2EFE4",
-              borderRadius: 13,
-              padding: "20px 18px 18px",
-              boxShadow: "0 2px 7px #b2dfdb09",
-              color: COLORS.primary,
-              minHeight: 110
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
-                <span style={{ fontSize: 29, marginRight: 3 }}>{ev.emoji}</span>
-                <span style={{ fontWeight: 600, fontSize: 17 }}>
-                  {ev.title}
-                </span>
-              </div>
-              <div style={{ color: "#869180", fontWeight: 400, fontSize: 14, marginTop: 5 }}>
-                {ev.summary}
-              </div>
-              <div style={{
-                color: "#B1BAA8", fontSize: 13, marginTop: 4
-              }}>
-                {ev.location} &bull; <span style={{ color: COLORS.accent }}>{ev.when}</span>
-              </div>
-              <div style={{
-                marginTop: 9,
-                color: "#7e7227",
-                fontWeight: 500,
-                fontSize: 12.8,
-                background: "#FFFBEC",
-                borderRadius: 6,
-                padding: "3px 11px",
-                alignSelf: "flex-start"
-              }}>
-                {ev.interest}
-              </div>
-              {/* Optional: In future, add RSVP/links if integrating real event APIs */}
-            </li>
-          ))}
-        </ul>
+              borderRadius: 8,
+              boxShadow: "0 1px 5px rgba(44,127,67,0.06)",
+              marginBottom: i === filteredEvents.length - 1 ? 0 : 18,
+              padding: "18px 16px 13px",
+              display: "flex",
+              flexDirection: "column"
+            }}
+          >
+            <div style={{ fontWeight: 600, fontSize: 17, color: "#2E7D32", marginBottom: 3 }}>
+              {event.title}
+            </div>
+            <div style={{ fontSize: 14.2, color: "#444", marginBottom: 3 }}>
+              <span role="img" aria-label="location" style={{ marginRight: 4 }}>📍</span>
+              {event.location}
+              {"   "}
+              <span role="img" aria-label="clock" style={{ marginLeft: 12, marginRight: 4 }}>🕒</span>
+              {event.time}
+            </div>
+            <div style={{ fontSize: 14, color: "#1A1A1A", margin: "4px 0 8px" }}>
+              {event.description}
+            </div>
+            <div style={{ fontSize: 12.5, color: "#FFD600", marginBottom: 2 }}>
+              {event.tags && event.tags.map(tag => (
+                <span key={tag} style={{
+                  display: "inline-block",
+                  background: "#FFF8E1",
+                  color: "#A08519",
+                  padding: "2.3px 9px",
+                  borderRadius: 7,
+                  marginRight: 8,
+                  fontWeight: 500,
+                  fontSize: 13
+                }}>{tag}</span>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div style={{ fontSize: 13, color: "#789262", marginTop: 28, textAlign: "center" }}>
+        Want more ideas? <span style={{ color: "#2E7D32", fontWeight: 500 }}>Try going tech-free for a while and notice new things around you!</span>
       </div>
-      {/* Integration note for future builds */}
-      <div style={{
-        marginTop: 23, color: "#8d999b", fontSize: 14, marginBottom: 8, fontStyle: "italic"
-      }}>
-        Want more personalized options or live events? In a future build, this page can connect to real-time sources like Eventbrite, Meetup, or community APIs.
-      </div>
-      <div style={{
-        margin: "20px 0 0 0", color: COLORS.primary, fontSize: 15.3, textAlign: "center", fontWeight: 500
-      }}>
-        Step away from your screen — adventure is closer than you think!
-      </div>
-    </section>
+    </div>
   );
 }
 

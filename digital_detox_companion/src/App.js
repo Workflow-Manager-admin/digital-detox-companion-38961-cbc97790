@@ -219,6 +219,36 @@ function App() {
       />
 
       {/* Navbar (now without Detox Plan, Parent Teen, Events, Rewards, Check-In) */}
+      {/* Navigation Tabs Definition (resolve navTabs not defined) */}
+      {/* NOTE: tab.id values must match the cases in the switch(tab) above */}
+      {/*
+        Home | Journey | Plan | Circles | Budget | Games | Modes | Family | Events | Reallocation | Integrations | Buddy | Rewards | CheckIn | Journal
+      */}
+      {/** 
+        Example icon choices: 🏠 Journey: 🗺️ Plan: 📝 Circles: 👥 Budget: 💸 Games: 🎮 Modes: 🔄 Family: 👪 Events: 📅 Reallocation: ⏳ Integrations: 🔌 Buddy: 🤝 Rewards: 🎁 CheckIn: ✅ Journal: 📖 
+      **/}
+      {(() => {
+        // Only declare once per render
+        if (!window._digitalDetox_navTabs) {
+          window._digitalDetox_navTabs = [
+            { id: "home", label: "Home", icon: "🏠" },
+            { id: "journey", label: "Journey", icon: "🗺️" },
+            { id: "plan", label: "Plan", icon: "📝" },
+            { id: "circles", label: "Circles", icon: "👥" },
+            { id: "budget", label: "Budget", icon: "💸" },
+            { id: "games", label: "Games", icon: "🎮" },
+            { id: "modes", label: "Modes", icon: "🔄" },
+            { id: "family", label: "Family", icon: "👪" },
+            { id: "events", label: "Events", icon: "📅" },
+            { id: "reallocation", label: "Reallocation", icon: "⏳" },
+            { id: "integrations", label: "Integrations", icon: "🔌" },
+            { id: "buddy", label: "Buddy", icon: "🤝" },
+            { id: "rewards", label: "Rewards", icon: "🎁" },
+            { id: "checkin", label: "Check-In", icon: "✅" },
+            { id: "journal", label: "Journal", icon: "📖" }
+          ];
+        }
+      })()}
       <nav
         className="navbar"
         style={{
@@ -304,7 +334,7 @@ function App() {
                 overflowX: "auto"
               }}
             >
-              {navTabs.map((t) => (
+              {(window._digitalDetox_navTabs || []).map((t) => (
                 <NavTab
                   key={t.id}
                   label={t.label}
