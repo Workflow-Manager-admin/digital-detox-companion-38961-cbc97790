@@ -15,6 +15,8 @@ import Toast from "./Toast";
 import Sidebar from "./Sidebar";
 import OnboardingSlides from "./OnboardingSlides";
 import { rewardsList } from "./rewardsData";
+import EmergencyBypassModal from "./EmergencyBypassModal"; // NEW
+
 
 // Dynamic/fallback page assignments to avoid runtime/render errors for missing modules
 let DetoxPlanPage = (props) => <div>DetoxPlanPage is missing.</div>;
@@ -101,63 +103,81 @@ function App() {
       ({ ...prev, open: false })), 3300);
   };
 
-  // Seven main features for Digital Detox Companion (for nav):
-  // 1. Personalized Digital Detox Plans      → Detox Plan
-  // 2. Accountability Buddy System            → Buddy System
-  // 3. Real-World Milestone Rewards           → Rewards
-  // 4. Off-Grid Check-In System               → Check-In
-  // 5. AI-Powered Reflection & Habit Journal  → Journal
-  // 6. Journey Map                            → Journey Map
-  // 7. Community Circles                      → Circles
+  // Demo/Prototype: Emergency Modal logic (replace with actual blocked app trigger)
+  const [showEmergencyModal, setShowEmergencyModal] = useState(false);
+  const [bypassAppName, setBypassAppName] = useState("Instagram");
 
-  // Adjust navTabs to ensure all SEVEN key features are present in navigation.
-  const navTabs = [
-    { id: "plan", label: "Detox Plan", icon: "🗺️" },          // Digital Detox Plan
-    { id: "buddy", label: "Buddy", icon: "🤝" },               // Buddy System
-    { id: "rewards", label: "Rewards", icon: "🎁" },           // Milestone Rewards
-    { id: "checkin", label: "Check-In", icon: "✅" },          // Off-Grid Check-In
-    { id: "journal", label: "Journal", icon: "📖" },           // Reflection Journal
-    { id: "journey", label: "Journey", icon: "🛤️" },          // Journey Map
-    { id: "circles", label: "Circles", icon: "🫂" }            // Community Circles
-  ];
+  // Handler to simulate a blocked app access (for demonstration)
+  const handleBlockedAppDemo = () => {
+    setBypassAppName("Instagram");
+    setShowEmergencyModal(true);
+  };
+
+  // Seven main features for Digital Detox Companion (for nav):
+  // (same as before)
 
   // Renders the currently active page/component
   function renderPage() {
-    switch (tab) {
-      case "home":
-        return <HomePage />;
-      case "journey":
-        return <DetoxJourneyMap />;
-      case "plan":
-        return <DetoxPlanPage showToast={showToast} />;
-      case "circles":
-        return <CommunityCircles />;
-      case "budget":
-        return <DigitalBudgetMode />;
-      case "games":
-        return <MiniDetoxGames />;
-      case "modes":
-        return <DetoxModes />;
-      case "family":
-        return <ParentTeenMode />;
-      case "events":
-        return <OfflineEventGenerator />;
-      case "reallocation":
-        return <TimeReallocationTracker />;
-      case "integrations":
-        return <IntegrationsHub />;
-      case "buddy":
-        return <BuddySystemPage showToast={showToast} />;
-      case "rewards":
-        return <RewardsPage />;
-      case "checkin":
-        return <CheckInPage showToast={showToast} />;
-      case "journal":
-        return <JournalPage showToast={showToast} />;
-      default:
-        return <HomePage />;
-    }
+    // Example: button to trigger modal (REPLACE this demo in production)
+    // In a real integration, this modal trigger would be connected to the logic that detects a blocked app is being accessed.
+    return (
+      <div>
+        {tab === "home" && (
+          <button
+            style={{
+              margin: "18px 0 32px", padding: "12px 22px", fontSize: 15,
+              color: "#fff", background: "#E87A41", border: "none", borderRadius: 8,
+              cursor: "pointer", fontWeight: 500
+            }}
+            onClick={handleBlockedAppDemo}
+            aria-label="Try blocked app modal"
+          >
+            Try opening a blocked app (demo)
+          </button>
+        )}
+        <div>
+          {/* Existing main page switch */}
+          {(() => {
+            switch (tab) {
+              case "home":
+                return <HomePage />;
+              case "journey":
+                return <DetoxJourneyMap />;
+              case "plan":
+                return <DetoxPlanPage showToast={showToast} />;
+              case "circles":
+                return <CommunityCircles />;
+              case "budget":
+                return <DigitalBudgetMode />;
+              case "games":
+                return <MiniDetoxGames />;
+              case "modes":
+                return <DetoxModes />;
+              case "family":
+                return <ParentTeenMode />;
+              case "events":
+                return <OfflineEventGenerator />;
+              case "reallocation":
+                return <TimeReallocationTracker />;
+              case "integrations":
+                return <IntegrationsHub />;
+              case "buddy":
+                return <BuddySystemPage showToast={showToast} />;
+              case "rewards":
+                return <RewardsPage />;
+              case "checkin":
+                return <CheckInPage showToast={showToast} />;
+              case "journal":
+                return <JournalPage showToast={showToast} />;
+              default:
+                return <HomePage />;
+            }
+          })()}
+        </div>
+      </div>
+    );
   }
+
 
   // If onboarding is not complete, show only the onboarding slides until finished
   if (!onboardingDone) {
@@ -299,6 +319,13 @@ function App() {
           </div>
         </div>
       </nav>
+
+      {/* Modal overlay for Emergency Bypass (block trigger) */}
+      <EmergencyBypassModal
+        open={showEmergencyModal}
+        onClose={() => setShowEmergencyModal(false)}
+        appName={bypassAppName}
+      />
 
       {/* Main: extra left margin to avoid sidebar overlap, remove excess top margin */}
       <main style={{ marginTop: 64, marginLeft: 0 }}>
