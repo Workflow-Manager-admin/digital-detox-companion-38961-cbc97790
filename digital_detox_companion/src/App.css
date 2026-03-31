@@ -1,0 +1,142 @@
+:root {
+  --primary: #2E7D32;
+  --secondary: #B2DFDB;
+  --accent: #FFD600;
+  --text: #1A1A1A;
+  --bg: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: var(--bg, #fff);
+  color: var(--text, #1A1A1A);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.navbar {
+  background: #fff;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(44,127,67,0.03);
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-symbol {
+  color: var(--accent);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .navbar .container { padding: 0 4px; }
+  .container { padding: 0 5px; }
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  color: #789262;
+  border-bottom: 3px solid transparent;
+  padding: 12px 10px 7px;
+  margin: 0 2px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.16s cubic-bezier(.4,0,.2,1), color 0.14s;
+  position: relative;
+}
+.tab-btn[aria-current="page"] {
+  color: var(--primary);
+  font-weight: 600;
+  border-bottom: 3px solid var(--accent);
+}
+
+footer {
+  letter-spacing: .02em;
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-align: center;
+  border-top: 1px solid #E7F6EC;
+  background: #fafcfb;
+  color: var(--primary);
+  margin-top: 32px;
+  padding: 24px 0 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7fdf5;
+}
+::-webkit-scrollbar-thumb {
+  background: #b2dfdb33;
+}
+
+textarea:focus {
+  outline: 2px solid var(--primary);
+}
+
+/* Utility classes for clean look */
+ul {
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+h2 {
+  margin-top: 0;
+  font-family: inherit;
+}
+
+/* Remove focus outline except for keyboard navigation */
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    font-size: 15px;
+    padding: 0 0 0 4px;
+  }
+  .logo {
+    font-size: 1.1rem;
+  }
+  .tab-btn {
+    font-size: 13.5px;
+    padding: 10px 5px 5px;
+  }
+  .container {
+    padding: 0 3.5vw;
+  }
+}
